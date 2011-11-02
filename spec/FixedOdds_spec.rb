@@ -114,7 +114,9 @@ describe "FixedOdds" do
       @oneToFour.should == FixedOdds.moneylineOdds('-400')
     end
 
-    it "should recognise '+100' and '-100' are the same"
+    it "should recognise '+100' and '-100' are the same" do
+      FixedOdds.moneylineOdds('+100').should == FixedOdds.moneylineOdds('-100')
+    end
   end
 
   describe "#to_s" do
