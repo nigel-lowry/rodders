@@ -8,8 +8,6 @@ describe "FixedOdds" do
   end
 
   describe "fractionalOdds factory" do
-    it "should take one argument and return a FixedOdds object"
-
     it "should not modify the input string with 'against'" do
       value = '4/1 against'
       FixedOdds.fractionalOdds(value)
@@ -203,7 +201,7 @@ describe "FixedOdds" do
   end
 
   describe "#stake" do
-    it "should return nil for an uninitialised stake" do
+    it "should return nil for an uninitialized stake" do
       @fourToOne.stake.should be_nil
     end
 
@@ -215,7 +213,14 @@ describe "FixedOdds" do
   end
 
   describe "#inReturn" do
-    it "should return nil if stake is uninitialised"
+    it "should raise an error if stake is uninitialized" do
+      expect {
+        @fourToOne.inReturn
+      }.to raise_error(
+        RuntimeError,
+        /stake uninitialized/
+      )
+    end
 
     it "should show that the full amount back on a winning 4/1 bet with a $100 stake is $500" do
       @fourToOne.stake = '$100'
@@ -229,7 +234,14 @@ describe "FixedOdds" do
   end
 
   describe "#profit" do
-    it "should return nil for an uninitialised stake"
+    it "should raise an error if stake is uninitialized" do
+      expect {
+        @fourToOne.profit
+      }.to raise_error(
+        RuntimeError,
+        /stake uninitialized/
+      )
+    end
 
     it "should return a profit of $400 on a $100 stake on a 4/1 bet" do 
       @fourToOne.stake = '$100'

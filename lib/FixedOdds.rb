@@ -45,10 +45,18 @@ class FixedOdds
   end
 
   def profit
+    if stake.nil?
+      raise 'stake uninitialized'
+    end
+    
     stake * @fractionalOdds
   end
 
   def inReturn
+    if stake.nil?
+      raise 'stake uninitialized'
+    end
+
     profit + stake
   end
 
