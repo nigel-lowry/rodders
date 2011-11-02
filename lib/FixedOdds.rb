@@ -6,16 +6,18 @@ class FixedOdds
 
 	def initialize fractionalOdds
     if fractionalOdds.end_with? ' against'
-    	fractionalOdds.chomp! ' against'
+    	@fractionalOdds = Rational(fractionalOdds.chomp(' against'))
+    	return
     end
 
     if fractionalOdds.end_with? ' on'
-    	fractionalOdds.chomp! ' on'
-    	fractionalOdds = Rational(fractionalOdds).reciprocal
+    	@fractionalOdds = Rational(fractionalOdds.chomp(' on')).reciprocal
+    	return
     end
 
 		if fractionalOdds == 'evens' || fractionalOdds == 'even money' 
 			@fractionalOdds = Rational('1/1')
+			return
 		else
 			@fractionalOdds = Rational(fractionalOdds)
 		end

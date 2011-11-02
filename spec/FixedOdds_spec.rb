@@ -9,6 +9,19 @@ describe "FixedOdds" do
 
 	describe "#new" do
 		it "should take one argument and return a FixedOdds object"
+
+		it "should not modify the input string with 'against'" do
+			value = '4/1 against'
+			FixedOdds.new(value)
+			value.end_with?('against').should == true
+		end
+
+		it "should not modify the input string with 'on'" do
+			value = '4/1 on'
+			FixedOdds.new(value)
+			value.end_with?('on').should == true
+		end
+
 		it "should treat '4/1 against' the same as '4/1'" do
 			FixedOdds.new('4/1 against').should == FixedOdds.new('4/1')
 		end
