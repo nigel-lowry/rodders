@@ -61,7 +61,11 @@ class FixedOdds
   end
 
   def to_s_moneyline
-    "%+d" % (fractionalOdds * 100).to_i
+    if @fractionalOdds > 1.0
+      "%+d" % (fractionalOdds * 100).to_i
+    else
+      "%+d" % (-100.0 / fractionalOdds)
+    end
   end
 
   def to_s_decimal

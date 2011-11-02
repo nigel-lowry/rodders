@@ -113,6 +113,8 @@ describe "FixedOdds" do
     it "should recognise '1/4' and '-400' are the same" do
       @oneToFour.should == FixedOdds.moneylineOdds('-400')
     end
+
+    it "should recognise '+100' and '-100' are the same"
   end
 
   describe "#to_s" do
@@ -137,6 +139,9 @@ describe "FixedOdds" do
     it "should display '5' as '4/1'" do 
       FixedOdds.decimalOdds('5').to_s_fractional.should == '4/1'
     end
+
+    it "should display '+100' as '1/1'"
+    it "should display '-100' as '1/1'"
   end
 
   describe "#to_s_moneyline" do
@@ -144,6 +149,8 @@ describe "FixedOdds" do
       FixedOdds.moneylineOdds('+400').to_s_moneyline.should == ('+400')
     end
 
+    it "should display '+100' as '+100'"
+    it "should display '-100' as '+100'"
 
     it "should display '4/1' as '+400'" do
       FixedOdds.fractionalOdds('4/1').to_s_moneyline.should == '+400'
@@ -152,6 +159,13 @@ describe "FixedOdds" do
     it "should display '5' as '+400'" do
       FixedOdds.decimalOdds('5').to_s_moneyline.should == '+400'
     end
+
+    it "should display '1.25' as '-400'" do
+      FixedOdds.decimalOdds('1.25').to_s_moneyline.should == '-400'
+    end
+
+
+    it "should display a floating point moneyline"
   end
 
   describe "#to_s_decimal" do
@@ -167,6 +181,8 @@ describe "FixedOdds" do
       FixedOdds.moneylineOdds('-400').to_s_decimal.should == '1.25'
     end
 
+    it "should display '+100' as '2'"
+    it "should display '-100' as '2'"
   end
 
   describe "#stake" do
