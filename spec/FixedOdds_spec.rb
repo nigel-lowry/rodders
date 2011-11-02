@@ -93,6 +93,26 @@ describe "FixedOdds" do
     it "should treat '100/30' and '10/3' equally" do 
       FixedOdds.fractionalOdds('100/30').should == FixedOdds.fractionalOdds('10/3')
     end
+
+    it "should recognise '1/1' and '2' are the same" do
+      FixedOdds.fractionalOdds('1/1').should == FixedOdds.decimalOdds('2')
+    end
+
+    it "should recognise '4/1' and '5' are the same" do
+      @fourToOne.should == FixedOdds.decimalOdds('5')
+    end
+
+    it "should recognise '1/4' and '1.25' are the same" do
+      @oneToFour.should == FixedOdds.decimalOdds('1.25')
+    end
+
+    it "should recognise '4/1' and '+400' are the same" do
+      @fourToOne.should == FixedOdds.moneylineOdds('+400')
+    end
+
+    it "should recognise '1/4' and '-400' are the same" do
+      @oneToFour.should == FixedOdds.moneylineOdds('-400')
+    end
   end
 
   describe "#to_s" do
