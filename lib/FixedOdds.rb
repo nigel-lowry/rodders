@@ -5,6 +5,10 @@ class FixedOdds
 	attr_reader :fractionalOdds
 
 	def initialize fractionalOdds
+    if fractionalOdds.end_with? ' against'
+    	fractionalOdds.chomp! ' against'
+    end
+
 		if fractionalOdds == 'evens' || fractionalOdds == 'even money' 
 			@fractionalOdds = '1/1'
 		else
