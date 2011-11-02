@@ -11,10 +11,7 @@ class FixedOdds
 
     if fractionalOdds.end_with? ' on'
     	fractionalOdds.chomp! ' on'
-
-    	/(?<numerator>\d+)\/(?<denominator>\d+)/ =~ fractionalOdds
-
-    	fractionalOdds = Rational("#{denominator}/#{numerator}")
+    	fractionalOdds = Rational(fractionalOdds).reciprocal
     end
 
 		if fractionalOdds == 'evens' || fractionalOdds == 'even money' 
