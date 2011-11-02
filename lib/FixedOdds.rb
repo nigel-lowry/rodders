@@ -4,6 +4,18 @@ class FixedOdds
 
   attr_reader :fractionalOdds
 
+  def FixedOdds.from_s odds
+    if odds =~ /\d+\/\d+/
+      FixedOdds.fractionalOdds odds
+    elsif odds =~ /[+-]\d+/
+      FixedOdds.moneylineOdds odds
+    elsif odds =~ /(\d+|\d+\.\d+|\.\d+)/ 
+      FixedOdds.decimalOdds odds
+    else
+      raise ArgumentError, %{could not parse "#{odds}"}
+    end
+  end
+
   def FixedOdds.fractionalOdds fractional
     if fractional.end_with? ' against'
       return FixedOdds.new(Rational(fractional.chomp(' against')))

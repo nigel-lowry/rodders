@@ -7,6 +7,46 @@ describe "FixedOdds" do
     @oneToFour = FixedOdds.fractionalOdds '1/4'
   end
 
+  describe "#from_s" do
+
+    describe "bad input" do
+      it "should reject garbage" do
+        expect {
+          FixedOdds.from_s('garbage')  
+        }.to raise_error(
+          ArgumentError,
+          /could not parse "garbage"/
+        )
+      end
+    end
+
+    describe "fractional odds" do
+      it "should parse '4/1'" do
+        FixedOdds.from_s('4/1').should == @fourToOne
+      end
+    end
+
+    describe "moneyline odds" do
+      it "should parse positive moneyline odds" do 
+        FixedOdds.from_s('+400').should == @fourToOne
+      end
+
+      it "should parse negative moneyline odds" do
+        FixedOdds.from_s('-400').should == @oneToFour
+      end
+    end
+
+    describe "decimal odds" do
+      it "should parse integral odds" do
+        FixedOdds.from_s('2').should == FixedOdds.decimalOdds('2')
+      end
+
+      it "should parse floating-point odds" do
+        FixedOdds.from_s('1.25').should == FixedOdds.decimalOdds('1.25')
+      end
+    end
+  end
+
   describe "fractionalOdds factory" do
     it "should not modify the input string with 'against'" do
       value = '4/1 against'
