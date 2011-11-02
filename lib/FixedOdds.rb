@@ -14,13 +14,13 @@ class FixedOdds
 
     	/(?<numerator>\d+)\/(?<denominator>\d+)/ =~ fractionalOdds
 
-    	fractionalOdds = "#{denominator}/#{numerator}"
+    	fractionalOdds = Rational("#{denominator}/#{numerator}")
     end
 
 		if fractionalOdds == 'evens' || fractionalOdds == 'even money' 
-			@fractionalOdds = '1/1'
+			@fractionalOdds = Rational('1/1')
 		else
-			@fractionalOdds = fractionalOdds
+			@fractionalOdds = Rational(fractionalOdds)
 		end
 	end
 
@@ -41,11 +41,11 @@ class FixedOdds
   end
 
   def to_s
-  	Rational(@fractionalOdds).to_s
+  	@fractionalOdds.to_s
   end
 
   def ==(other)
-  	Rational(other.fractionalOdds) == Rational(@fractionalOdds)
+  	other.fractionalOdds == @fractionalOdds
   end
   
 end
