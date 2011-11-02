@@ -69,6 +69,26 @@ describe "FixedOdds" do
     end
   end
 
+  describe "decimalOdds factory" do
+    it "should treat '2' as meaning you have to wager $100 to win $100" do
+      d2 = FixedOdds.decimalOdds('2')
+      d2.stake = '$100'
+      d2.profit.should == '$100'
+    end
+
+    it "should treat '5' as meaning you have to wager $100 to win $400" do
+      d5 = FixedOdds.decimalOdds('5')
+      d5.stake = '$100'
+      d5.profit.should == '$400'
+    end
+
+    it "should treat '1.25' as meaning yo have to wager $400 to win $100" do
+      d1_25 = FixedOdds.decimalOdds('1.25')
+      d1_25.stake = '$400'
+      d1_25.profit.should == '$100'
+    end
+  end
+
   describe "#== should treat different multiples of fractional odds equally" do
     it "should treat '100/30' and '10/3' equally" do 
       FixedOdds.fractionalOdds('100/30').should == FixedOdds.fractionalOdds('10/3')

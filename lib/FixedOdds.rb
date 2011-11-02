@@ -30,6 +30,12 @@ class FixedOdds
     end
   end
 
+  def FixedOdds.decimalOdds decimal
+    d = decimal.to_f
+
+    FixedOdds.new(Rational(d -= 1))
+  end
+
   def stake=(value)
     @stake = value.to_money
   end
