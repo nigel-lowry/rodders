@@ -18,9 +18,9 @@ class FixedOdds
 		if fractionalOdds == 'evens' || fractionalOdds == 'even money' 
 			@fractionalOdds = Rational('1/1')
 			return
-		else
-			@fractionalOdds = Rational(fractionalOdds)
 		end
+
+		@fractionalOdds = Rational(fractionalOdds)
 	end
 
 	def stake=(value)
