@@ -125,6 +125,16 @@ describe "FixedOdds" do
     end
   end
 
+  describe "#to_s_fractional" do
+    it "should display '+400' as '4/1'" do
+      FixedOdds.moneylineOdds('+400').to_s_fractional.should == '4/1'
+    end
+
+    it "should display '5' as '4/1'" do 
+      FixedOdds.decimalOdds('5').to_s_fractional.should == '4/1'
+    end
+  end
+
   describe "#stake" do
     it "should return nil for an uninitialised stake" do
       @fourToOne.stake.should be_nil

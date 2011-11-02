@@ -56,6 +56,10 @@ class FixedOdds
     @fractionalOdds.to_s
   end
 
+  def to_s_fractional
+    to_s
+  end
+
   def ==(other)
     other.fractionalOdds == @fractionalOdds
   end
