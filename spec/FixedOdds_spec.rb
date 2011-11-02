@@ -46,6 +46,12 @@ describe "FixedOdds" do
         plus400.stake = '$100'
         plus400.profit.should == '$400'
       end
+
+      it "should treat +100 as meaning winning $100 on a $100 bet" do
+        plus100 = FixedOdds.moneylineOdds('+100')
+        plus100.stake = '$100'
+        plus100.profit.should == '$100'
+      end
     end
 
     describe "negative figures" do
@@ -53,6 +59,12 @@ describe "FixedOdds" do
         minus400 = FixedOdds.moneylineOdds('-400')
         minus400.stake = '$400'
         minus400.profit.should == '$100'
+      end
+
+      it "should treak '-100' as meaning you need to wager $100 to win $100" do
+        minus100 = FixedOdds.moneylineOdds('-100')
+        minus100.stake = '$100'
+        minus100.profit.should == '$100'
       end
     end
   end
