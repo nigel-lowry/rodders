@@ -24,5 +24,9 @@ class FixedOdds
   def inReturn
   	profit + stake
   end
+
+  def to_s
+  	@fractionalOdds
+  end
   
 end

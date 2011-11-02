@@ -11,6 +11,12 @@ describe "FixedOdds" do
 		it "should take one argument and return a FixedOdds object"
 	end
 
+	describe "#to_s" do
+		it "should display the odds in fractional odds format" do
+			@fourToOne.to_s.should == '4/1'
+		end
+	end
+
 	describe "#stake" do
 		it "should return nil for an uninitialised stake" do
 			@fourToOne.stake.should be_nil
