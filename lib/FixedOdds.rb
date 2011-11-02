@@ -11,11 +11,11 @@ class FixedOdds
   	/(?<numerator>\d+)\/(?<denominator>\d+)/ =~ @fractionalOdds
 
   	multiplier = numerator.to_f / denominator.to_f
-  	stake * multiplier
+  	stake.to_money * multiplier
   end
 
   def inReturn
-  	profit + stake
+  	profit + stake.to_money
   end
   
 end
