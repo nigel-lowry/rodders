@@ -23,9 +23,7 @@ describe "FixedOdds" do
 	end
 
 	describe "#inReturn" do
-		it "should return nil if stake is uninitialised" do
-			@fourToOne.inReturn.should be_nil
-		end
+		it "should return nil if stake is uninitialised"
 
 		it "should show that the full amount back on a winning 4/1 bet with a $100 stake is $500" do
 			@fourToOne.stake = 100
@@ -34,9 +32,7 @@ describe "FixedOdds" do
 	end
 
 	describe "#profit" do
-		it "should return nil for an uninitialised stake" do
-			@fourToOne.profit.should be_nil
-		end
+		it "should return nil for an uninitialised stake"
 
 		it "should return a profit of $400 on a $100 stake on a 4/1 bet" do 
 			@fourToOne.stake = 100
