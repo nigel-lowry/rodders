@@ -2,8 +2,14 @@ require 'money'
 
 class FixedOdds
 
+	attr_reader :fractionalOdds
+
 	def initialize fractionalOdds
-		@fractionalOdds = fractionalOdds
+		if fractionalOdds == 'evens'
+			@fractionalOdds = '1/1'
+		else
+			@fractionalOdds = fractionalOdds
+		end
 	end
 
 	def stake=(value)
@@ -27,6 +33,10 @@ class FixedOdds
 
   def to_s
   	@fractionalOdds
+  end
+
+  def ==(other)
+  	other.fractionalOdds == @fractionalOdds
   end
   
 end
