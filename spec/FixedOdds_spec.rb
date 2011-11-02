@@ -47,6 +47,14 @@ describe "FixedOdds" do
         plus400.profit.should == '$400'
       end
     end
+
+    describe "negative figures" do
+      it "should treat '-400' as meaning you need to wager $400 to win $100" do
+        minus400 = FixedOdds.moneylineOdds('-400')
+        minus400.stake = '$400'
+        minus400.profit.should == '$100'
+      end
+    end
   end
 
   describe "#== should treat different multiples of fractional odds equally" do

@@ -21,7 +21,13 @@ class FixedOdds
   end
 
   def FixedOdds.moneylineOdds moneyline
-    return FixedOdds.new(Rational("#{moneyline}/100"))
+    sign = moneyline[0]
+
+    if sign == '+'
+      return FixedOdds.new(Rational("#{moneyline}/100"))
+    else
+      return FixedOdds.new(Rational("100/#{moneyline.to_i.abs}"))
+    end
   end
 
   def stake=(value)
