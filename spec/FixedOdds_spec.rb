@@ -154,8 +154,13 @@ describe "FixedOdds" do
       FixedOdds.moneylineOdds('+400').to_s_moneyline.should == ('+400')
     end
 
-    it "should display '+100' as '+100'"
-    it "should display '-100' as '+100'"
+    it "should display '+100' as '-100'" do
+      FixedOdds.moneylineOdds('+100').to_s_moneyline.should == ('-100')
+    end
+
+    it "should display '-100' as '-100'" do
+      FixedOdds.moneylineOdds('-100').to_s_moneyline.should == ('-100')
+    end
 
     it "should display '4/1' as '+400'" do
       FixedOdds.fractionalOdds('4/1').to_s_moneyline.should == '+400'
