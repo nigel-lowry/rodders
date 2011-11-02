@@ -71,7 +71,7 @@ class FixedOdds
   end
 
   def to_s_decimal
-    (fractionalOdds + 1).to_f.to_s
+    "%g" % (fractionalOdds + 1)
   end
 
   def ==(other)

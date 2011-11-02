@@ -193,8 +193,13 @@ describe "FixedOdds" do
       FixedOdds.moneylineOdds('-400').to_s_decimal.should == '1.25'
     end
 
-    it "should display '+100' as '2'"
-    it "should display '-100' as '2'"
+    it "should display '+100' as '2'" do
+      FixedOdds.moneylineOdds('+100').to_s_decimal.should == '2'
+    end
+
+    it "should display '-100' as '2'" do
+      FixedOdds.moneylineOdds('-100').to_s_decimal.should == '2'
+    end
   end
 
   describe "#stake" do
