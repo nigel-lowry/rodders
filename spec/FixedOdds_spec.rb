@@ -15,8 +15,10 @@ describe "FixedOdds" do
 		it "should treat 'evens' as '1/1'" do 
 			FixedOdds.new('evens').should == FixedOdds.new('1/1')
 		end	
-		
-		it "should treat 'even money' as '1/1'"
+
+		it "should treat 'even money' as '1/1'" do
+			FixedOdds.new('even money').should == FixedOdds.new('1/1')
+		end
 	end
 
 	describe "#to_s" do
