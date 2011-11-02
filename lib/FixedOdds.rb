@@ -4,20 +4,20 @@ class FixedOdds
 
   attr_reader :fractionalOdds
 
-  def FixedOdds.fractionalOdds fractionalOddsString
-    if fractionalOddsString.end_with? ' against'
-      return FixedOdds.new(Rational(fractionalOddsString.chomp(' against')))
+  def FixedOdds.fractionalOdds fractional
+    if fractional.end_with? ' against'
+      return FixedOdds.new(Rational(fractional.chomp(' against')))
     end
 
-    if fractionalOddsString.end_with? ' on'
-      return FixedOdds.new(Rational(fractionalOddsString.chomp(' on')).reciprocal)
+    if fractional.end_with? ' on'
+      return FixedOdds.new(Rational(fractional.chomp(' on')).reciprocal)
     end
 
-    if fractionalOddsString == 'evens' || fractionalOddsString == 'even money' 
+    if fractional == 'evens' || fractional == 'even money' 
       return FixedOdds.new(Rational('1/1'))
     end
 
-    FixedOdds.new(Rational(fractionalOddsString))
+    FixedOdds.new(Rational(fractional))
   end
 
   def FixedOdds.moneylineOdds moneyline
