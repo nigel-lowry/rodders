@@ -38,7 +38,7 @@ class FixedOdds
     if sign == '+'
       return FixedOdds.new(Rational("#{moneyline}/100"))
     else
-      return FixedOdds.new(Rational("100/#{moneyline.to_i.abs}"))
+      return FixedOdds.new(Rational("100/#{moneyline.to_i.magnitude}"))
     end
   end
 
