@@ -23,6 +23,12 @@ describe "FixedOdds" do
 
 		it "should treat 'even money' as '1/1'" do
 			FixedOdds.new('even money').should == FixedOdds.new('1/1')
+		end	
+	end
+
+	describe "#== should treat different multiples equally" do
+		it "should treat '100/30' and '10/3' equally" do 
+			FixedOdds.new('100/30').should == FixedOdds.new('10/3')
 		end
 	end
 
