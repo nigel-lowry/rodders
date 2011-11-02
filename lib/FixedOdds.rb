@@ -4,23 +4,20 @@ class FixedOdds
 
   attr_reader :fractionalOdds
 
-  def initialize fractionalOdds
-    if fractionalOdds.end_with? ' against'
-      @fractionalOdds = Rational(fractionalOdds.chomp(' against'))
-      return
+  def FixedOdds.fractionalOdds fractionalOddsString
+    if fractionalOddsString.end_with? ' against'
+      return FixedOdds.new(Rational(fractionalOddsString.chomp(' against')))
     end
 
-    if fractionalOdds.end_with? ' on'
-      @fractionalOdds = Rational(fractionalOdds.chomp(' on')).reciprocal
-      return
+    if fractionalOddsString.end_with? ' on'
+      return FixedOdds.new(Rational(fractionalOddsString.chomp(' on')).reciprocal)
     end
 
-    if fractionalOdds == 'evens' || fractionalOdds == 'even money' 
-      @fractionalOdds = Rational('1/1')
-      return
+    if fractionalOddsString == 'evens' || fractionalOddsString == 'even money' 
+      return FixedOdds.new(Rational('1/1'))
     end
 
-    @fractionalOdds = Rational(fractionalOdds)
+    FixedOdds.new(Rational(fractionalOddsString))
   end
 
   def stake=(value)
@@ -46,5 +43,11 @@ class FixedOdds
   def ==(other)
     other.fractionalOdds == @fractionalOdds
   end
+
+  private
+
+    def initialize fractionalOdds
+      @fractionalOdds = fractionalOdds
+    end
   
 end

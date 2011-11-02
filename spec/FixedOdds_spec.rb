@@ -3,45 +3,45 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe "FixedOdds" do
 
   before(:each) do
-    @fourToOne = FixedOdds.new "4/1"
-    @oneToFour = FixedOdds.new "1/4"
+    @fourToOne = FixedOdds.fractionalOdds '4/1'
+    @oneToFour = FixedOdds.fractionalOdds '1/4'
   end
 
-  describe "#new" do
+  describe "fractionalOdds factory" do
     it "should take one argument and return a FixedOdds object"
 
     it "should not modify the input string with 'against'" do
       value = '4/1 against'
-      FixedOdds.new(value)
+      FixedOdds.fractionalOdds(value)
       value.end_with?('against').should == true
     end
 
     it "should not modify the input string with 'on'" do
       value = '4/1 on'
-      FixedOdds.new(value)
+      FixedOdds.fractionalOdds(value)
       value.end_with?('on').should == true
     end
 
     it "should treat '4/1 against' the same as '4/1'" do
-      FixedOdds.new('4/1 against').should == FixedOdds.new('4/1')
+      FixedOdds.fractionalOdds('4/1 against').should == FixedOdds.fractionalOdds('4/1')
     end
 
     it "should treat '4/1 on' the same as '1/4'" do
-      FixedOdds.new('4/1 on').should == FixedOdds.new('1/4')
+      FixedOdds.fractionalOdds('4/1 on').should == FixedOdds.fractionalOdds('1/4')
     end
     
     it "should treat 'evens' as '1/1'" do 
-      FixedOdds.new('evens').should == FixedOdds.new('1/1')
+      FixedOdds.fractionalOdds('evens').should == FixedOdds.fractionalOdds('1/1')
     end 
 
     it "should treat 'even money' as '1/1'" do
-      FixedOdds.new('even money').should == FixedOdds.new('1/1')
+      FixedOdds.fractionalOdds('even money').should == FixedOdds.fractionalOdds('1/1')
     end 
   end
 
-  describe "#== should treat different multiples equally" do
+  describe "#== should treat different multiples of fractional odds equally" do
     it "should treat '100/30' and '10/3' equally" do 
-      FixedOdds.new('100/30').should == FixedOdds.new('10/3')
+      FixedOdds.fractionalOdds('100/30').should == FixedOdds.fractionalOdds('10/3')
     end
   end
 
@@ -51,7 +51,7 @@ describe "FixedOdds" do
     end
 
     it "should print out '100/30' as '10/3'" do
-      FixedOdds.new('100/30').to_s.should == '10/3'
+      FixedOdds.fractionalOdds('100/30').to_s.should == '10/3'
     end
   end
 
