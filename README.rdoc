@@ -1,6 +1,6 @@
 = rodders
 
-Description goes here.
+Performs calculations on fixed-odds, converting between different representations, and works out how much can be won given a stake.
 
 == Contributing to rodders
  
