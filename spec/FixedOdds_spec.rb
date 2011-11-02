@@ -39,6 +39,16 @@ describe "FixedOdds" do
     end 
   end
 
+  describe "moneylineOdds factory" do
+    describe "positive figures" do
+      it "should treat '+400' as meaning winning $400 on a $100 bet" do
+        plus400 = FixedOdds.moneylineOdds('+400')
+        plus400.stake = '$100'
+        plus400.profit.should == '$400'
+      end
+    end
+  end
+
   describe "#== should treat different multiples of fractional odds equally" do
     it "should treat '100/30' and '10/3' equally" do 
       FixedOdds.fractionalOdds('100/30').should == FixedOdds.fractionalOdds('10/3')

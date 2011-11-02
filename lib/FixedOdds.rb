@@ -20,6 +20,10 @@ class FixedOdds
     FixedOdds.new(Rational(fractionalOddsString))
   end
 
+  def FixedOdds.moneylineOdds moneyline
+    return FixedOdds.new(Rational("#{moneyline}/100"))
+  end
+
   def stake=(value)
     @stake = value.to_money
   end
