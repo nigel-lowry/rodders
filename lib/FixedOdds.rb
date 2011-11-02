@@ -1,3 +1,5 @@
+require 'money'
+
 class FixedOdds
 	attr_accessor :stake
 
