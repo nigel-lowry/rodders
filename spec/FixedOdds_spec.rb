@@ -89,7 +89,7 @@ describe "FixedOdds" do
     end
   end
 
-  describe "#== should treat different multiples of fractional odds equally" do
+  describe "#==" do
     it "should treat '100/30' and '10/3' equally" do 
       FixedOdds.fractionalOdds('100/30').should == FixedOdds.fractionalOdds('10/3')
     end
