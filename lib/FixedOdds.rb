@@ -41,7 +41,7 @@ class FixedOdds
   end
 
   def to_s
-  	@fractionalOdds
+  	Rational(@fractionalOdds).to_s
   end
 
   def ==(other)

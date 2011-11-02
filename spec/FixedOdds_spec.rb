@@ -36,6 +36,10 @@ describe "FixedOdds" do
 		it "should display the odds in fractional odds format" do
 			@fourToOne.to_s.should == '4/1'
 		end
+
+		it "should print out '100/30' as '10/3'" do
+			FixedOdds.new('100/30').to_s.should == '10/3'
+		end
 	end
 
 	describe "#stake" do
