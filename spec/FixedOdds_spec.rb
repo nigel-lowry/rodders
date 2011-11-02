@@ -126,6 +126,10 @@ describe "FixedOdds" do
   end
 
   describe "#to_s_fractional" do
+    it "should display '4/1' as '4/1'" do
+      FixedOdds.fractionalOdds('4/1').to_s_fractional.should == '4/1'
+    end
+
     it "should display '+400' as '4/1'" do
       FixedOdds.moneylineOdds('+400').to_s_fractional.should == '4/1'
     end
@@ -133,6 +137,36 @@ describe "FixedOdds" do
     it "should display '5' as '4/1'" do 
       FixedOdds.decimalOdds('5').to_s_fractional.should == '4/1'
     end
+  end
+
+  describe "#to_s_moneyline" do
+    it "should display '+400' as '+400'" do
+      FixedOdds.moneylineOdds('+400').to_s_moneyline.should == ('+400')
+    end
+
+
+    it "should display '4/1' as '+400'" do
+      FixedOdds.fractionalOdds('4/1').to_s_moneyline.should == '+400'
+    end
+
+    it "should display '5' as '+400'" do
+      FixedOdds.decimalOdds('5').to_s_moneyline.should == '+400'
+    end
+  end
+
+  describe "#to_s_decimal" do
+    it "should display '1.25' as '1.25'" do
+      FixedOdds.decimalOdds('1.25').to_s_decimal.should == '1.25'
+    end
+
+    it "should display '1/4' as '1.25'" do
+      FixedOdds.fractionalOdds('1/4').to_s_decimal.should == '1.25'
+    end
+
+    it "should display '-400' as '1.25'" do
+      FixedOdds.moneylineOdds('-400').to_s_decimal.should == '1.25'
+    end
+
   end
 
   describe "#stake" do

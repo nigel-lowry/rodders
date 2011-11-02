@@ -60,6 +60,14 @@ class FixedOdds
     to_s
   end
 
+  def to_s_moneyline
+    "%+d" % (fractionalOdds * 100).to_i
+  end
+
+  def to_s_decimal
+    (fractionalOdds + 1).to_f.to_s
+  end
+
   def ==(other)
     other.fractionalOdds == @fractionalOdds
   end
