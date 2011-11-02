@@ -33,10 +33,7 @@ class FixedOdds
 	end
 
   def profit
-  	/(?<numerator>\d+)\/(?<denominator>\d+)/ =~ @fractionalOdds
-
-  	multiplier = numerator.to_f / denominator.to_f
-  	stake * multiplier
+  	stake * Rational(@fractionalOdds)
   end
 
   def inReturn
