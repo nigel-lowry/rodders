@@ -30,7 +30,7 @@ class FixedOdds
 	end
 
   def profit
-  	stake * Rational(@fractionalOdds)
+  	stake * @fractionalOdds
   end
 
   def inReturn
