@@ -140,8 +140,13 @@ describe "FixedOdds" do
       FixedOdds.decimalOdds('5').to_s_fractional.should == '4/1'
     end
 
-    it "should display '+100' as '1/1'"
-    it "should display '-100' as '1/1'"
+    it "should display '+100' as '1/1'" do
+      FixedOdds.moneylineOdds('+100').to_s_fractional.should == '1/1'
+    end
+
+    it "should display '-100' as '1/1'" do
+      FixedOdds.moneylineOdds('-100').to_s_fractional.should == '1/1'
+    end
   end
 
   describe "#to_s_moneyline" do
