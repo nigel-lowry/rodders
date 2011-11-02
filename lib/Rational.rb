@@ -1,5 +1,5 @@
 class Rational
-	def reciprocal
-		1 / self
-	end
+  def reciprocal
+    1 / self
+  end
 end
