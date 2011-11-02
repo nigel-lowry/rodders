@@ -9,6 +9,10 @@ describe "FixedOdds" do
 
 	describe "#new" do
 		it "should take one argument and return a FixedOdds object"
+		it "should treat '4/1 against' the same as '4/1'"
+		it "should treat '4/1 on' the same as '1/4'"
+		it "should treat 'evens' as '1/1'"
+		it "should treat 'even money' as '1/1'"
 	end
 
 	describe "#to_s" do
