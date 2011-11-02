@@ -13,7 +13,9 @@ describe "FixedOdds" do
 			FixedOdds.new('4/1 against').should == FixedOdds.new('4/1')
 		end
 
-		it "should treat '4/1 on' the same as '1/4'"
+		it "should treat '4/1 on' the same as '1/4'" do
+			FixedOdds.new('4/1 on').should == FixedOdds.new('1/4')
+		end
 		
 		it "should treat 'evens' as '1/1'" do 
 			FixedOdds.new('evens').should == FixedOdds.new('1/1')

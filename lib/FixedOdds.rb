@@ -9,6 +9,14 @@ class FixedOdds
     	fractionalOdds.chomp! ' against'
     end
 
+    if fractionalOdds.end_with? ' on'
+    	fractionalOdds.chomp! ' on'
+
+    	/(?<numerator>\d+)\/(?<denominator>\d+)/ =~ fractionalOdds
+
+    	fractionalOdds = "#{denominator}/#{numerator}"
+    end
+
 		if fractionalOdds == 'evens' || fractionalOdds == 'even money' 
 			@fractionalOdds = '1/1'
 		else
