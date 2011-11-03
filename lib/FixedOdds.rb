@@ -65,11 +65,11 @@ class FixedOdds
   end
 
   def to_s
-    @fractionalOdds.to_s
+    to_s_fractional
   end
 
   def to_s_fractional
-    to_s
+    @fractionalOdds.to_s
   end
 
   def to_s_moneyline
