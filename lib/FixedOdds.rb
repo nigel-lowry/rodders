@@ -8,8 +8,8 @@ class FixedOdds
   def FixedOdds.from_s odds
     case
     when FixedOdds.fractional_odds?(odds) then FixedOdds.fractional_odds odds
-    when FixedOdds.moneyline_odds?(odds)  then FixedOdds.moneylineOdds odds
-    when FixedOdds.decimal_odds?(odds)    then FixedOdds.decimalOdds odds
+    when FixedOdds.moneyline_odds?(odds)  then FixedOdds.moneyline_odds odds
+    when FixedOdds.decimal_odds?(odds)    then FixedOdds.decimal_odds odds
     else                                  raise ArgumentError, %{could not parse "#{odds}"}
     end
   end
@@ -48,7 +48,7 @@ class FixedOdds
     @fractional_odds = fractional_odds
   end
 
-  def FixedOdds.moneylineOdds moneyline
+  def FixedOdds.moneyline_odds moneyline
     raise %{could not parse "#{moneyline}" as moneyline odds} unless FixedOdds.moneyline_odds?(moneyline)
 
     sign = moneyline[0]
@@ -60,7 +60,7 @@ class FixedOdds
     end
   end
 
-  def FixedOdds.decimalOdds decimal
+  def FixedOdds.decimal_odds decimal
     raise %{could not parse "#{decimal}" as decimal odds} unless FixedOdds.decimal_odds?(decimal)
 
     d = decimal.to_f

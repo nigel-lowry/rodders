@@ -54,11 +54,11 @@ describe "FixedOdds" do
 
     describe "decimal odds" do
       it "should parse integral odds" do
-        FixedOdds.from_s('2').should == FixedOdds.decimalOdds('2')
+        FixedOdds.from_s('2').should == FixedOdds.decimal_odds('2')
       end
 
       it "should parse floating-point odds" do
-        FixedOdds.from_s('1.25').should == FixedOdds.decimalOdds('1.25')
+        FixedOdds.from_s('1.25').should == FixedOdds.decimal_odds('1.25')
       end
     end
   end
@@ -102,10 +102,10 @@ describe "FixedOdds" do
     end
   end
 
-  describe "moneylineOdds factory" do
+  describe "moneyline_odds factory" do
     it "should raise error if not moneyline odds" do
       expect {
-        FixedOdds.moneylineOdds '1.25'
+        FixedOdds.moneyline_odds '1.25'
       }.to raise_error(
         RuntimeError,
         /could not parse "1.25" as moneyline odds/
@@ -114,13 +114,13 @@ describe "FixedOdds" do
 
     describe "positive figures" do
       it "should treat '+400' as meaning winning $400 on a $100 bet" do
-        plus400 = FixedOdds.moneylineOdds('+400')
+        plus400 = FixedOdds.moneyline_odds('+400')
         plus400.stake = '$100'
         plus400.profit.should == '$400'
       end
 
       it "should treat +100 as meaning winning $100 on a $100 bet" do
-        plus100 = FixedOdds.moneylineOdds('+100')
+        plus100 = FixedOdds.moneyline_odds('+100')
         plus100.stake = '$100'
         plus100.profit.should == '$100'
       end
@@ -128,23 +128,23 @@ describe "FixedOdds" do
 
     describe "negative figures" do
       it "should treat '-400' as meaning you need to wager $400 to win $100" do
-        minus400 = FixedOdds.moneylineOdds('-400')
+        minus400 = FixedOdds.moneyline_odds('-400')
         minus400.stake = '$400'
         minus400.profit.should == '$100'
       end
 
       it "should treak '-100' as meaning you need to wager $100 to win $100" do
-        minus100 = FixedOdds.moneylineOdds('-100')
+        minus100 = FixedOdds.moneyline_odds('-100')
         minus100.stake = '$100'
         minus100.profit.should == '$100'
       end
     end
   end
 
-  describe "decimalOdds factory" do
+  describe "decimal_odds factory" do
     it "should raise error if not decimal odds" do
       expect {
-        FixedOdds.decimalOdds '-400'
+        FixedOdds.decimal_odds '-400'
       }.to raise_error(
         RuntimeError,
         /could not parse "-400" as decimal odds/
@@ -152,19 +152,19 @@ describe "FixedOdds" do
     end
 
     it "should treat '2' as meaning you have to wager $100 to win $100" do
-      d2 = FixedOdds.decimalOdds('2')
+      d2 = FixedOdds.decimal_odds('2')
       d2.stake = '$100'
       d2.profit.should == '$100'
     end
 
     it "should treat '5' as meaning you have to wager $100 to win $400" do
-      d5 = FixedOdds.decimalOdds('5')
+      d5 = FixedOdds.decimal_odds('5')
       d5.stake = '$100'
       d5.profit.should == '$400'
     end
 
     it "should treat '1.25' as meaning yo have to wager $400 to win $100" do
-      d1_25 = FixedOdds.decimalOdds('1.25')
+      d1_25 = FixedOdds.decimal_odds('1.25')
       d1_25.stake = '$400'
       d1_25.profit.should == '$100'
     end
@@ -176,27 +176,27 @@ describe "FixedOdds" do
     end
 
     it "should recognise '1/1' and '2' are the same" do
-      FixedOdds.fractional_odds('1/1').should == FixedOdds.decimalOdds('2')
+      FixedOdds.fractional_odds('1/1').should == FixedOdds.decimal_odds('2')
     end
 
     it "should recognise '4/1' and '5' are the same" do
-      @fourToOne.should == FixedOdds.decimalOdds('5')
+      @fourToOne.should == FixedOdds.decimal_odds('5')
     end
 
     it "should recognise '1/4' and '1.25' are the same" do
-      @oneToFour.should == FixedOdds.decimalOdds('1.25')
+      @oneToFour.should == FixedOdds.decimal_odds('1.25')
     end
 
     it "should recognise '4/1' and '+400' are the same" do
-      @fourToOne.should == FixedOdds.moneylineOdds('+400')
+      @fourToOne.should == FixedOdds.moneyline_odds('+400')
     end
 
     it "should recognise '1/4' and '-400' are the same" do
-      @oneToFour.should == FixedOdds.moneylineOdds('-400')
+      @oneToFour.should == FixedOdds.moneyline_odds('-400')
     end
 
     it "should recognise '+100' and '-100' are the same" do
-      FixedOdds.moneylineOdds('+100').should == FixedOdds.moneylineOdds('-100')
+      FixedOdds.moneyline_odds('+100').should == FixedOdds.moneyline_odds('-100')
     end
   end
 
@@ -216,33 +216,33 @@ describe "FixedOdds" do
     end
 
     it "should display '+400' as '4/1'" do
-      FixedOdds.moneylineOdds('+400').to_s_fractional.should == '4/1'
+      FixedOdds.moneyline_odds('+400').to_s_fractional.should == '4/1'
     end
 
     it "should display '5' as '4/1'" do 
-      FixedOdds.decimalOdds('5').to_s_fractional.should == '4/1'
+      FixedOdds.decimal_odds('5').to_s_fractional.should == '4/1'
     end
 
     it "should display '+100' as '1/1'" do
-      FixedOdds.moneylineOdds('+100').to_s_fractional.should == '1/1'
+      FixedOdds.moneyline_odds('+100').to_s_fractional.should == '1/1'
     end
 
     it "should display '-100' as '1/1'" do
-      FixedOdds.moneylineOdds('-100').to_s_fractional.should == '1/1'
+      FixedOdds.moneyline_odds('-100').to_s_fractional.should == '1/1'
     end
   end
 
   describe "#to_s_moneyline" do
     it "should display '+400' as '+400'" do
-      FixedOdds.moneylineOdds('+400').to_s_moneyline.should == ('+400')
+      FixedOdds.moneyline_odds('+400').to_s_moneyline.should == ('+400')
     end
 
     it "should display '+100' as '-100'" do
-      FixedOdds.moneylineOdds('+100').to_s_moneyline.should == ('-100')
+      FixedOdds.moneyline_odds('+100').to_s_moneyline.should == ('-100')
     end
 
     it "should display '-100' as '-100'" do
-      FixedOdds.moneylineOdds('-100').to_s_moneyline.should == ('-100')
+      FixedOdds.moneyline_odds('-100').to_s_moneyline.should == ('-100')
     end
 
     it "should display '4/1' as '+400'" do
@@ -250,11 +250,11 @@ describe "FixedOdds" do
     end
 
     it "should display '5' as '+400'" do
-      FixedOdds.decimalOdds('5').to_s_moneyline.should == '+400'
+      FixedOdds.decimal_odds('5').to_s_moneyline.should == '+400'
     end
 
     it "should display '1.25' as '-400'" do
-      FixedOdds.decimalOdds('1.25').to_s_moneyline.should == '-400'
+      FixedOdds.decimal_odds('1.25').to_s_moneyline.should == '-400'
     end
 
 
@@ -263,7 +263,7 @@ describe "FixedOdds" do
 
   describe "#to_s_decimal" do
     it "should display '1.25' as '1.25'" do
-      FixedOdds.decimalOdds('1.25').to_s_decimal.should == '1.25'
+      FixedOdds.decimal_odds('1.25').to_s_decimal.should == '1.25'
     end
 
     it "should display '1/4' as '1.25'" do
@@ -271,15 +271,15 @@ describe "FixedOdds" do
     end
 
     it "should display '-400' as '1.25'" do
-      FixedOdds.moneylineOdds('-400').to_s_decimal.should == '1.25'
+      FixedOdds.moneyline_odds('-400').to_s_decimal.should == '1.25'
     end
 
     it "should display '+100' as '2'" do
-      FixedOdds.moneylineOdds('+100').to_s_decimal.should == '2'
+      FixedOdds.moneyline_odds('+100').to_s_decimal.should == '2'
     end
 
     it "should display '-100' as '2'" do
-      FixedOdds.moneylineOdds('-100').to_s_decimal.should == '2'
+      FixedOdds.moneyline_odds('-100').to_s_decimal.should == '2'
     end
   end
 
