@@ -64,6 +64,15 @@ describe "FixedOdds" do
   end
 
   describe "fractional_odds factory" do
+    it "should raise error if not a fractional odds" do
+      expect {
+        FixedOdds.fractional_odds '-400'
+      }.to raise_error(
+        RuntimeError,
+        /could not parse "-400" as fractional odds/
+      )  
+    end
+
     it "should not modify the input string with 'against'" do
       value = '4/1 against'
       FixedOdds.fractional_odds(value)

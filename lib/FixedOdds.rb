@@ -27,6 +27,8 @@ class FixedOdds
   end
 
   def FixedOdds.fractional_odds fractional
+    raise %{could not parse "#{fractional}" as fractional odds} unless FixedOdds.fractional_odds?(fractional)
+
     if fractional.end_with? ' against'
       return FixedOdds.new(Rational(fractional.chomp(' against')))
     end
