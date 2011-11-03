@@ -293,4 +293,14 @@ describe "FixedOdds" do
       @oneToFour.profit.should == '$25'
     end
   end
+
+  describe "object comparison" do
+    it "'+915' is less likely than '-275'" do
+      FixedOdds.from_s('+915') < FixedOdds.from_s('-275')
+    end
+
+    it "'-275' is more likely than '+915'" do
+      FixedOdds.from_s('-275') > FixedOdds.from_s('+915')
+    end 
+  end
 end

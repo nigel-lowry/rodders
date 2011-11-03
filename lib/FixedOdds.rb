@@ -1,6 +1,7 @@
 require 'money'
 
 class FixedOdds
+  include Comparable
 
   attr_reader :fractionalOdds
 
@@ -96,6 +97,10 @@ class FixedOdds
 
   def ==(other)
     other.fractionalOdds == @fractionalOdds
+  end
+
+  def <=>(other)
+    @fractionalOdds <=> other.fractionalOdds
   end
 
   private
