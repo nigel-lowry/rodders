@@ -18,7 +18,12 @@ describe "MutuallyExclusiveCollection" do
   	@events.favorite.should == @chelsea
   end
 
-  it "should return the events in decreasing probability"
-  it "should return the events in ascending probability"
+  it "should return the events in descending probability" do
+  	@events.in_descending_probability.should == [@chelsea, @draw, @accrington_stanley]
+  end
+
+  it "should return the events in ascending probability" do
+  	@events.in_ascending_probability.should == [@accrington_stanley, @draw, @chelsea]
+  end
 
 end
