@@ -24,6 +24,22 @@ describe "FixedOdds" do
       it "should parse '4/1'" do
         FixedOdds.from_s('4/1').should == @fourToOne
       end
+
+      it "should parse 'evens'" do
+        FixedOdds.from_s('evens').should == FixedOdds.fractionalOdds('1/1')
+      end
+
+      it "should parse 'even money'" do
+        FixedOdds.from_s('even money').should == FixedOdds.fractionalOdds('1/1')
+      end
+
+      it "should parse '4/1 against'" do
+        FixedOdds.from_s('4/1 against').should == @fourToOne
+      end
+
+      it "should parse '4/1 on'" do
+        FixedOdds.from_s('4/1 on').should == @oneToFour
+      end
     end
 
     describe "moneyline odds" do
@@ -74,7 +90,7 @@ describe "FixedOdds" do
 
     it "should treat 'even money' as '1/1'" do
       FixedOdds.fractionalOdds('even money').should == FixedOdds.fractionalOdds('1/1')
-    end 
+    end
   end
 
   describe "moneylineOdds factory" do

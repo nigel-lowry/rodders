@@ -7,10 +7,10 @@ class FixedOdds
 
   def FixedOdds.from_s odds
     case
-    when odds =~ /\d+\/\d+/             then FixedOdds.fractionalOdds odds
-    when odds =~ /[+-]\d+/              then FixedOdds.moneylineOdds odds
-    when odds =~ /(\d+|\d+\.\d+|\.\d+)/ then FixedOdds.decimalOdds odds
-    else                                raise ArgumentError, %{could not parse "#{odds}"}
+    when odds =~ /\d+\/\d+|evens|even money/ then FixedOdds.fractionalOdds odds
+    when odds =~ /[+-]\d+/                   then FixedOdds.moneylineOdds odds
+    when odds =~ /(\d+|\d+\.\d+|\.\d+)/      then FixedOdds.decimalOdds odds
+    else                                     raise ArgumentError, %{could not parse "#{odds}"}
     end
   end
 
