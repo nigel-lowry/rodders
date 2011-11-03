@@ -46,7 +46,7 @@ class FixedOdds
   def FixedOdds.decimalOdds decimal
     d = decimal.to_f
 
-    FixedOdds.new(Rational(d -= 1))
+    FixedOdds.new(Rational(d - 1))
   end
 
   def stake=(value)
