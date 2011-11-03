@@ -3,11 +3,11 @@ require 'money'
 class FixedOdds
   include Comparable
 
-  attr_reader :fractionalOdds
+  attr_reader :fractional_odds
 
   def FixedOdds.from_s odds
     case
-    when FixedOdds.fractional_odds?(odds) then FixedOdds.fractionalOdds odds
+    when FixedOdds.fractional_odds?(odds) then FixedOdds.fractional_odds odds
     when FixedOdds.moneyline_odds?(odds)  then FixedOdds.moneylineOdds odds
     when FixedOdds.decimal_odds?(odds)    then FixedOdds.decimalOdds odds
     else                                  raise ArgumentError, %{could not parse "#{odds}"}
@@ -26,7 +26,7 @@ class FixedOdds
     odds =~ /(\d+|\d+\.\d+|\.\d+)/ 
   end
 
-  def FixedOdds.fractionalOdds fractional
+  def FixedOdds.fractional_odds fractional
     if fractional.end_with? ' against'
       return FixedOdds.new(Rational(fractional.chomp(' against')))
     end
@@ -42,8 +42,8 @@ class FixedOdds
     FixedOdds.new(Rational(fractional))
   end
 
-  def initialize fractionalOdds
-    @fractionalOdds = fractionalOdds
+  def initialize fractional_odds
+    @fractional_odds = fractional_odds
   end
 
   def FixedOdds.moneylineOdds moneyline
@@ -72,7 +72,7 @@ class FixedOdds
 
   def profit
     raise 'stake uninitialized' if stake.nil?
-    stake * @fractionalOdds
+    stake * @fractional_odds
   end
 
   def inReturn
@@ -85,28 +85,28 @@ class FixedOdds
   end
 
   def to_s_fractional
-    @fractionalOdds.to_s
+    @fractional_odds.to_s
   end
 
   def to_s_moneyline
     integral_number_with_sign_regex = "%+d"
 
-    if @fractionalOdds > 1.0
-      integral_number_with_sign_regex % (fractionalOdds * 100).to_i
+    if @fractional_odds > 1.0
+      integral_number_with_sign_regex % (fractional_odds * 100).to_i
     else
-      integral_number_with_sign_regex % (-100.0 / fractionalOdds)
+      integral_number_with_sign_regex % (-100.0 / fractional_odds)
     end
   end
 
   def to_s_decimal
-    "%g" % (fractionalOdds + 1)
+    "%g" % (fractional_odds + 1)
   end
 
   def ==(other)
-    other.fractionalOdds == @fractionalOdds
+    other.fractional_odds == @fractional_odds
   end
 
   def <=>(other)
-    @fractionalOdds <=> other.fractionalOdds
+    @fractional_odds <=> other.fractional_odds
   end
 end

@@ -3,8 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe "FixedOdds" do
 
   before(:each) do
-    @fourToOne = FixedOdds.fractionalOdds '4/1'
-    @oneToFour = FixedOdds.fractionalOdds '1/4'
+    @fourToOne = FixedOdds.fractional_odds '4/1'
+    @oneToFour = FixedOdds.fractional_odds '1/4'
   end
 
   describe "#from_s" do
@@ -26,11 +26,11 @@ describe "FixedOdds" do
       end
 
       it "should parse 'evens'" do
-        FixedOdds.from_s('evens').should == FixedOdds.fractionalOdds('1/1')
+        FixedOdds.from_s('evens').should == FixedOdds.fractional_odds('1/1')
       end
 
       it "should parse 'even money'" do
-        FixedOdds.from_s('even money').should == FixedOdds.fractionalOdds('1/1')
+        FixedOdds.from_s('even money').should == FixedOdds.fractional_odds('1/1')
       end
 
       it "should parse '4/1 against'" do
@@ -63,33 +63,33 @@ describe "FixedOdds" do
     end
   end
 
-  describe "fractionalOdds factory" do
+  describe "fractional_odds factory" do
     it "should not modify the input string with 'against'" do
       value = '4/1 against'
-      FixedOdds.fractionalOdds(value)
+      FixedOdds.fractional_odds(value)
       value.end_with?('against').should == true
     end
 
     it "should not modify the input string with 'on'" do
       value = '4/1 on'
-      FixedOdds.fractionalOdds(value)
+      FixedOdds.fractional_odds(value)
       value.end_with?('on').should == true
     end
 
     it "should treat '4/1 against' the same as '4/1'" do
-      FixedOdds.fractionalOdds('4/1 against').should == FixedOdds.fractionalOdds('4/1')
+      FixedOdds.fractional_odds('4/1 against').should == FixedOdds.fractional_odds('4/1')
     end
 
     it "should treat '4/1 on' the same as '1/4'" do
-      FixedOdds.fractionalOdds('4/1 on').should == FixedOdds.fractionalOdds('1/4')
+      FixedOdds.fractional_odds('4/1 on').should == FixedOdds.fractional_odds('1/4')
     end
     
     it "should treat 'evens' as '1/1'" do 
-      FixedOdds.fractionalOdds('evens').should == FixedOdds.fractionalOdds('1/1')
+      FixedOdds.fractional_odds('evens').should == FixedOdds.fractional_odds('1/1')
     end 
 
     it "should treat 'even money' as '1/1'" do
-      FixedOdds.fractionalOdds('even money').should == FixedOdds.fractionalOdds('1/1')
+      FixedOdds.fractional_odds('even money').should == FixedOdds.fractional_odds('1/1')
     end
   end
 
@@ -145,11 +145,11 @@ describe "FixedOdds" do
 
   describe "#==" do
     it "should treat '100/30' and '10/3' equally" do 
-      FixedOdds.fractionalOdds('100/30').should == FixedOdds.fractionalOdds('10/3')
+      FixedOdds.fractional_odds('100/30').should == FixedOdds.fractional_odds('10/3')
     end
 
     it "should recognise '1/1' and '2' are the same" do
-      FixedOdds.fractionalOdds('1/1').should == FixedOdds.decimalOdds('2')
+      FixedOdds.fractional_odds('1/1').should == FixedOdds.decimalOdds('2')
     end
 
     it "should recognise '4/1' and '5' are the same" do
@@ -179,13 +179,13 @@ describe "FixedOdds" do
     end
 
     it "should print out '100/30' as '10/3'" do
-      FixedOdds.fractionalOdds('100/30').to_s.should == '10/3'
+      FixedOdds.fractional_odds('100/30').to_s.should == '10/3'
     end
   end
 
   describe "#to_s_fractional" do
     it "should display '4/1' as '4/1'" do
-      FixedOdds.fractionalOdds('4/1').to_s_fractional.should == '4/1'
+      FixedOdds.fractional_odds('4/1').to_s_fractional.should == '4/1'
     end
 
     it "should display '+400' as '4/1'" do
@@ -219,7 +219,7 @@ describe "FixedOdds" do
     end
 
     it "should display '4/1' as '+400'" do
-      FixedOdds.fractionalOdds('4/1').to_s_moneyline.should == '+400'
+      FixedOdds.fractional_odds('4/1').to_s_moneyline.should == '+400'
     end
 
     it "should display '5' as '+400'" do
@@ -240,7 +240,7 @@ describe "FixedOdds" do
     end
 
     it "should display '1/4' as '1.25'" do
-      FixedOdds.fractionalOdds('1/4').to_s_decimal.should == '1.25'
+      FixedOdds.fractional_odds('1/4').to_s_decimal.should == '1.25'
     end
 
     it "should display '-400' as '1.25'" do
