@@ -30,6 +30,10 @@ class FixedOdds
     FixedOdds.new(Rational(fractional))
   end
 
+  def initialize fractionalOdds
+    @fractionalOdds = fractionalOdds
+  end
+
   def FixedOdds.moneylineOdds moneyline
     sign = moneyline[0]
 
@@ -93,11 +97,4 @@ class FixedOdds
   def <=>(other)
     @fractionalOdds <=> other.fractionalOdds
   end
-
-  private
-
-    def initialize fractionalOdds
-      @fractionalOdds = fractionalOdds
-    end
-  
 end
