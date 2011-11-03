@@ -49,6 +49,8 @@ class FixedOdds
   end
 
   def FixedOdds.moneylineOdds moneyline
+    raise %{could not parse "#{moneyline}" as moneyline odds} unless FixedOdds.moneyline_odds?(moneyline)
+
     sign = moneyline[0]
 
     if sign == '+'

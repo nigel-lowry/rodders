@@ -103,6 +103,15 @@ describe "FixedOdds" do
   end
 
   describe "moneylineOdds factory" do
+    it "should raise error if not a moneyline odds" do
+      expect {
+        FixedOdds.moneylineOdds '1.25'
+      }.to raise_error(
+        RuntimeError,
+        /could not parse "1.25" as moneyline odds/
+      )  
+    end
+
     describe "positive figures" do
       it "should treat '+400' as meaning winning $400 on a $100 bet" do
         plus400 = FixedOdds.moneylineOdds('+400')
