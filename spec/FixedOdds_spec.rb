@@ -64,7 +64,7 @@ describe "FixedOdds" do
   end
 
   describe "fractional_odds factory" do
-    it "should raise error if not a fractional odds" do
+    it "should raise error if not fractional odds" do
       expect {
         FixedOdds.fractional_odds '-400'
       }.to raise_error(
@@ -103,7 +103,7 @@ describe "FixedOdds" do
   end
 
   describe "moneylineOdds factory" do
-    it "should raise error if not a moneyline odds" do
+    it "should raise error if not moneyline odds" do
       expect {
         FixedOdds.moneylineOdds '1.25'
       }.to raise_error(
@@ -142,6 +142,15 @@ describe "FixedOdds" do
   end
 
   describe "decimalOdds factory" do
+    it "should raise error if not decimal odds" do
+      expect {
+        FixedOdds.decimalOdds '-400'
+      }.to raise_error(
+        RuntimeError,
+        /could not parse "-400" as decimal odds/
+      )  
+    end
+
     it "should treat '2' as meaning you have to wager $100 to win $100" do
       d2 = FixedOdds.decimalOdds('2')
       d2.stake = '$100'

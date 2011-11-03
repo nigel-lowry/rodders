@@ -23,7 +23,7 @@ class FixedOdds
   end
 
   def FixedOdds.decimal_odds? odds
-    odds =~ /(\d+|\d+\.\d+|\.\d+)/ 
+    odds =~ /^(\d+|\d+\.\d+|\.\d+)/ 
   end
 
   def FixedOdds.fractional_odds fractional
@@ -61,6 +61,8 @@ class FixedOdds
   end
 
   def FixedOdds.decimalOdds decimal
+    raise %{could not parse "#{decimal}" as decimal odds} unless FixedOdds.decimal_odds?(decimal)
+
     d = decimal.to_f
 
     FixedOdds.new(Rational(d - 1))
