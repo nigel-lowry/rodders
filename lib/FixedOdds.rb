@@ -6,14 +6,11 @@ class FixedOdds
   attr_reader :fractionalOdds
 
   def FixedOdds.from_s odds
-    if odds =~ /\d+\/\d+/
-      FixedOdds.fractionalOdds odds
-    elsif odds =~ /[+-]\d+/
-      FixedOdds.moneylineOdds odds
-    elsif odds =~ /(\d+|\d+\.\d+|\.\d+)/ 
-      FixedOdds.decimalOdds odds
-    else
-      raise ArgumentError, %{could not parse "#{odds}"}
+    case
+    when odds =~ /\d+\/\d+/             then FixedOdds.fractionalOdds odds
+    when odds =~ /[+-]\d+/              then FixedOdds.moneylineOdds odds
+    when odds =~ /(\d+|\d+\.\d+|\.\d+)/ then FixedOdds.decimalOdds odds
+    else                                raise ArgumentError, %{could not parse "#{odds}"}
     end
   end
 
