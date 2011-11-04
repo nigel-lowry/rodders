@@ -39,6 +39,12 @@ describe "FixedOdds" do
     it "should treat 'even money' as '1/1'" do
       FixedOdds.fractional_odds('even money').should == FixedOdds.fractional_odds('1/1')
     end
+
+    it "should recognise '4-to-1' as '4/1'" do
+      FixedOdds.fractional_odds('4-to-1').should == FixedOdds.fractional_odds('4/1')
+    end
+
+    it "should recognise '4-to-1 on' as '1/4'"
   end
 
   describe "moneyline_odds factory" do

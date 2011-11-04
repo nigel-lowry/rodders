@@ -15,7 +15,7 @@ class FixedOdds
   end
 
   def FixedOdds.fractional_odds? odds
-    odds =~ /\d+\/\d+|evens|even money/
+    odds =~ /\d+\/\d+|evens|even money|\d+-to-\d+/
   end
 
   def FixedOdds.moneyline_odds? odds
@@ -39,6 +39,10 @@ class FixedOdds
 
     if fractional == 'evens' || fractional == 'even money' 
       return FixedOdds.new(Rational('1/1'))
+    end
+
+    if /(?<numerator>\d+)-to-(?<denominator>\d+)/ =~ fractional
+      return FixedOdds.new(Rational("#{numerator}/#{denominator}"))
     end
 
     FixedOdds.new(Rational(fractional))
