@@ -2,11 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "FixedOdds" do
 
-  before(:each) do
-    @fourToOne = FixedOdds.fractional_odds '4/1'
-    @oneToFour = FixedOdds.fractional_odds '1/4'
-  end
-
   describe "#from_s" do
 
     describe "bad input" do
@@ -22,7 +17,7 @@ describe "FixedOdds" do
 
     describe "fractional odds" do
       it "should parse '4/1'" do
-        FixedOdds.from_s('4/1').should == @fourToOne
+        FixedOdds.from_s('4/1').should == FixedOdds.fractional_odds('4/1')
       end
 
       it "should parse 'evens'" do
@@ -34,21 +29,21 @@ describe "FixedOdds" do
       end
 
       it "should parse '4/1 against'" do
-        FixedOdds.from_s('4/1 against').should == @fourToOne
+        FixedOdds.from_s('4/1 against').should == FixedOdds.fractional_odds('4/1')
       end
 
       it "should parse '4/1 on'" do
-        FixedOdds.from_s('4/1 on').should == @oneToFour
+        FixedOdds.from_s('4/1 on').should == FixedOdds.fractional_odds('1/4')
       end
     end
 
     describe "moneyline odds" do
       it "should parse positive moneyline odds" do 
-        FixedOdds.from_s('+400').should == @fourToOne
+        FixedOdds.from_s('+400').should == FixedOdds.moneyline_odds('+400')
       end
 
       it "should parse negative moneyline odds" do
-        FixedOdds.from_s('-400').should == @oneToFour
+        FixedOdds.from_s('-400').should == FixedOdds.moneyline_odds('-400')
       end
     end
 
@@ -171,7 +166,7 @@ describe "FixedOdds" do
   end
 
   describe "#==" do
-    it "should treat '100/30' and '10/3' equally" do 
+    it "should treat similar fractions equally" do 
       FixedOdds.fractional_odds('100/30').should == FixedOdds.fractional_odds('10/3')
     end
 
@@ -180,19 +175,19 @@ describe "FixedOdds" do
     end
 
     it "should recognise '4/1' and '5' are the same" do
-      @fourToOne.should == FixedOdds.decimal_odds('5')
+      FixedOdds.fractional_odds('4/1').should == FixedOdds.decimal_odds('5')
     end
 
     it "should recognise '1/4' and '1.25' are the same" do
-      @oneToFour.should == FixedOdds.decimal_odds('1.25')
+      FixedOdds.fractional_odds('1/4').should == FixedOdds.decimal_odds('1.25')
     end
 
     it "should recognise '4/1' and '+400' are the same" do
-      @fourToOne.should == FixedOdds.moneyline_odds('+400')
+      FixedOdds.fractional_odds('4/1').should == FixedOdds.moneyline_odds('+400')
     end
 
     it "should recognise '1/4' and '-400' are the same" do
-      @oneToFour.should == FixedOdds.moneyline_odds('-400')
+      FixedOdds.fractional_odds('1/4').should == FixedOdds.moneyline_odds('-400')
     end
 
     it "should recognise '+100' and '-100' are the same" do
@@ -201,18 +196,18 @@ describe "FixedOdds" do
   end
 
   describe "#to_s" do
-    it "should display the odds in fractional odds format" do
-      @fourToOne.to_s.should == '4/1'
-    end
-
-    it "should print out '100/30' as '10/3'" do
-      FixedOdds.fractional_odds('100/30').to_s.should == '10/3'
+    it "should display the odds in fractional odds format by default" do
+      FixedOdds.from_s('+400').to_s.should == '4/1'
     end
   end
 
   describe "#to_s_fractional" do
     it "should display '4/1' as '4/1'" do
       FixedOdds.fractional_odds('4/1').to_s_fractional.should == '4/1'
+    end
+
+    it "should print out '100/30' as '10/3' in lowest terms" do
+      FixedOdds.fractional_odds('100/30').to_s_fractional.should == '10/3'
     end
 
     it "should display '+400' as '4/1'" do
@@ -257,7 +252,6 @@ describe "FixedOdds" do
       FixedOdds.decimal_odds('1.25').to_s_moneyline.should == '-400'
     end
 
-
     it "should display a floating point moneyline"
   end
 
@@ -285,20 +279,21 @@ describe "FixedOdds" do
 
   describe "#stake" do
     it "should return nil for an uninitialized stake" do
-      @fourToOne.stake.should be_nil
+      FixedOdds.from_s('evens').stake.should be_nil
     end
 
     it "should return the stake set" do
       stakeAmount = '$100'
-      @fourToOne.stake = stakeAmount
-      @fourToOne.stake.should == stakeAmount
+      odds = FixedOdds.from_s('evens')
+      odds.stake = stakeAmount
+      odds.stake.should == stakeAmount
     end
   end
 
   describe "#inReturn" do
     it "should raise an error if stake is uninitialized" do
       expect {
-        @fourToOne.inReturn
+        FixedOdds.from_s('evens').inReturn
       }.to raise_error(
         RuntimeError,
         /stake uninitialized/
@@ -306,20 +301,22 @@ describe "FixedOdds" do
     end
 
     it "should show that the full amount back on a winning 4/1 bet with a $100 stake is $500" do
-      @fourToOne.stake = '$100'
-      @fourToOne.inReturn.should == '$500'
+      fourToOne = FixedOdds.fractional_odds '4/1'
+      fourToOne.stake = '$100'
+      fourToOne.inReturn.should == '$500'
     end
 
     it "should show that the full amount back on a winning 1/4 bet with a $100 stake is $125" do
-      @oneToFour.stake = '$100'
-      @oneToFour.inReturn.should == '$125'
+      oneToFour = FixedOdds.fractional_odds '1/4'
+      oneToFour.stake = '$100'
+      oneToFour.inReturn.should == '$125'
     end
   end
 
   describe "#profit" do
     it "should raise an error if stake is uninitialized" do
       expect {
-        @fourToOne.profit
+        FixedOdds.from_s('evens').profit
       }.to raise_error(
         RuntimeError,
         /stake uninitialized/
@@ -327,13 +324,15 @@ describe "FixedOdds" do
     end
 
     it "should return a profit of $400 on a $100 stake on a 4/1 bet" do 
-      @fourToOne.stake = '$100'
-      @fourToOne.profit.should == '$400'
+      fourToOne = FixedOdds.fractional_odds '4/1'
+      fourToOne.stake = '$100'
+      fourToOne.profit.should == '$400'
     end
 
     it "should return a profit of $25 on a $110 stake with a 1/4 bet" do
-      @oneToFour.stake = '$100'
-      @oneToFour.profit.should == '$25'
+      oneToFour = FixedOdds.fractional_odds '1/4'
+      oneToFour.stake = '$100'
+      oneToFour.profit.should == '$25'
     end
   end
 
