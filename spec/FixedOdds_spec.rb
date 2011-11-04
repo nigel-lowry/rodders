@@ -2,62 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "FixedOdds" do
 
-  describe "#from_s" do
-
-    describe "bad input" do
-      it "should reject garbage" do
-        expect {
-          FixedOdds.from_s('garbage')  
-        }.to raise_error(
-          ArgumentError,
-          /could not parse "garbage"/
-        )
-      end
-    end
-
-    describe "fractional odds" do
-      it "should parse '4/1'" do
-        FixedOdds.from_s('4/1').should == FixedOdds.fractional_odds('4/1')
-      end
-
-      it "should parse 'evens'" do
-        FixedOdds.from_s('evens').should == FixedOdds.fractional_odds('1/1')
-      end
-
-      it "should parse 'even money'" do
-        FixedOdds.from_s('even money').should == FixedOdds.fractional_odds('1/1')
-      end
-
-      it "should parse '4/1 against'" do
-        FixedOdds.from_s('4/1 against').should == FixedOdds.fractional_odds('4/1')
-      end
-
-      it "should parse '4/1 on'" do
-        FixedOdds.from_s('4/1 on').should == FixedOdds.fractional_odds('1/4')
-      end
-    end
-
-    describe "moneyline odds" do
-      it "should parse positive moneyline odds" do 
-        FixedOdds.from_s('+400').should == FixedOdds.moneyline_odds('+400')
-      end
-
-      it "should parse negative moneyline odds" do
-        FixedOdds.from_s('-400').should == FixedOdds.moneyline_odds('-400')
-      end
-    end
-
-    describe "decimal odds" do
-      it "should parse integral odds" do
-        FixedOdds.from_s('2').should == FixedOdds.decimal_odds('2')
-      end
-
-      it "should parse floating-point odds" do
-        FixedOdds.from_s('1.25').should == FixedOdds.decimal_odds('1.25')
-      end
-    end
-  end
-
   describe "fractional_odds factory" do
     it "should raise error if not fractional odds" do
       expect {
@@ -162,6 +106,61 @@ describe "FixedOdds" do
       d1_25 = FixedOdds.decimal_odds('1.25')
       d1_25.stake = '$400'
       d1_25.profit.should == '$100'
+    end
+  end
+
+  describe "#from_s" do
+    describe "bad input" do
+      it "should reject garbage" do
+        expect {
+          FixedOdds.from_s('garbage')  
+        }.to raise_error(
+          ArgumentError,
+          /could not parse "garbage"/
+        )
+      end
+    end
+
+    describe "fractional odds" do
+      it "should parse '4/1'" do
+        FixedOdds.from_s('4/1').should == FixedOdds.fractional_odds('4/1')
+      end
+
+      it "should parse 'evens'" do
+        FixedOdds.from_s('evens').should == FixedOdds.fractional_odds('1/1')
+      end
+
+      it "should parse 'even money'" do
+        FixedOdds.from_s('even money').should == FixedOdds.fractional_odds('1/1')
+      end
+
+      it "should parse '4/1 against'" do
+        FixedOdds.from_s('4/1 against').should == FixedOdds.fractional_odds('4/1')
+      end
+
+      it "should parse '4/1 on'" do
+        FixedOdds.from_s('4/1 on').should == FixedOdds.fractional_odds('1/4')
+      end
+    end
+
+    describe "moneyline odds" do
+      it "should parse positive moneyline odds" do 
+        FixedOdds.from_s('+400').should == FixedOdds.moneyline_odds('+400')
+      end
+
+      it "should parse negative moneyline odds" do
+        FixedOdds.from_s('-400').should == FixedOdds.moneyline_odds('-400')
+      end
+    end
+
+    describe "decimal odds" do
+      it "should parse integral odds" do
+        FixedOdds.from_s('2').should == FixedOdds.decimal_odds('2')
+      end
+
+      it "should parse floating-point odds" do
+        FixedOdds.from_s('1.25').should == FixedOdds.decimal_odds('1.25')
+      end
     end
   end
 
