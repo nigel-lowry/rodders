@@ -33,10 +33,8 @@ class FixedOdds
       return FixedOdds.new(Rational('1/1'))
     end
 
-    if /(?<numerator>\d+)\/(?<denominator>\d+)/ =~ fractional
-      r = Rational("#{numerator}/#{denominator}")
-    elsif /(?<numerator>\d+)-to-(?<denominator>\d+)/ =~ fractional
-      r = Rational("#{numerator}/#{denominator}")
+    if /(?<numerator>\d+)\/(?<denominator>\d+)/ =~ fractional      then r = Rational("#{numerator}/#{denominator}")
+    elsif /(?<numerator>\d+)-to-(?<denominator>\d+)/ =~ fractional then r = Rational("#{numerator}/#{denominator}")
     end
 
     if fractional.end_with? ' on'
@@ -55,10 +53,8 @@ class FixedOdds
 
     sign = moneyline[0]
 
-    if sign == '+'
-      return FixedOdds.new(Rational("#{moneyline}/100"))
-    else
-      return FixedOdds.new(Rational("100/#{moneyline.to_i.magnitude}"))
+    if sign == '+' then FixedOdds.new(Rational("#{moneyline}/100"))
+    else                FixedOdds.new(Rational("100/#{moneyline.to_i.magnitude}"))
     end
   end
 
