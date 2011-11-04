@@ -72,7 +72,7 @@ describe "FixedOdds" do
         minus400.profit.should == '$100'
       end
 
-      it "should treak '-100' as meaning you need to wager $100 to win $100" do
+      it "should treat '-100' as meaning you need to wager $100 to win $100 (which is identical to '+100')" do
         minus100 = FixedOdds.moneyline_odds('-100')
         minus100.stake = '$100'
         minus100.profit.should == '$100'
@@ -195,7 +195,7 @@ describe "FixedOdds" do
   end
 
   describe "#to_s" do
-    it "should display the odds in fractional odds format by default" do
+    it "should display the odds in fractional odds format" do
       FixedOdds.from_s('+400').to_s.should == '4/1'
     end
   end
@@ -231,11 +231,11 @@ describe "FixedOdds" do
       FixedOdds.moneyline_odds('+400').to_s_moneyline.should == ('+400')
     end
 
-    it "should display '+100' as '-100'" do
+    it "should display '+100' as '-100' (but this could have equally been '+100')" do
       FixedOdds.moneyline_odds('+100').to_s_moneyline.should == ('-100')
     end
 
-    it "should display '-100' as '-100'" do
+    it "should display '-100' as '-100' (but this could have equally been '+100')" do
       FixedOdds.moneyline_odds('-100').to_s_moneyline.should == ('-100')
     end
 
