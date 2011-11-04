@@ -38,9 +38,9 @@ class FixedOdds
     elsif /(?<numerator>\d+)-to-(?<denominator>\d+)/ =~ fractional
       r = Rational("#{numerator}/#{denominator}")
     end
-    
+
     if fractional.end_with? ' on'
-      return FixedOdds.new(r.reciprocal)
+      r = r.reciprocal
     end
 
     FixedOdds.new(Rational(r))
