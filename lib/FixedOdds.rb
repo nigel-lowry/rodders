@@ -29,23 +29,21 @@ class FixedOdds
   def FixedOdds.fractional_odds fractional
     raise %{could not parse "#{fractional}" as fractional odds} unless FixedOdds.fractional_odds?(fractional)
 
-    if fractional.end_with? ' against'
-      return FixedOdds.new(Rational(fractional.chomp(' against')))
-    end
-
-    if fractional.end_with? ' on'
-      return FixedOdds.new(Rational(fractional.chomp(' on')).reciprocal)
-    end
-
     if fractional == 'evens' || fractional == 'even money' 
       return FixedOdds.new(Rational('1/1'))
     end
 
-    if /(?<numerator>\d+)-to-(?<denominator>\d+)/ =~ fractional
-      return FixedOdds.new(Rational("#{numerator}/#{denominator}"))
+    if /(?<numerator>\d+)\/(?<denominator>\d+)/ =~ fractional
+      r = Rational("#{numerator}/#{denominator}")
+    elsif /(?<numerator>\d+)-to-(?<denominator>\d+)/ =~ fractional
+      r = Rational("#{numerator}/#{denominator}")
+    end
+    
+    if fractional.end_with? ' on'
+      return FixedOdds.new(r.reciprocal)
     end
 
-    FixedOdds.new(Rational(fractional))
+    FixedOdds.new(Rational(r))
   end
 
   def initialize fractional_odds
