@@ -153,6 +153,18 @@ describe "FixedOdds" do
       it "should parse '4/1 on'" do
         FixedOdds.from_s('4/1 on').should == FixedOdds.fractional_odds('1/4')
       end
+
+      it "should parse '4-to-1'" do
+        FixedOdds.from_s('4-to-1').should == FixedOdds.fractional_odds('4/1')
+      end
+
+      it "should parse '4-to-1 against'" do
+        FixedOdds.from_s('4-to-1 against').should == FixedOdds.fractional_odds('4/1')
+      end
+
+      it "should parse '4-to-1 on'" do
+        FixedOdds.from_s('4-to-1 on').should == FixedOdds.fractional_odds('1/4')
+      end
     end
 
     describe "moneyline odds" do
