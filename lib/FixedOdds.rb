@@ -46,9 +46,7 @@ class FixedOdds
 
   def FixedOdds.moneyline_odds moneyline
     raise %{could not parse "#{moneyline}" as moneyline odds} unless FixedOdds.moneyline_odds?(moneyline)
-
     sign = moneyline[0]
-
     if sign == '+' then FixedOdds.new(Rational("#{moneyline}/100"))
     else                FixedOdds.new(Rational("100/#{moneyline.to_i.magnitude}"))
     end
@@ -56,7 +54,6 @@ class FixedOdds
 
   def FixedOdds.decimal_odds decimal
     raise %{could not parse "#{decimal}" as decimal odds} unless FixedOdds.decimal_odds?(decimal)
-
     FixedOdds.new(Rational(decimal.to_f - 1))
   end
 

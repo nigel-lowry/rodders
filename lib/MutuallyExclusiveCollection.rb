@@ -1,5 +1,4 @@
 class MutuallyExclusiveCollection
-
   def initialize events
     @events = events.sort
   end
@@ -19,5 +18,4 @@ class MutuallyExclusiveCollection
   def in_descending_probability
     @events
   end
-  
 end
