@@ -29,7 +29,7 @@ class FixedOdds
   def FixedOdds.fractional_odds fractional
     raise %{could not parse "#{fractional}" as fractional odds} unless FixedOdds.fractional_odds?(fractional)
 
-    return FixedOdds.new(Rational('1/1')) if fractional == 'evens' || fractional == 'even money' 
+    return new(Rational('1/1')) if fractional == 'evens' || fractional == 'even money' 
 
     if /(?<numerator>\d+)\/(?<denominator>\d+)/ =~ fractional      then r = Rational("#{numerator}/#{denominator}")
     elsif /(?<numerator>\d+)-to-(?<denominator>\d+)/ =~ fractional then r = Rational("#{numerator}/#{denominator}")
@@ -37,7 +37,7 @@ class FixedOdds
 
     r = r.reciprocal if fractional.end_with? ' on'
 
-    FixedOdds.new(Rational(r))
+    new(Rational(r))
   end
 
   def initialize fractional_odds
@@ -47,14 +47,14 @@ class FixedOdds
   def FixedOdds.moneyline_odds moneyline
     raise %{could not parse "#{moneyline}" as moneyline odds} unless FixedOdds.moneyline_odds?(moneyline)
     sign = moneyline[0]
-    if sign == '+' then FixedOdds.new(Rational("#{moneyline}/100"))
-    else                FixedOdds.new(Rational("100/#{moneyline.to_i.magnitude}"))
+    if sign == '+' then new(Rational("#{moneyline}/100"))
+    else                new(Rational("100/#{moneyline.to_i.magnitude}"))
     end
   end
 
   def FixedOdds.decimal_odds decimal
     raise %{could not parse "#{decimal}" as decimal odds} unless FixedOdds.decimal_odds?(decimal)
-    FixedOdds.new(Rational(decimal.to_f - 1))
+    new(Rational(decimal.to_f - 1))
   end
 
   def stake=(value)
