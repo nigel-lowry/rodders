@@ -57,9 +57,7 @@ class FixedOdds
   def FixedOdds.decimal_odds decimal
     raise %{could not parse "#{decimal}" as decimal odds} unless FixedOdds.decimal_odds?(decimal)
 
-    d = decimal.to_f
-
-    FixedOdds.new(Rational(d - 1))
+    FixedOdds.new(Rational(decimal.to_f - 1))
   end
 
   def stake=(value)
