@@ -3,7 +3,6 @@ require 'money'
 class FixedOdds
   include Comparable
 
-  # not sure why we are giving access to this
   attr_reader :fractional_odds
 
   def FixedOdds.from_s odds
