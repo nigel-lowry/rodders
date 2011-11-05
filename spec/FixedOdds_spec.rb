@@ -165,6 +165,14 @@ describe "FixedOdds" do
       it "should parse '4-to-1 on'" do
         FixedOdds.from_s('4-to-1 on').should == FixedOdds.fractional_odds('1/4')
       end
+
+      it "should raise an error for a zero denominator" do
+        expect {
+          FixedOdds.from_s('4/0')  
+        }.to raise_error(
+          ZeroDivisionError
+        )
+      end
     end
 
     describe "moneyline odds" do
