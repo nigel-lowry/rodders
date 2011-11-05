@@ -66,24 +66,24 @@ describe "FixedOdds" do
     describe "positive figures" do
       it "should treat '+400' as meaning winning $400 on a $100 bet" do
         plus400 = FixedOdds.moneyline_odds('+400')
-        plus400.profit('$100').should == '$400'
+        plus400.profit_on_winning_stake('$100').should == '$400'
       end
 
       it "should treat +100 as meaning winning $100 on a $100 bet" do
         plus100 = FixedOdds.moneyline_odds('+100')
-        plus100.profit('$100').should == '$100'
+        plus100.profit_on_winning_stake('$100').should == '$100'
       end
     end
 
     describe "negative figures" do
       it "should treat '-400' as meaning you need to wager $400 to win $100" do
         minus400 = FixedOdds.moneyline_odds('-400')
-        minus400.profit('$400').should == '$100'
+        minus400.profit_on_winning_stake('$400').should == '$100'
       end
 
       it "should treat '-100' as meaning you need to wager $100 to win $100 (which is identical to '+100')" do
         minus100 = FixedOdds.moneyline_odds('-100')
-        minus100.profit('$100').should == '$100'
+        minus100.profit_on_winning_stake('$100').should == '$100'
       end
     end
   end
@@ -100,17 +100,17 @@ describe "FixedOdds" do
 
     it "should treat '2' as meaning you have to wager $100 to win $100" do
       d2 = FixedOdds.decimal_odds('2')
-      d2.profit('$100').should == '$100'
+      d2.profit_on_winning_stake('$100').should == '$100'
     end
 
     it "should treat '5' as meaning you have to wager $100 to win $400" do
       d5 = FixedOdds.decimal_odds('5')
-      d5.profit('$100').should == '$400'
+      d5.profit_on_winning_stake('$100').should == '$400'
     end
 
     it "should treat '1.25' as meaning yo have to wager $400 to win $100" do
       d1_25 = FixedOdds.decimal_odds('1.25')
-      d1_25.profit('$400').should == '$100'
+      d1_25.profit_on_winning_stake('$400').should == '$100'
     end
   end
 
@@ -310,15 +310,15 @@ describe "FixedOdds" do
     end
   end
 
-  describe "#profit" do
+  describe "#profit_on_winning_stake" do
     it "should return a profit of $400 on a $100 stake on a 4/1 bet" do 
       fourToOne = FixedOdds.fractional_odds '4/1'
-      fourToOne.profit('$100').should == '$400'
+      fourToOne.profit_on_winning_stake('$100').should == '$400'
     end
 
     it "should return a profit of $25 on a $110 stake with a 1/4 bet" do
       oneToFour = FixedOdds.fractional_odds '1/4'
-      oneToFour.profit('$100').should == '$25'
+      oneToFour.profit_on_winning_stake('$100').should == '$25'
     end
   end
 

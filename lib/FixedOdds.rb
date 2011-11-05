@@ -52,12 +52,12 @@ class FixedOdds
     new(Rational(decimal.to_f - 1))
   end
 
-  def profit stake
+  def profit_on_winning_stake stake
     stake.to_money * @fractional_odds
   end
 
   def total_return_on_winning_stake stake
-    profit(stake) + stake.to_money
+    profit_on_winning_stake(stake) + stake.to_money
   end
 
   def to_s
