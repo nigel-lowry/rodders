@@ -86,6 +86,6 @@ class FixedOdds
   end
 
   def <=>(other)
-    @fractional_odds <=> other.fractional_odds
+    other.fractional_odds <=> @fractional_odds
   end
 end

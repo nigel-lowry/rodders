@@ -4,18 +4,18 @@ class MutuallyExclusiveCollection
   end
 
   def underdog
-    @events.last
+    @events.first
   end
 
   def favorite
-    @events.first
+    @events.last
   end  
 
   def in_ascending_probability
-    @events.reverse
+    @events
   end
 
   def in_descending_probability
-    @events
+    @events.reverse
   end
 end
