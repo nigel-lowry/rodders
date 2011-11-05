@@ -31,9 +31,7 @@ class FixedOdds
 
     return new(Rational('1/1')) if fractional == 'evens' || fractional == 'even money' 
 
-    if /(?<numerator>\d+)\/(?<denominator>\d+)/ =~ fractional      then r = Rational("#{numerator}/#{denominator}")
-    elsif /(?<numerator>\d+)-to-(?<denominator>\d+)/ =~ fractional then r = Rational("#{numerator}/#{denominator}")
-    end
+    if /(?<numerator>\d+)(\/|-to-)(?<denominator>\d+)/ =~ fractional then r = Rational("#{numerator}/#{denominator}") end
 
     r = r.reciprocal if fractional.end_with? ' on'
 
