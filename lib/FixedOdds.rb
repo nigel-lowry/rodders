@@ -15,7 +15,7 @@ class FixedOdds
   end
 
   def FixedOdds.fractional_odds? odds
-    odds =~ /\d+\/\d+|evens|even money|\d+-to-\d+/
+    odds =~ /\d+\/\d+|\d+-to-\d+|evens|even money/
   end
 
   def FixedOdds.moneyline_odds? odds
