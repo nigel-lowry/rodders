@@ -330,10 +330,10 @@ describe "FixedOdds" do
     end
   end
 
-  describe "#inReturn" do
+  describe "#in_return" do
     it "should raise an error if stake is uninitialized" do
       expect {
-        FixedOdds.from_s('evens').inReturn
+        FixedOdds.from_s('evens').in_return
       }.to raise_error(
         RuntimeError,
         /stake uninitialized/
@@ -343,13 +343,13 @@ describe "FixedOdds" do
     it "should show that the full amount back on a winning 4/1 bet with a $100 stake is $500" do
       fourToOne = FixedOdds.fractional_odds '4/1'
       fourToOne.stake = '$100'
-      fourToOne.inReturn.should == '$500'
+      fourToOne.in_return.should == '$500'
     end
 
     it "should show that the full amount back on a winning 1/4 bet with a $100 stake is $125" do
       oneToFour = FixedOdds.fractional_odds '1/4'
       oneToFour.stake = '$100'
-      oneToFour.inReturn.should == '$125'
+      oneToFour.in_return.should == '$125'
     end
   end
 

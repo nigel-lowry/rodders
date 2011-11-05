@@ -64,7 +64,7 @@ class FixedOdds
     stake * @fractional_odds
   end
 
-  def inReturn
+  def in_return
     raise 'stake uninitialized' if stake.nil?
     profit + stake
   end
