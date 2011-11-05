@@ -11,19 +11,19 @@ describe "MutuallyExclusiveCollection" do
   end
 
   it "should return the bad team as the underdog" do
-  	@events.underdog.should == @bad_team
+    @events.underdog.should == @bad_team
   end
 
   it "should return the good team as the favorite" do
-  	@events.favorite.should == @good_team
+    @events.favorite.should == @good_team
   end
 
   it "should return the events in descending probability" do
-  	@events.in_descending_probability.should == [@good_team, @draw, @bad_team]
+    @events.in_descending_probability.should == [@good_team, @draw, @bad_team]
   end
 
   it "should return the events in ascending probability" do
-  	@events.in_ascending_probability.should == [@bad_team, @draw, @good_team]
+    @events.in_ascending_probability.should == [@bad_team, @draw, @good_team]
   end
 
 end
