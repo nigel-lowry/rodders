@@ -3,6 +3,7 @@ require 'money'
 class FixedOdds
   include Comparable
 
+  # not sure why we are giving access to this
   attr_reader :fractional_odds
 
   def FixedOdds.from_s odds
@@ -51,22 +52,12 @@ class FixedOdds
     new(Rational(decimal.to_f - 1))
   end
 
-  def stake=(value)
-    @stake = value.to_money
+  def profit stake
+    stake.to_money * @fractional_odds
   end
 
-  def stake
-    @stake
-  end
-
-  def profit
-    raise 'stake uninitialized' if stake.nil?
-    stake * @fractional_odds
-  end
-
-  def in_return
-    raise 'stake uninitialized' if stake.nil?
-    profit + stake
+  def total_return_on_winning_stake stake
+    profit(stake) + stake.to_money
   end
 
   def to_s

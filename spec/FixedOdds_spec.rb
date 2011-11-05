@@ -66,28 +66,24 @@ describe "FixedOdds" do
     describe "positive figures" do
       it "should treat '+400' as meaning winning $400 on a $100 bet" do
         plus400 = FixedOdds.moneyline_odds('+400')
-        plus400.stake = '$100'
-        plus400.profit.should == '$400'
+        plus400.profit('$100').should == '$400'
       end
 
       it "should treat +100 as meaning winning $100 on a $100 bet" do
         plus100 = FixedOdds.moneyline_odds('+100')
-        plus100.stake = '$100'
-        plus100.profit.should == '$100'
+        plus100.profit('$100').should == '$100'
       end
     end
 
     describe "negative figures" do
       it "should treat '-400' as meaning you need to wager $400 to win $100" do
         minus400 = FixedOdds.moneyline_odds('-400')
-        minus400.stake = '$400'
-        minus400.profit.should == '$100'
+        minus400.profit('$400').should == '$100'
       end
 
       it "should treat '-100' as meaning you need to wager $100 to win $100 (which is identical to '+100')" do
         minus100 = FixedOdds.moneyline_odds('-100')
-        minus100.stake = '$100'
-        minus100.profit.should == '$100'
+        minus100.profit('$100').should == '$100'
       end
     end
   end
@@ -104,20 +100,17 @@ describe "FixedOdds" do
 
     it "should treat '2' as meaning you have to wager $100 to win $100" do
       d2 = FixedOdds.decimal_odds('2')
-      d2.stake = '$100'
-      d2.profit.should == '$100'
+      d2.profit('$100').should == '$100'
     end
 
     it "should treat '5' as meaning you have to wager $100 to win $400" do
       d5 = FixedOdds.decimal_odds('5')
-      d5.stake = '$100'
-      d5.profit.should == '$400'
+      d5.profit('$100').should == '$400'
     end
 
     it "should treat '1.25' as meaning yo have to wager $400 to win $100" do
       d1_25 = FixedOdds.decimal_odds('1.25')
-      d1_25.stake = '$400'
-      d1_25.profit.should == '$100'
+      d1_25.profit('$400').should == '$100'
     end
   end
 
@@ -317,65 +310,31 @@ describe "FixedOdds" do
     end
   end
 
-  describe "#stake" do
-    it "should return nil for an uninitialized stake" do
-      FixedOdds.from_s('evens').stake.should be_nil
-    end
-
-    it "should return the stake set" do
-      stakeAmount = '$100'
-      odds = FixedOdds.from_s('evens')
-      odds.stake = stakeAmount
-      odds.stake.should == stakeAmount
-    end
-  end
-
-  describe "#in_return" do
-    it "should raise an error if stake is uninitialized" do
-      expect {
-        FixedOdds.from_s('evens').in_return
-      }.to raise_error(
-        RuntimeError,
-        /stake uninitialized/
-      )
-    end
-
-    it "should show that the full amount back on a winning 4/1 bet with a $100 stake is $500" do
-      fourToOne = FixedOdds.fractional_odds '4/1'
-      fourToOne.stake = '$100'
-      fourToOne.in_return.should == '$500'
-    end
-
-    it "should show that the full amount back on a winning 1/4 bet with a $100 stake is $125" do
-      oneToFour = FixedOdds.fractional_odds '1/4'
-      oneToFour.stake = '$100'
-      oneToFour.in_return.should == '$125'
-    end
-  end
-
   describe "#profit" do
-    it "should raise an error if stake is uninitialized" do
-      expect {
-        FixedOdds.from_s('evens').profit
-      }.to raise_error(
-        RuntimeError,
-        /stake uninitialized/
-      )
-    end
-
     it "should return a profit of $400 on a $100 stake on a 4/1 bet" do 
       fourToOne = FixedOdds.fractional_odds '4/1'
-      fourToOne.stake = '$100'
-      fourToOne.profit.should == '$400'
+      fourToOne.profit('$100').should == '$400'
     end
 
     it "should return a profit of $25 on a $110 stake with a 1/4 bet" do
       oneToFour = FixedOdds.fractional_odds '1/4'
-      oneToFour.stake = '$100'
-      oneToFour.profit.should == '$25'
+      oneToFour.profit('$100').should == '$25'
     end
   end
 
+  describe "#total_return_on_winning_stake" do
+    it "should show that the full amount back on a winning 4/1 bet with a $100 stake is $500" do
+      fourToOne = FixedOdds.fractional_odds '4/1'
+      fourToOne.total_return_on_winning_stake('$100').should == '$500'
+    end
+
+    it "should show that the full amount back on a winning 1/4 bet with a $100 stake is $125" do
+      oneToFour = FixedOdds.fractional_odds '1/4'
+      oneToFour.total_return_on_winning_stake('$100').should == '$125'
+    end
+  end
+
+  #do thse tests do anything?
   describe "object comparison" do
     it "'+915' is less likely than '-275'" do
       FixedOdds.from_s('+915') < FixedOdds.from_s('-275')
