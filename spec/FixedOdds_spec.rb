@@ -133,6 +133,15 @@ describe "FixedOdds" do
       end
     end
 
+    it "should reject an empty string" do
+      expect {
+        FixedOdds.from_s('')  
+      }.to raise_error(
+        ArgumentError,
+        /could not parse ""/
+      )
+    end
+
     describe "fractional odds" do
       it "should parse '4/1'" do
         FixedOdds.from_s('4/1').should == FixedOdds.fractional_odds('4/1')
