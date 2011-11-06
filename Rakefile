@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/nigel-lowry/rodders"
   gem.license = "MIT"
   gem.summary = %Q{Fixed odds betting library}
-  gem.description = %Q{Converts between fractional, decimal and moneyline odds. Can be used to calculate how much can be won on a bet given a stake}
+  gem.description = %Q{Converts between fractional, decimal and moneyline odds for betting and gambling. Calculates how much can be won on a given stake.}
   gem.email = "nigel-lowry@ultra.eclipse.co.uk"
   gem.authors = ["Nigel Lowry"]
   # dependencies defined in Gemfile
