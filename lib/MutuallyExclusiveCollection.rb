@@ -1,5 +1,5 @@
 class MutuallyExclusiveCollection
-  def initialize events
+  def initialize(events)
     @events = events.sort
   end
 
