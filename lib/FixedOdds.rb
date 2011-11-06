@@ -5,7 +5,7 @@ class FixedOdds
 
   attr_reader :fractional_odds
 
-  def FixedOdds.from_s odds
+  def FixedOdds.from_s(odds)
     case
     when FixedOdds.fractional_odds?(odds) then FixedOdds.fractional_odds odds
     when FixedOdds.moneyline_odds?(odds)  then FixedOdds.moneyline_odds odds
@@ -14,19 +14,19 @@ class FixedOdds
     end
   end
 
-  def FixedOdds.fractional_odds? odds
+  def FixedOdds.fractional_odds?(odds)
     odds =~ /\d+\/\d+|\d+-to-\d+|evens|even money/
   end
 
-  def FixedOdds.moneyline_odds? odds
+  def FixedOdds.moneyline_odds?(odds)
     odds =~ /[+-]\d+/ 
   end
 
-  def FixedOdds.decimal_odds? odds
+  def FixedOdds.decimal_odds?(odds)
     odds =~ /^(\d+|\d+\.\d+|\.\d+)/ 
   end
 
-  def FixedOdds.fractional_odds fractional
+  def FixedOdds.fractional_odds(fractional)
     raise %{could not parse "#{fractional}" as fractional odds} unless FixedOdds.fractional_odds?(fractional)
     return new(Rational('1/1')) if fractional == 'evens' || fractional == 'even money' 
     if /(?<numerator>\d+)(\/|-to-)(?<denominator>\d+)/ =~ fractional then r = Rational("#{numerator}/#{denominator}") end
@@ -34,11 +34,11 @@ class FixedOdds
     new(Rational(r))
   end
 
-  def initialize fractional_odds
+  def initialize(fractional_odds)
     @fractional_odds = fractional_odds
   end
 
-  def FixedOdds.moneyline_odds moneyline
+  def FixedOdds.moneyline_odds(moneyline)
     raise %{could not parse "#{moneyline}" as moneyline odds} unless FixedOdds.moneyline_odds?(moneyline)
     sign = moneyline[0]
     if sign == '+' then new(Rational("#{moneyline}/100"))
@@ -46,16 +46,16 @@ class FixedOdds
     end
   end
 
-  def FixedOdds.decimal_odds decimal
+  def FixedOdds.decimal_odds(decimal)
     raise %{could not parse "#{decimal}" as decimal odds} unless FixedOdds.decimal_odds?(decimal)
     new(Rational(decimal.to_f - 1))
   end
 
-  def profit_on_winning_stake stake
+  def profit_on_winning_stake(stake)
     stake.to_money * @fractional_odds
   end
 
-  def total_return_on_winning_stake stake
+  def total_return_on_winning_stake(stake)
     profit_on_winning_stake(stake) + stake.to_money
   end
 
