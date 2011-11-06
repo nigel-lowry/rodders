@@ -1,10 +1,16 @@
 require 'money'
 
+# Represents fixed odds used in gambling and betting. Supports fractional,
+# moneyline and decimal representations. Can calculate the profit
+# and return on a winning bet.
 class FixedOdds
   include Comparable
 
+  # the fractional odds as a Rational
   attr_reader :fractional_odds
 
+  # creates a new FixedOdds from a string which can be in fractional, 
+  # moneyline or decimal format. 
   def FixedOdds.from_s(odds)
     case
     when FixedOdds.fractional_odds?(odds) then FixedOdds.fractional_odds odds
@@ -14,18 +20,30 @@ class FixedOdds
     end
   end
 
+  # tells if the odds are in fractional form
   def FixedOdds.fractional_odds?(odds)
     odds =~ /\d+\/\d+|\d+-to-\d+|evens|even money/
   end
 
+  # tells if the odds are in moneyline form
   def FixedOdds.moneyline_odds?(odds)
     odds =~ /[+-]\d+/ 
   end
 
+  # tells if the odds are in decimal form
   def FixedOdds.decimal_odds?(odds)
     odds =~ /^(\d+|\d+\.\d+|\.\d+)/ 
   end
 
+  # creates a new FixedOdds from fractional form. These can be in the form
+  # * 4-to-1
+  # * 4-to-1 against
+  # * 4-to-1 on
+  # * 4/1
+  # * 4/1 against
+  # * 4/1 on
+  # * evens
+  # * even money
   def FixedOdds.fractional_odds(fractional)
     raise %{could not parse "#{fractional}" as fractional odds} unless FixedOdds.fractional_odds?(fractional)
     return new(Rational('1/1')) if fractional == 'evens' || fractional == 'even money' 
@@ -34,10 +52,14 @@ class FixedOdds
     new(Rational(r))
   end
 
+  # creates a new FixedOdds from a Rational
   def initialize(fractional_odds)
     @fractional_odds = fractional_odds
   end
 
+  # creates a new FixedOdds from moneyline form. Examples are
+  # * +400
+  # * -500
   def FixedOdds.moneyline_odds(moneyline)
     raise %{could not parse "#{moneyline}" as moneyline odds} unless FixedOdds.moneyline_odds?(moneyline)
     sign = moneyline[0]
@@ -46,27 +68,36 @@ class FixedOdds
     end
   end
 
+  # creates a new FixedOdds from decimal form. Examples are
+  # * 1.25
+  # * 2
   def FixedOdds.decimal_odds(decimal)
     raise %{could not parse "#{decimal}" as decimal odds} unless FixedOdds.decimal_odds?(decimal)
     new(Rational(decimal.to_f - 1))
   end
 
+  # calculates the profit won on a winning _stake_
   def profit_on_winning_stake(stake)
     stake.to_money * @fractional_odds
   end
 
+  # calculates the total return on a winning _stake_ 
+  # (which is the profit plus the initial stake)
   def total_return_on_winning_stake(stake)
     profit_on_winning_stake(stake) + stake.to_money
   end
 
+  # string representation in fractional form such as '4/1'
   def to_s
     to_s_fractional
   end
 
+  # string representation in fractional form such as '4/1'
   def to_s_fractional
     @fractional_odds.to_s
   end
 
+  # string representation in moneyline form
   def to_s_moneyline
     integral_number_with_sign_regex = "%+d"
 
@@ -77,6 +108,7 @@ class FixedOdds
     end
   end
 
+  # string representation in decimal form
   def to_s_decimal
     "%g" % (fractional_odds + 1)
   end
@@ -85,6 +117,8 @@ class FixedOdds
     other.fractional_odds == @fractional_odds
   end
 
+  # low odds are those which pay out the most money
+  # on a winning bet and vice-versa
   def <=>(other)
     other.fractional_odds <=> @fractional_odds
   end
