@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = "rodders"
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nigel Lowry"]
   s.date = "2011-11-06"
-  s.description = "Converts between fractional, decimal and moneyline odds. Can be used to calculate how much can be won on a bet given a stake"
+  s.description = "Converts between fractional, decimal and moneyline odds for betting and gambling. Calculates how much can be won on a given stake."
   s.email = "nigel-lowry@ultra.eclipse.co.uk"
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
     "lib/FixedOdds.rb",
     "lib/MutuallyExclusiveCollection.rb",
     "lib/Rational.rb",
+    "rodders.gemspec",
     "spec/FixedOdds_spec.rb",
     "spec/MutuallyExclusiveCollection_spec.rb",
     "spec/Rational_spec.rb",
