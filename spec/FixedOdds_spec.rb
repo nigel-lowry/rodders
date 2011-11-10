@@ -51,6 +51,33 @@ describe "FixedOdds" do
     it "should recognise '4-to-1 on' as '1/4'" do
       FixedOdds.fractional_odds('4-to-1 on').should == FixedOdds.fractional_odds('1/4')
     end
+
+    it "should raise error if numerator has decimal point" do
+      expect {
+        FixedOdds.fractional_odds '1.1/4'
+      }.to raise_error(
+        RuntimeError,
+        /could not parse "1.1\/4" as fractional odds/
+      ) 
+    end
+
+    it "should raise error if denominator has decimal point" do
+      expect {
+        FixedOdds.fractional_odds '1/4.1'
+      }.to raise_error(
+        RuntimeError,
+        /could not parse "1\/4.1" as fractional odds/
+      ) 
+    end
+
+    it "should raise error if both numerator and denominator have decimal points" do
+      expect {
+        FixedOdds.fractional_odds '1.1/4.1'
+      }.to raise_error(
+        RuntimeError,
+        /could not parse "1.1\/4.1" as fractional odds/
+      ) 
+    end
   end
 
   describe "moneyline_odds factory" do
