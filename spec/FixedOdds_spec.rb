@@ -320,8 +320,6 @@ describe "FixedOdds" do
     it "should display '1.25' as '-400'" do
       FixedOdds.decimal_odds('1.25').to_s_moneyline.should == '-400'
     end
-
-    it "should display a floating point moneyline"
   end
 
   describe "#to_s_decimal" do
@@ -367,6 +365,18 @@ describe "FixedOdds" do
     it "should show that the full amount back on a winning 1/4 bet with a $100 stake is $125" do
       oneToFour = FixedOdds.fractional_odds '1/4'
       oneToFour.total_return_on_winning_stake('$100').should == '$125'
+    end
+  end
+
+  describe "#stake_needed_to_win" do
+    it "should be $1 on a 1/1 to win $1" do
+      oneToOne = FixedOdds.fractional_odds '1/1'
+      oneToOne.stake_needed_to_win('$1').should == '$1'
+    end
+
+    it "should be $100 on 4/1 to win $400" do
+      fourToOne = FixedOdds.fractional_odds '4/1'
+      fourToOne.stake_needed_to_win('$400').should == '$100'
     end
   end
 

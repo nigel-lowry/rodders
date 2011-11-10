@@ -106,6 +106,14 @@ class FixedOdds
     profit_on_winning_stake(stake) + stake.to_money
   end
 
+  # calculates the magnitude of the stake needed to
+  # win the specified amount in profit
+  # @param [String] win the desired profit
+  # @return [Money] the stake required to realise that profit on a winning bet
+  def stake_needed_to_win win
+    win.to_money / @fractional_odds
+  end
+
   # string representation in fractional form like '4/1'
   # @return [String] fractional form representation
   def to_s
