@@ -90,6 +90,15 @@ describe "FixedOdds" do
       )  
     end
 
+    it "should raise error if moneyline odds has decimal point" do
+      expect {
+        FixedOdds.moneyline_odds '-100.1'
+      }.to raise_error(
+        RuntimeError,
+        /could not parse "-100.1" as moneyline odds/
+      )  
+    end
+
     describe "positive figures" do
       it "should treat '+400' as meaning winning $400 on a $100 bet" do
         plus400 = FixedOdds.moneyline_odds('+400')
