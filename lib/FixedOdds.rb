@@ -26,7 +26,7 @@ class FixedOdds
   # @param [String] odds the odds representation
   # @return [Boolean] to indicate if it matches
   def FixedOdds.fractional_odds?(odds)
-    odds =~ /^\d+(\/|-to-)\d+( (against|on))?$|evens|even money/
+    odds =~ /^\d+(\/|-to-)\d+( (against|on))?$|^evens$|^even money$/
   end
 
   # tells if the odds are in moneyline form
@@ -40,7 +40,7 @@ class FixedOdds
   # @param (see FixedOdds.fractional_odds?)
   # @return (see FixedOdds.fractional_odds?)
   def FixedOdds.decimal_odds?(odds)
-    odds =~ /^(\d+|\d+\.\d+|\.\d+)/ 
+    odds =~ /^(\d+|\d+\.\d+|\.\d+)$/ 
   end
 
   # creates a new FixedOdds from fractional form. These can be in the form
