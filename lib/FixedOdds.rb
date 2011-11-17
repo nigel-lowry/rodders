@@ -15,10 +15,10 @@ class FixedOdds
   # @return [FixedOdds]
   def FixedOdds.from_s(odds)
     case
-    when FixedOdds.fractional_odds?(odds) then FixedOdds.fractional_odds odds
-    when FixedOdds.moneyline_odds?(odds)  then FixedOdds.moneyline_odds odds
-    when FixedOdds.decimal_odds?(odds)    then FixedOdds.decimal_odds odds
-    else                                  raise ArgumentError, %{could not parse "#{odds}"}
+    when self.fractional_odds?(odds) then self.fractional_odds odds
+    when self.moneyline_odds?(odds)  then self.moneyline_odds odds
+    when self.decimal_odds?(odds)    then self.decimal_odds odds
+    else                             raise ArgumentError, %{could not parse "#{odds}"}
     end
   end
 
@@ -55,7 +55,7 @@ class FixedOdds
   # @param [String] fractional odds in fractional form
   # @return (see FixedOdds.from_s)
   def FixedOdds.fractional_odds(fractional)
-    raise %{could not parse "#{fractional}" as fractional odds} unless FixedOdds.fractional_odds?(fractional)
+    raise %{could not parse "#{fractional}" as fractional odds} unless self.fractional_odds?(fractional)
     return new(Rational('1/1')) if fractional == 'evens' || fractional == 'even money' 
     if /(?<numerator>\d+)(\/|-to-)(?<denominator>\d+)/ =~ fractional then r = Rational("#{numerator}/#{denominator}") end
     r = r.reciprocal if fractional.end_with? ' on'
@@ -74,7 +74,7 @@ class FixedOdds
   # @param [String] moneyline odds in moneyline form
   # @return (see FixedOdds.from_s)
   def FixedOdds.moneyline_odds(moneyline)
-    raise %{could not parse "#{moneyline}" as moneyline odds} unless FixedOdds.moneyline_odds?(moneyline)
+    raise %{could not parse "#{moneyline}" as moneyline odds} unless self.moneyline_odds?(moneyline)
     sign = moneyline[0]
     if sign == '+' then new(Rational("#{moneyline}/100"))
     else                new(Rational("100/#{moneyline.to_i.magnitude}"))
@@ -87,7 +87,7 @@ class FixedOdds
   # @param [String] decimal odds in decimal form
   # @return (see FixedOdds.from_s)
   def FixedOdds.decimal_odds(decimal)
-    raise %{could not parse "#{decimal}" as decimal odds} unless FixedOdds.decimal_odds?(decimal)
+    raise %{could not parse "#{decimal}" as decimal odds} unless self.decimal_odds?(decimal)
     new(Rational(decimal.to_f - 1))
   end
 
