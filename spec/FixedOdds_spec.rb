@@ -6,10 +6,10 @@ describe "FixedOdds" do
   describe "fractional_odds factory" do
     it "should raise error if not fractional odds" do
       expect {
-        FixedOdds.fractional_odds '-400'
+        FixedOdds.fractional_odds '5'
       }.to raise_error(
         RuntimeError,
-        /could not parse "-400" as fractional odds/
+        /could not parse "5" as fractional odds/
       )  
     end
 
