@@ -92,10 +92,10 @@ class FixedOdds
   end
 
   # calculates the profit won on a winning bet
-  # @param [String] stake the stake
+  # @param [Money] stake the stake
   # @return [Money] the profit
   def profit_on_winning_stake(stake)
-    stake.to_money * @fractional_odds
+    stake * @fractional_odds
   end
 
   # calculates the total return on a winning bet
@@ -103,15 +103,15 @@ class FixedOdds
   # @param (see #profit_on_winning_stake)
   # @return [Money] the total winnings
   def total_return_on_winning_stake(stake)
-    profit_on_winning_stake(stake) + stake.to_money
+    profit_on_winning_stake(stake) + stake
   end
 
   # calculates the magnitude of the stake needed to
   # win the specified amount in profit
-  # @param [String] win the desired profit
+  # @param [Money] win the desired profit
   # @return [Money] the stake required to realise that profit on a winning bet
   def stake_needed_to_win win
-    win.to_money / @fractional_odds
+    win / @fractional_odds
   end
 
   # string representation in fractional form like '4/1'
