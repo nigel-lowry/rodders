@@ -1,3 +1,4 @@
+# coding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "FixedOdds" do
@@ -100,26 +101,26 @@ describe "FixedOdds" do
     end
 
     describe "positive figures" do
-      it "should treat '+400' as meaning winning $400 on a $100 bet" do
+      it "should treat '+400' as meaning winning £400 on a £100 bet" do
         plus400 = FixedOdds.moneyline_odds('+400')
-        plus400.profit_on_winning_stake('$100').should == '$400'
+        plus400.profit_on_winning_stake(Money.from_fixnum(100, :GBP)).should == Money.from_fixnum(400, :GBP)
       end
 
-      it "should treat +100 as meaning winning $100 on a $100 bet" do
+      it "should treat +100 as meaning winning £100 on a £100 bet" do
         plus100 = FixedOdds.moneyline_odds('+100')
-        plus100.profit_on_winning_stake('$100').should == '$100'
+        plus100.profit_on_winning_stake(Money.from_fixnum(100, :GBP)).should == Money.from_fixnum(100, :GBP)
       end
     end
 
     describe "negative figures" do
-      it "should treat '-400' as meaning you need to wager $400 to win $100" do
+      it "should treat '-400' as meaning you need to wager £400 to win £100" do
         minus400 = FixedOdds.moneyline_odds('-400')
-        minus400.profit_on_winning_stake('$400').should == '$100'
+        minus400.profit_on_winning_stake(Money.from_fixnum(400, :GBP)).should == Money.from_fixnum(100, :GBP)
       end
 
-      it "should treat '-100' as meaning you need to wager $100 to win $100 (which is identical to '+100')" do
+      it "should treat '-100' as meaning you need to wager £100 to win £100 (which is identical to '+100')" do
         minus100 = FixedOdds.moneyline_odds('-100')
-        minus100.profit_on_winning_stake('$100').should == '$100'
+        minus100.profit_on_winning_stake(Money.from_fixnum(100, :GBP)).should == Money.from_fixnum(100, :GBP)
       end
     end
   end
@@ -134,19 +135,19 @@ describe "FixedOdds" do
       )  
     end
 
-    it "should treat '2' as meaning you have to wager $100 to win $100" do
+    it "should treat '2' as meaning you have to wager £100 to win £100" do
       d2 = FixedOdds.decimal_odds('2')
-      d2.profit_on_winning_stake('$100').should == '$100'
+      d2.profit_on_winning_stake(Money.from_fixnum(100, :GBP)).should == Money.from_fixnum(100, :GBP)
     end
 
-    it "should treat '5' as meaning you have to wager $100 to win $400" do
+    it "should treat '5' as meaning you have to wager £100 to win £400" do
       d5 = FixedOdds.decimal_odds('5')
-      d5.profit_on_winning_stake('$100').should == '$400'
+      d5.profit_on_winning_stake(Money.from_fixnum(100, :GBP)).should == Money.from_fixnum(400, :GBP)
     end
 
-    it "should treat '1.25' as meaning yo have to wager $400 to win $100" do
+    it "should treat '1.25' as meaning yo have to wager £400 to win £100" do
       d1_25 = FixedOdds.decimal_odds('1.25')
-      d1_25.profit_on_winning_stake('$400').should == '$100'
+      d1_25.profit_on_winning_stake(Money.from_fixnum(400, :GBP)).should == Money.from_fixnum(100, :GBP)
     end
   end
 
@@ -345,38 +346,38 @@ describe "FixedOdds" do
   end
 
   describe "#profit_on_winning_stake" do
-    it "should return a profit of $400 on a $100 stake on a 4/1 bet" do 
+    it "should return a profit of £400 on a £100 stake on a 4/1 bet" do 
       fourToOne = FixedOdds.fractional_odds '4/1'
-      fourToOne.profit_on_winning_stake('$100').should == '$400'
+      fourToOne.profit_on_winning_stake(Money.from_fixnum(100, :GBP)).should == Money.from_fixnum(400, :GBP)
     end
 
-    it "should return a profit of $25 on a $110 stake with a 1/4 bet" do
+    it "should return a profit of £25 on a £100 stake with a 1/4 bet" do
       oneToFour = FixedOdds.fractional_odds '1/4'
-      oneToFour.profit_on_winning_stake('$100').should == '$25'
+      oneToFour.profit_on_winning_stake(Money.from_fixnum(100, :GBP)).should == Money.from_fixnum(25, :GBP)
     end
   end
 
   describe "#total_return_on_winning_stake" do
-    it "should show that the full amount back on a winning 4/1 bet with a $100 stake is $500" do
+    it "should show that the full amount back on a winning 4/1 bet with a £100 stake is £500" do
       fourToOne = FixedOdds.fractional_odds '4/1'
-      fourToOne.total_return_on_winning_stake('$100').should == '$500'
+      fourToOne.total_return_on_winning_stake(Money.from_fixnum(100, :GBP)).should == Money.from_fixnum(500, :GBP)
     end
 
-    it "should show that the full amount back on a winning 1/4 bet with a $100 stake is $125" do
+    it "should show that the full amount back on a winning 1/4 bet with a £100 stake is £125" do
       oneToFour = FixedOdds.fractional_odds '1/4'
-      oneToFour.total_return_on_winning_stake('$100').should == '$125'
+      oneToFour.total_return_on_winning_stake(Money.from_fixnum(100, :GBP)).should == Money.from_fixnum(125, :GBP)
     end
   end
 
   describe "#stake_needed_to_win" do
-    it "should be $1 on a 1/1 to win $1" do
+    it "should be £1 on a 1/1 to win £1" do
       oneToOne = FixedOdds.fractional_odds '1/1'
-      oneToOne.stake_needed_to_win('$1').should == '$1'
+      oneToOne.stake_needed_to_win(Money.from_fixnum(1, :GBP)).should == Money.from_fixnum(1, :GBP)
     end
 
-    it "should be $100 on 4/1 to win $400" do
+    it "should be £100 on 4/1 to win £400" do
       fourToOne = FixedOdds.fractional_odds '4/1'
-      fourToOne.stake_needed_to_win('$400').should == '$100'
+      fourToOne.stake_needed_to_win(Money.from_fixnum(400, :GBP)).should == Money.from_fixnum(100, :GBP)
     end
   end
 
