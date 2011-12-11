@@ -11,6 +11,8 @@ class FixedOdds
 
   # creates a new FixedOdds from a string which can be in fractional, 
   # moneyline or decimal format
+  # @note strings like '5' are parsed as decimal odds, not as being
+  # equivalent to '5/1'
   # @param [String] odds the odds in fractional, moneyline or decimal form
   # @return [FixedOdds]
   def FixedOdds.from_s(odds)
@@ -71,6 +73,7 @@ class FixedOdds
   # creates a new FixedOdds from moneyline form. Examples are
   # * +400
   # * -500
+  # @note (see #from_s)
   # @param [String] moneyline odds in moneyline form
   # @return (see FixedOdds.from_s)
   def FixedOdds.moneyline_odds(moneyline)
