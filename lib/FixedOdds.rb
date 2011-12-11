@@ -129,7 +129,7 @@ class FixedOdds
   # string representation in moneyline form
   # @return [String] moneyline form representation
   def to_s_moneyline
-    integral_number_with_sign_regex = "%+d"
+    integral_number_with_sign_regex = '%+d'
 
     if @fractional_odds > 1.0
       integral_number_with_sign_regex % (fractional_odds * 100).to_i
