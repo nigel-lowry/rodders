@@ -141,7 +141,7 @@ class FixedOdds
   # string representation in decimal form
   # @return [String] decimal form representation
   def to_s_decimal
-    "%g" % (fractional_odds + 1)
+    '%g' % (fractional_odds + 1)
   end
 
   protected
