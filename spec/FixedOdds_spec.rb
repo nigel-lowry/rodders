@@ -225,8 +225,11 @@ describe "FixedOdds" do
     end
 
     describe "decimal odds" do
-      it "should parse integral odds" do
-        FixedOdds.from_s('2').should == FixedOdds.decimal_odds('2')
+      it "should parse integral odds of '2' as decimal odds, not as fractional odds of '2/1'" do
+        decimal_odds_2 = FixedOdds.from_s('2')
+
+        decimal_odds_2.should == FixedOdds.decimal_odds('2')
+        decimal_odds_2.should_not == FixedOdds.fractional_odds('2/1')
       end
 
       it "should parse floating-point odds" do
