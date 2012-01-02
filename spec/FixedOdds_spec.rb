@@ -84,10 +84,10 @@ describe "FixedOdds" do
   describe ".moneyline_odds" do
     it "raises error if not moneyline odds" do
       expect {
-        FixedOdds.moneyline_odds '1.25'
+        FixedOdds.moneyline_odds '1/4'
       }.to raise_error(
         RuntimeError,
-        /could not parse "1.25" as moneyline odds/
+        /could not parse "1\/4" as moneyline odds/
       )  
     end
 
