@@ -8,13 +8,13 @@ class MutuallyExclusiveCollection
 
   # the least likely of the events to occur
   # @return [FixedOdds] the least likely event
-  def underdog
+  def least_likely
     @events.first
   end
 
   # the most likely of the events to occur
   # @return [FixedOdds] the most likely event
-  def favorite
+  def most_likely
     @events.last
   end  
 
