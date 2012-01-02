@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "FixedOdds" do
 
-  describe "fractional_odds factory" do
+  describe ".fractional_odds" do
     it "raises error if not fractional odds" do
       expect {
         FixedOdds.fractional_odds '5'
@@ -81,7 +81,7 @@ describe "FixedOdds" do
     end
   end
 
-  describe "moneyline_odds factory" do
+  describe ".moneyline_odds" do
     it "raises error if not moneyline odds" do
       expect {
         FixedOdds.moneyline_odds '1.25'
@@ -125,7 +125,7 @@ describe "FixedOdds" do
     end
   end
 
-  describe "decimal_odds factory" do
+  describe ".decimal_odds" do
     it "raises error if not decimal odds" do
       expect {
         FixedOdds.decimal_odds '-400'
@@ -151,7 +151,7 @@ describe "FixedOdds" do
     end
   end
 
-  describe "#from_s" do
+  describe ".from_s" do
     describe "bad input" do
       it "rejects garbage" do
         expect {
