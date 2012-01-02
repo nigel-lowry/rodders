@@ -118,9 +118,14 @@ describe "FixedOdds" do
         minus400.profit_on_winning_stake(Money.from_fixnum(400, :GBP)).should == Money.from_fixnum(100, :GBP)
       end
 
-      it "treats '-100' as meaning you need to wager £100 to win £100 (which is identical to '+100')" do
+      it "treats '-100' as meaning you need to wager £100 to win £100" do
         minus100 = FixedOdds.moneyline_odds('-100')
         minus100.profit_on_winning_stake(Money.from_fixnum(100, :GBP)).should == Money.from_fixnum(100, :GBP)
+      end
+
+      it "treats '+100' as meaning you need to wager £100 to win £100" do
+        plus100 = FixedOdds.moneyline_odds('+100')
+        plus100.profit_on_winning_stake(Money.from_fixnum(100, :GBP)).should == Money.from_fixnum(100, :GBP)
       end
     end
   end
