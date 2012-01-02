@@ -244,7 +244,7 @@ describe "FixedOdds" do
   end
 
   describe "#==" do
-    it "treats similar fractions equally" do 
+    it "treats equivalent fractions equally" do 
       FixedOdds.fractional_odds('100/30').should == FixedOdds.fractional_odds('10/3')
     end
 
