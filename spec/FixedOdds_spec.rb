@@ -274,7 +274,7 @@ describe "FixedOdds" do
   end
 
   describe "#to_s" do
-    it "displays the odds in fractional odds format" do
+    it "is in fractional odds format" do
       FixedOdds.from_s('+400').to_s.should == '4/1'
     end
   end
@@ -284,71 +284,71 @@ describe "FixedOdds" do
       FixedOdds.fractional_odds('4/1').to_s_fractional.should == '4/1'
     end
 
-    it "displays '100/30' as '10/3' in lowest terms" do
+    it "is in the lowest terms" do
       FixedOdds.fractional_odds('100/30').to_s_fractional.should == '10/3'
     end
 
-    it "displays '+400' as '4/1'" do
+    it "is '4/1' for '+400'" do
       FixedOdds.moneyline_odds('+400').to_s_fractional.should == '4/1'
     end
 
-    it "displays '5' as '4/1'" do 
+    it "is '4/1' for '5'" do 
       FixedOdds.decimal_odds('5').to_s_fractional.should == '4/1'
     end
 
-    it "displays '+100' as '1/1'" do
+    it "is '1/1' for '+100'" do
       FixedOdds.moneyline_odds('+100').to_s_fractional.should == '1/1'
     end
 
-    it "displays '-100' as '1/1'" do
+    it "is '1/1' for '-100'" do
       FixedOdds.moneyline_odds('-100').to_s_fractional.should == '1/1'
     end
   end
 
   describe "#to_s_moneyline" do
-    it "displays '+400' as '+400'" do
+    it "is '+400' for '+400'" do
       FixedOdds.moneyline_odds('+400').to_s_moneyline.should == ('+400')
     end
 
-    it "displays '+100' as '-100' (but this could have equally been '+100')" do
+    it "is '-100' for '+100' as '-100'" do
       FixedOdds.moneyline_odds('+100').to_s_moneyline.should == ('-100')
     end
 
-    it "displays '-100' as '-100' (but this could have equally been '+100')" do
+    it "is '-100' as '-100'" do
       FixedOdds.moneyline_odds('-100').to_s_moneyline.should == ('-100')
     end
 
-    it "displays '4/1' as '+400'" do
+    it "is '+400' for '4/1'" do
       FixedOdds.fractional_odds('4/1').to_s_moneyline.should == '+400'
     end
 
-    it "displays '5' as '+400'" do
+    it "is '+400' for '5'" do
       FixedOdds.decimal_odds('5').to_s_moneyline.should == '+400'
     end
 
-    it "displays '1.25' as '-400'" do
+    it "is '-400' for '1.25'" do
       FixedOdds.decimal_odds('1.25').to_s_moneyline.should == '-400'
     end
   end
 
   describe "#to_s_decimal" do
-    it "displays '1.25' as '1.25'" do
+    it "is '1.25' for '1.25'" do
       FixedOdds.decimal_odds('1.25').to_s_decimal.should == '1.25'
     end
 
-    it "displays '1/4' as '1.25'" do
+    it "is '1.25' for '1/4'" do
       FixedOdds.fractional_odds('1/4').to_s_decimal.should == '1.25'
     end
 
-    it "displays '-400' as '1.25'" do
+    it "is '1.25' for '-400'" do
       FixedOdds.moneyline_odds('-400').to_s_decimal.should == '1.25'
     end
 
-    it "displays '+100' as '2'" do
+    it "is '2' for '+100'" do
       FixedOdds.moneyline_odds('+100').to_s_decimal.should == '2'
     end
 
-    it "displays '-100' as '2'" do
+    it "is '2' for '-100'" do
       FixedOdds.moneyline_odds('-100').to_s_decimal.should == '2'
     end
   end
