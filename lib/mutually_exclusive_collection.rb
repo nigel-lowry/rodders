@@ -55,7 +55,10 @@ class MutuallyExclusiveCollection
 
   def profit params={}
     # invested - win outcome (which ought to be the same)
-    r1 = params[:odds].total_return_on_winning_stake params[:stake]
+    o1 = params[:odds]
+    s1 = params[:stake]
+
+    r1 = s1 * o1.to_f
 
     #r2 = 
 
