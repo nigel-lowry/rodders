@@ -25,5 +25,9 @@ describe "Arbitrage" do
     it "is true for bookmaker 1" do
       @bookmaker1.rational_bookmaker?.should be_true
     end
+
+    it "is true for bookmaker 2" do
+      @bookmaker2.rational_bookmaker?.should be_true
+    end
   end
 end
