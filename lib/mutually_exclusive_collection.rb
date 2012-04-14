@@ -31,7 +31,7 @@ class MutuallyExclusiveCollection
   end
 
   def sum_inverse_outcome
-    decimals = @events.collect {|event| 1 / event.to_s_decimal.to_f }
-    decimals.reduce(:+)
+    inverses = @events.collect {|event| 1 / event.to_s_decimal.to_f }
+    inverses.reduce(:+)
   end
 end
