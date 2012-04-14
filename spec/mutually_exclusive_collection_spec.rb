@@ -2,41 +2,42 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "MutuallyExclusiveCollection" do
-  
-  before(:each) do    
-    @good_team = FixedOdds.from_s '-275'
-    @draw = FixedOdds.from_s '+429'
-    @bad_team = FixedOdds.from_s '+915'
 
-    @events = MutuallyExclusiveCollection.new [@draw, @bad_team, @good_team]
-  end
+  context "non-arbitrage methods" do
+    before(:each) do    
+      @good_team = FixedOdds.from_s '-275'
+      @draw = FixedOdds.from_s '+429'
+      @bad_team = FixedOdds.from_s '+915'
 
-  describe "#least_likely" do
-    it "is the least likely event" do
-      @events.least_likely.should == @bad_team
+      @events = MutuallyExclusiveCollection.new [@draw, @bad_team, @good_team]
+    end
+
+    describe "#least_likely" do
+      it "is the least likely event" do
+        @events.least_likely.should == @bad_team
+      end
+    end
+
+    describe "#most_likely" do
+      it "is the most likely event" do
+        @events.most_likely.should == @good_team
+      end
+    end
+
+    describe "#in_descending_probability" do
+      it "is in descending order of probability" do
+        @events.in_descending_probability.should == [@good_team, @draw, @bad_team]
+      end
+    end
+
+    describe "#in_ascending_probability" do
+      it "is in ascending order of probability" do
+        @events.in_ascending_probability.should == [@bad_team, @draw, @good_team]
+      end
     end
   end
 
-  describe "#most_likely" do
-    it "is the most likely event" do
-      @events.most_likely.should == @good_team
-    end
-  end
-
-  describe "#in_descending_probability" do
-    it "is in descending order of probability" do
-      @events.in_descending_probability.should == [@good_team, @draw, @bad_team]
-    end
-  end
-
-  describe "#in_ascending_probability" do
-    it "is in ascending order of probability" do
-      @events.in_ascending_probability.should == [@bad_team, @draw, @good_team]
-    end
-  end
-
-  context "decimal odds example" do
-
+  context "decimal odds arbitrage" do
     before(:each) do
       @bookmaker1outcome1 = FixedOdds.from_s '1.25'
       @bookmaker1outcome2 = FixedOdds.from_s '3.9'
@@ -100,7 +101,5 @@ describe "MutuallyExclusiveCollection" do
         @bookmaker_vulnerable_to_arbitrage.profit_percentage.should be_within(0.001).of(0.046)
       end
     end
-
   end
-
 end
