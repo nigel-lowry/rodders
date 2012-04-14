@@ -11,13 +11,19 @@ describe "Arbitrage" do
     @bookmaker2 = MutuallyExclusiveCollection.new [@bookmaker2outcome1, @bookmaker2outcome2]
   end
 
-  describe "sum_inverse_outcome" do
+  describe "#sum_inverse_outcome" do
     it "is 1.056 for bookmaker 1" do
       @bookmaker1.sum_inverse_outcome.should be_within(0.001).of(1.056)
     end
 
     it "is 1.051 for bookmaker 2" do
       @bookmaker2.sum_inverse_outcome.should be_within(0.001).of(1.051)
+    end
+  end
+
+  describe "#rational_bookmaker?" do
+    it "is true for bookmaker 1" do
+      @bookmaker1.rational_bookmaker?.should be_true
     end
   end
 end

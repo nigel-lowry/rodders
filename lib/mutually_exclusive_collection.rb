@@ -34,4 +34,8 @@ class MutuallyExclusiveCollection
     inverses = @events.collect {|event| 1 / event.to_s_decimal.to_f }
     inverses.reduce(:+)
   end
+
+  def rational_bookmaker?
+    sum_inverse_outcome > 1
+  end
 end
