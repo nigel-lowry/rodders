@@ -64,7 +64,7 @@ class MutuallyExclusiveCollection
 
     # FIXME want to allow a penny leeway
     #raise %{getting differing returns of #{r1} and #{r2}} unless r1 == r2
-
+    # FIXME might want to use lowest return here to give worst case result
     r1 - invested(stake: params[:stake], odds: params[:odds])
   end
 
