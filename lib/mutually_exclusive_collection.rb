@@ -46,15 +46,11 @@ class MutuallyExclusiveCollection
     # FIXME what happens with duplicate odds?
     # TODO this only works with two outcomes
     odds_other = (@mutually_exclusive_outcome_odds - [params[:odds]]).first
-    params[:stake] * decimal(params[:odds]) / decimal(odds_other)
+    params[:stake] * params[:odds].to_f / odds_other.to_f
   end
 
   private
     def decimals
-      @mutually_exclusive_outcome_odds.collect {|o| decimal o }
-    end
-
-    def decimal odds
-      odds.to_s_decimal.to_f
+      @mutually_exclusive_outcome_odds.collect {|o| o.to_f }
     end
 end

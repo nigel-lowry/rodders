@@ -398,4 +398,14 @@ describe "FixedOdds" do
       FixedOdds.from_s('-275').should be > FixedOdds.from_s('+915')
     end 
   end
+
+  describe "#to_f" do
+    it "is 3.9 for decimal odds of 3.9" do
+      FixedOdds.from_s('3.9').to_f.should == 3.9
+    end
+
+    it "is 1.25 for decimal odds of 1.25" do
+      FixedOdds.from_s('1.25').to_f.should == 1.25
+    end
+  end
 end
