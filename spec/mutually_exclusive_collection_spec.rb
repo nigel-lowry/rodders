@@ -90,4 +90,11 @@ describe "MutuallyExclusiveCollection" do
       @bookmaker_vulnerable_to_arbitrage.profit(stake: Money.from_fixnum(100, :GBP), odds: @bookmaker2outcome1).should == Money.from_fixnum(6.33, :GBP)
     end
   end
+
+  describe "#profit_percentage" do
+    it "is 4.6%" do
+      @bookmaker_vulnerable_to_arbitrage.profit_percentage.should be_within(0.001).of(0.046)
+    end
+  end
+
 end
