@@ -3,31 +3,31 @@ class MutuallyExclusiveCollection
   # create a new collection with the given odds
   # @param [Array<FixedOdds>] odds the odds
   def initialize(odds)
-    @odds = odds.sort
+    @mutually_exclusive_outcome_odds = odds.sort
   end
 
   # the least likely of the odds to occur
   # @return [FixedOdds] the least likely odd
   def least_likely
-    @odds.first
+    @mutually_exclusive_outcome_odds.first
   end
 
   # the most likely of the odds to occur
   # @return [FixedOdds] the most likely odd
   def most_likely
-    @odds.last
+    @mutually_exclusive_outcome_odds.last
   end  
 
   # the odds in ascending order of probability
   # @return [Array<FixedOdds>] odds in ascending probability
   def in_ascending_probability
-    @odds
+    @mutually_exclusive_outcome_odds
   end
 
   # the odds in descending order of probability
   # @return [Array<FixedOdds>] odds in descending probability
   def in_descending_probability
-    @odds.reverse
+    @mutually_exclusive_outcome_odds.reverse
   end
 
   def sum_inverse_outcome
@@ -48,7 +48,7 @@ class MutuallyExclusiveCollection
 
   private
     def decimals
-      @odds.collect {|odd| decimal odd }
+      @mutually_exclusive_outcome_odds.collect {|odd| decimal odd }
     end
 
     def decimal odds
