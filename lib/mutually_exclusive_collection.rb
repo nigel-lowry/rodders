@@ -46,7 +46,11 @@ class MutuallyExclusiveCollection
   def other_amount params={}
     # FIXME what happens with duplicate odds?
     # TODO this only works with two outcomes
-    params[:stake] * params[:odds].to_f / other_odds(params[:odds]).to_f
+    s1 = params[:stake]
+    o1 = params[:odds]
+    o2 = other_odds(o1)
+
+    s1 * o1.to_f / o2.to_f
   end
 
   def profit params={}
