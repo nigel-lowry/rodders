@@ -29,4 +29,10 @@ class MutuallyExclusiveCollection
   def in_descending_probability
     @events.reverse
   end
+
+  def sum_inverse_outcome
+    decimals = @events.collect {|event| event.to_s_decimal.to_f }
+    inverses = decimals.collect {|decimal| 1 / decimal}
+    inverses.reduce(:+)
+  end
 end
