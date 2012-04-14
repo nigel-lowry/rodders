@@ -84,4 +84,10 @@ describe "MutuallyExclusiveCollection" do
       @bookmaker_vulnerable_to_arbitrage.other_amount(stake: Money.from_fixnum(100, :GBP), odds: @bookmaker2outcome1).should == Money.from_fixnum(36.67, :GBP)
     end
   end
+
+  describe "#profit" do
+    it "is £6.33 with a £100.00 stake on outcome 1" do
+      @bookmaker_vulnerable_to_arbitrage.profit(stake: Money.from_fixnum(100, :GBP), odds: @bookmaker2outcome1).should == Money.from_fixnum(6.33, :GBP)
+    end
+  end
 end

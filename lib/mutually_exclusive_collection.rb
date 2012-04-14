@@ -50,6 +50,13 @@ class MutuallyExclusiveCollection
     params[:stake] * params[:odds].to_f / odds_other.to_f
   end
 
+  def profit params={}
+    # invested - win outcome (which ought to be the same)
+    r1 = params[:odds].total_return_on_winning_stake params[:stake]
+    invested = params[:stake] + other_amount(stake: params[:stake], odds: params[:odds])
+    r1 - invested
+  end
+
   private
     def decimals
       @mutually_exclusive_outcome_odds.collect {|o| o.to_f }
