@@ -1,3 +1,4 @@
+# coding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "Arbitrage" do
@@ -44,6 +45,12 @@ describe "Arbitrage" do
 
     it "is 4.78% for bookmaker 2" do
       @bookmaker2.bookmakers_return_rate.should be_within(0.0001).of(0.0478)
+    end
+  end
+
+  describe "#other_amount" do
+    it "is £36.67 on outcome 2 on a £100.00 stake on outcome 1" do
+      @bookmaker_vulnerable_to_arbitrage.other_amount(stake: Money.from_fixnum(100, :GBP), odds: @bookmaker2outcome1, odds_other: @bookmaker1outcome2).should == Money.from_fixnum(36.67, :GBP)
     end
   end
 end

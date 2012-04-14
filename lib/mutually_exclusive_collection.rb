@@ -42,8 +42,16 @@ class MutuallyExclusiveCollection
     1 - decimals.reduce(:*) / decimals.reduce(:+)
   end
 
+  def other_amount params={}
+    params[:stake] * decimal(params[:odds]) / decimal(params[:odds_other])
+  end
+
   private
     def decimals
-      @events.collect {|event| event.to_s_decimal.to_f }
+      @events.collect {|event| decimal event }
+    end
+
+    def decimal odds
+      odds.to_s_decimal.to_f
     end
 end
