@@ -1,9 +1,9 @@
 # A collection of mutually exclusive odds for different outcomes.
 class MutuallyExclusiveCollection
   # create a new collection with the given odds
-  # @param [Array<FixedOdds>] odds the odds
-  def initialize(odds)
-    @mutually_exclusive_outcome_odds = odds.sort
+  # @param [Array<FixedOdds>] mutually_exclusive_outcome_odds the odds for all the mutually exclusive outcomes
+  def initialize(mutually_exclusive_outcome_odds)
+    @mutually_exclusive_outcome_odds = mutually_exclusive_outcome_odds.sort
   end
 
   # the least likely of the odds to occur
@@ -48,7 +48,7 @@ class MutuallyExclusiveCollection
 
   private
     def decimals
-      @mutually_exclusive_outcome_odds.collect {|odd| decimal odd }
+      @mutually_exclusive_outcome_odds.collect {|o| decimal o }
     end
 
     def decimal odds
