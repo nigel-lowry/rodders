@@ -94,6 +94,10 @@ describe "MutuallyExclusiveCollection" do
       it "is £6.33 with a £100.00 stake on outcome 1" do
         @bookmaker_vulnerable_to_arbitrage.profit(stake: Money.from_fixnum(100, :GBP), odds: @bookmaker2outcome1).should == Money.from_fixnum(6.33, :GBP)
       end
+
+      it "is £6.33 with a £36.67 stake on outcome 2" do
+        @bookmaker_vulnerable_to_arbitrage.profit(stake: Money.from_fixnum(36.67, :GBP), odds: @bookmaker1outcome2).should == Money.from_fixnum(6.33, :GBP)
+      end
     end
 
     describe "#profit_percentage" do
@@ -102,4 +106,34 @@ describe "MutuallyExclusiveCollection" do
       end
     end
   end
+
+  context "fractional odds arbitrage" do
+    before(:each) do
+      @odds1 = FixedOdds.from_s('2/1')
+      @odds2 = FixedOdds.from_s('3/1')
+
+      @bookmaker_vulnerable_to_arbitrage = MutuallyExclusiveCollection.new [@odds1, @odds2]
+    end
+
+    describe "#rational_bookmaker?" do
+      it "is false for vulnerable bookmaker" do
+        @bookmaker_vulnerable_to_arbitrage.rational_bookmaker?.should be_false
+      end
+    end
+
+    describe "#profit" do
+      it "is £167.00 with a £500.00 stake on outcome 1" do
+        @bookmaker_vulnerable_to_arbitrage.profit(stake: Money.from_fixnum(500, :GBP), odds: @odds1).should == Money.from_fixnum(167, :GBP)
+      end
+    end
+
+    describe "#profit_percentage" do
+      it "is 20%" do
+        @bookmaker_vulnerable_to_arbitrage.profit_percentage.should be_within(0.001).of(0.2)
+      end
+    end
+  end
+
+
+
 end
