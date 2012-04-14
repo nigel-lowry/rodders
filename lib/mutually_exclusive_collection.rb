@@ -55,12 +55,17 @@ class MutuallyExclusiveCollection
 
   def profit params={}
     # invested - win outcome (which ought to be the same)
-    o1 = params[:odds]
+    
     s1 = params[:stake]
-
+    o1 = params[:odds]
     r1 = s1 * o1.to_f
 
-    #r2 = 
+    s2 = other_amount params
+    o2 = other_odds o1
+    r2 = s2 * o2.to_f
+
+    # FIXME want to allow a penny leeway
+    #raise %{getting differing returns of #{r1} and #{r2}} unless r1 == r2
 
     r1 - invested(stake: params[:stake], odds: params[:odds])
   end
