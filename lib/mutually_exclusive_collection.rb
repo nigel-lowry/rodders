@@ -43,7 +43,10 @@ class MutuallyExclusiveCollection
   end
 
   def other_amount params={}
-    params[:stake] * decimal(params[:odds]) / decimal(params[:odds_other])
+    # FIXME what happens with duplicate odds?
+    # TODO this only works with two outcomes
+    odds_other = (@mutually_exclusive_outcome_odds - [params[:odds]]).first
+    params[:stake] * decimal(params[:odds]) / decimal(odds_other)
   end
 
   private

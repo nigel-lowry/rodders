@@ -81,7 +81,7 @@ describe "MutuallyExclusiveCollection" do
 
   describe "#other_amount" do
     it "is £36.67 on outcome 2 on a £100.00 stake on outcome 1" do
-      @bookmaker_vulnerable_to_arbitrage.other_amount(stake: Money.from_fixnum(100, :GBP), odds: @bookmaker2outcome1, odds_other: @bookmaker1outcome2).should == Money.from_fixnum(36.67, :GBP)
+      @bookmaker_vulnerable_to_arbitrage.other_amount(stake: Money.from_fixnum(100, :GBP), odds: @bookmaker2outcome1).should == Money.from_fixnum(36.67, :GBP)
     end
   end
 end
