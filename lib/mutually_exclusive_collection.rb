@@ -39,7 +39,8 @@ class MutuallyExclusiveCollection
   end
 
   def bookmakers_return_rate
-    1 - decimals.reduce(:*) / decimals.reduce(:+)
+    ds = decimals
+    1 - ds.reduce(:*) / ds.reduce(:+)
   end
 
   def other_amount params={}
