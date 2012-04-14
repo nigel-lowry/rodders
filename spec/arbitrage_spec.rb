@@ -9,6 +9,8 @@ describe "Arbitrage" do
 
     @bookmaker1 = MutuallyExclusiveCollection.new [@bookmaker1outcome1, @bookmaker1outcome2]
     @bookmaker2 = MutuallyExclusiveCollection.new [@bookmaker2outcome1, @bookmaker2outcome2]
+
+    @bookmaker_vulnerable_to_arbitrage = MutuallyExclusiveCollection.new [@bookmaker2outcome1, @bookmaker1outcome2]
   end
 
   describe "#sum_inverse_outcome" do
@@ -23,11 +25,15 @@ describe "Arbitrage" do
 
   describe "#rational_bookmaker?" do
     it "is true for bookmaker 1" do
-      @bookmaker1.rational_bookmaker?.should be_true
+      @bookmaker1.rational_bookmaker?.should be
     end
 
     it "is true for bookmaker 2" do
-      @bookmaker2.rational_bookmaker?.should be_true
+      @bookmaker2.rational_bookmaker?.should be
+    end
+
+    it "is false for vulnerable bookmaker" do
+      @bookmaker_vulnerable_to_arbitrage.rational_bookmaker?.should be_false
     end
   end
 end
