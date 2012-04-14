@@ -36,4 +36,10 @@ describe "Arbitrage" do
       @bookmaker_vulnerable_to_arbitrage.rational_bookmaker?.should be_false
     end
   end
+
+  describe "#bookmakers_return_rate" do
+    it "is 5.34% for bookmaker 1" do
+      @bookmaker1.bookmakers_return_rate.should be_within(0.0001).of(0.0534)
+    end
+  end
 end

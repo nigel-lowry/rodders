@@ -31,11 +31,19 @@ class MutuallyExclusiveCollection
   end
 
   def sum_inverse_outcome
-    inverses = @events.collect {|event| 1 / event.to_s_decimal.to_f }
-    inverses.reduce(:+)
+    decimals.reduce(0) {|sum, n| sum + 1 / n } 
   end
 
   def rational_bookmaker?
     sum_inverse_outcome > 1
   end
+
+  def bookmakers_return_rate
+    1 - decimals.reduce(:*) / decimals.reduce(:+)
+  end
+
+  private
+    def decimals
+      @events.collect {|event| event.to_s_decimal.to_f }
+    end
 end
