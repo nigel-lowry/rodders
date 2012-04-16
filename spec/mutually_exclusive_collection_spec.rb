@@ -150,7 +150,7 @@ describe "MutuallyExclusiveCollection" do
 
     describe "this bookmaker" do
       it "is vulnerable to arbitrage" do
-        @bookmaker_vulnerable_to_arbitrage.rational_bookmaker?.should be_false
+        @bookmaker_vulnerable_to_arbitrage.should_not be_rational_bookmaker
       end
     end
 
