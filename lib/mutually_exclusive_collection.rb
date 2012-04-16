@@ -55,7 +55,7 @@ class MutuallyExclusiveCollection
     # FIXME want to allow a penny leeway
     #raise %{getting differing returns of #{r1} and #{r2}} unless r1 == r2
     # FIXME might want to use lowest return here to give worst case result
-    r1 - invested(stake: s1, odds: o1)
+    r1 - total_stake(stake: s1, odds: o1)
   end
 
   def other_amount params={}
@@ -73,7 +73,7 @@ class MutuallyExclusiveCollection
     example_odds = @mutually_exclusive_outcome_odds.first
 
     profit = example_odds.profit_on_winning_stake example_stake
-    total_stake = invested(stake: example_stake, odds: @mutually_exclusive_outcome_odds.first)
+    total_stake = total_stake(stake: example_stake, odds: @mutually_exclusive_outcome_odds.first)
     profit / total_stake - 1
   end
 
@@ -83,7 +83,7 @@ class MutuallyExclusiveCollection
       (@mutually_exclusive_outcome_odds - [odds]).first
     end
 
-    def invested params={}
+    def total_stake params={}
       s1 = params[:stake]
       s2 = other_amount stake: s1, odds: params[:odds]
       s1 + s2
