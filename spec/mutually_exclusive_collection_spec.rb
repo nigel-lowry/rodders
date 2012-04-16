@@ -98,21 +98,18 @@ describe "MutuallyExclusiveCollection" do
       @bookmaker_vulnerable_to_arbitrage = MutuallyExclusiveCollection.new [@odds1, @odds2]
     end
 
-    describe "#rational_bookmaker?" do
-      it "is false for vulnerable bookmaker" do
-        @bookmaker_vulnerable_to_arbitrage.rational_bookmaker?.should be_false
-      end
+    subject { @bookmaker_vulnerable_to_arbitrage }
+
+    it "is vulnerable to arbitrage" do
+      @bookmaker_vulnerable_to_arbitrage.should_not be_rational_bookmaker
     end
+
+    its(:rational_bookmaker?) { should be_false }
+    its(:profit_percentage) { should be_within(0.001).of(0.2) }
 
     describe "#profit" do
       it "is £166.67 with a £500.00 stake on outcome 1" do
         @bookmaker_vulnerable_to_arbitrage.profit(stake: Money.from_fixnum(500, :GBP), odds: @odds1).should == Money.from_fixnum(166.67, :GBP)
-      end
-    end
-
-    describe "#profit_percentage" do
-      it "is 20%" do
-        @bookmaker_vulnerable_to_arbitrage.profit_percentage.should be_within(0.001).of(0.2)
       end
     end
   end
@@ -128,12 +125,9 @@ describe "MutuallyExclusiveCollection" do
 
     subject { @bookmaker_vulnerable_to_arbitrage }
 
+    its(:rational_bookmaker?) { should be_false }
     its(:sum_inverse_outcome) { should be_within(0.0001).of(0.9709) }
     its(:profit_percentage) { should be_within(0.0001).of(0.0302) }
-
-    it "is vulnerable to arbitrage" do
-      @bookmaker_vulnerable_to_arbitrage.should_not be_rational_bookmaker
-    end
 
     describe "#percentages" do
       it "gives the percentages to put on each bet" do
