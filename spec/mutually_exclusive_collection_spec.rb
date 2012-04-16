@@ -39,10 +39,10 @@ describe "MutuallyExclusiveCollection" do
 
   context "decimal odds arbitrage" do
     before(:each) do
-      @bookmaker1outcome1 = FixedOdds.from_s '5/4'
-      @bookmaker1outcome2 = FixedOdds.from_s '39/10'
-      @bookmaker2outcome1 = FixedOdds.from_s '143/100'
-      @bookmaker2outcome2 = FixedOdds.from_s '57/20'
+      @bookmaker1outcome1 = FixedOdds.from_s '2.25'
+      @bookmaker1outcome2 = FixedOdds.from_s '4.9'
+      @bookmaker2outcome1 = FixedOdds.from_s '2.43'
+      @bookmaker2outcome2 = FixedOdds.from_s '3.85'
 
       @bookmaker1 = MutuallyExclusiveCollection.new [@bookmaker1outcome1, @bookmaker1outcome2]
       @bookmaker2 = MutuallyExclusiveCollection.new [@bookmaker2outcome1, @bookmaker2outcome2]
@@ -133,7 +133,5 @@ describe "MutuallyExclusiveCollection" do
       end
     end
   end
-
-
 
 end
