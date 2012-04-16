@@ -143,11 +143,12 @@ describe "MutuallyExclusiveCollection" do
       @bookmaker_vulnerable_to_arbitrage = MutuallyExclusiveCollection.new [@odds1, @odds2, @odds3]
     end
 
-    describe "this bookmaker" do
-      it "has a inverse sum of 0.9709" do
-        @bookmaker_vulnerable_to_arbitrage.sum_inverse_outcome.should be_within(0.0001).of(0.9709)
-      end
+    subject { @bookmaker_vulnerable_to_arbitrage }
 
+    its(:sum_inverse_outcome) { should be_within(0.0001).of(0.9709) }
+    its(:profit_percentage) { should be_within(0.0001).of(0.0302) }
+
+    describe "this bookmaker" do
       it "is vulnerable to arbitrage" do
         @bookmaker_vulnerable_to_arbitrage.rational_bookmaker?.should be_false
       end
@@ -172,12 +173,6 @@ describe "MutuallyExclusiveCollection" do
         amounts[@odds2].should == Money.from_fixnum(73.57, :GBP)
         amounts[@odds3].should == Money.from_fixnum(30.29, :GBP)
         amounts.values.reduce(:+).should == total
-      end
-    end
-
-    describe "#profit_percentage" do
-      it "gives the right amount" do
-        @bookmaker_vulnerable_to_arbitrage.profit_percentage.should be_within(0.0001).of(0.0302)
       end
     end
 
