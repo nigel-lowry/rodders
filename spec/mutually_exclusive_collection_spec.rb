@@ -198,6 +198,12 @@ describe "MutuallyExclusiveCollection" do
       end
     end
 
+    describe "#total_stake_for_profit" do
+      it "gives the right amounts" do
+        @bookmaker_vulnerable_to_arbitrage.total_stake_for_profit(Money.from_fixnum(750, :GBP)).should == Money.from_fixnum(24834.44, :GBP)
+      end
+    end
+
   end
 
 end

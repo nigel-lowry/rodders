@@ -85,7 +85,6 @@ class MutuallyExclusiveCollection
   end
 
   def total_stake_for_profit desired_profit
-    # TODO test this directly
     desired_profit / profit_percentage
   end
 
