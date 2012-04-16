@@ -84,7 +84,9 @@ class MutuallyExclusiveCollection
     end
 
     def invested params={}
-      params[:stake] + other_amount(stake: params[:stake], odds: params[:odds])
+      s1 = params[:stake]
+      s2 = other_amount stake: s1, odds: params[:odds]
+      s1 + s2
     end
 
     def decimals
