@@ -46,11 +46,11 @@ class MutuallyExclusiveCollection
   def profit params={}
     s1 = params[:stake]
     o1 = params[:odds]
-    r1 = s1 * o1.to_f
+    r1 = s1 * o1.fractional_odds
 
     s2 = other_amount params
     o2 = other_odds o1
-    r2 = s2 * o2.to_f
+    r2 = s2 * o2.fractional_odds
 
     # FIXME want to allow a penny leeway
     #raise %{getting differing returns of #{r1} and #{r2}} unless r1 == r2
@@ -65,7 +65,7 @@ class MutuallyExclusiveCollection
     o1 = params[:odds]
     o2 = other_odds(o1)
 
-    s1 * o1.to_f / o2.to_f
+    s1 * o1.fractional_odds / o2.fractional_odds
   end
 
   def profit_percentage
@@ -90,6 +90,6 @@ class MutuallyExclusiveCollection
     end
 
     def decimals
-      @mutually_exclusive_outcome_odds.collect {|o| o.to_f }
+      @mutually_exclusive_outcome_odds.collect {|o| o.fractional_odds }
     end
 end

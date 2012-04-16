@@ -147,10 +147,6 @@ class FixedOdds
     '%g' % (fractional_odds + 1)
   end
 
-  def to_f
-    to_s_decimal.to_f - 1
-  end
-
   protected
 
     # equality method
