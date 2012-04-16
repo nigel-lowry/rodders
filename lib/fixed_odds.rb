@@ -148,7 +148,7 @@ class FixedOdds
   end
 
   def to_f
-    to_s_decimal.to_f
+    to_s_decimal.to_f - 1
   end
 
   protected

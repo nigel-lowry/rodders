@@ -72,7 +72,7 @@ class MutuallyExclusiveCollection
     example_stake = Money.from_fixnum(2, :GBP)
     example_odds = @mutually_exclusive_outcome_odds.first
 
-    collected = example_odds.total_return_on_winning_stake example_stake
+    collected = example_odds.profit_on_winning_stake example_stake
     invested = invested(stake: example_stake, odds: @mutually_exclusive_outcome_odds.first)
     collected / invested - 1
   end

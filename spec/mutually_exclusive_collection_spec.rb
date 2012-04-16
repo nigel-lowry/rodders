@@ -39,10 +39,10 @@ describe "MutuallyExclusiveCollection" do
 
   context "decimal odds arbitrage" do
     before(:each) do
-      @bookmaker1outcome1 = FixedOdds.from_s '1.25'
-      @bookmaker1outcome2 = FixedOdds.from_s '3.9'
-      @bookmaker2outcome1 = FixedOdds.from_s '1.43'
-      @bookmaker2outcome2 = FixedOdds.from_s '2.85'
+      @bookmaker1outcome1 = FixedOdds.from_s '5/4'
+      @bookmaker1outcome2 = FixedOdds.from_s '39/10'
+      @bookmaker2outcome1 = FixedOdds.from_s '143/100'
+      @bookmaker2outcome2 = FixedOdds.from_s '57/20'
 
       @bookmaker1 = MutuallyExclusiveCollection.new [@bookmaker1outcome1, @bookmaker1outcome2]
       @bookmaker2 = MutuallyExclusiveCollection.new [@bookmaker2outcome1, @bookmaker2outcome2]
@@ -122,8 +122,8 @@ describe "MutuallyExclusiveCollection" do
     end
 
     describe "#profit" do
-      it "is £167.00 with a £500.00 stake on outcome 1" do
-        @bookmaker_vulnerable_to_arbitrage.profit(stake: Money.from_fixnum(500, :GBP), odds: @odds1).should == Money.from_fixnum(167, :GBP)
+      it "is £166.67 with a £500.00 stake on outcome 1" do
+        @bookmaker_vulnerable_to_arbitrage.profit(stake: Money.from_fixnum(500, :GBP), odds: @odds1).should == Money.from_fixnum(166.67, :GBP)
       end
     end
 

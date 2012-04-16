@@ -400,16 +400,24 @@ describe "FixedOdds" do
   end
 
   describe "#to_f" do
-    it "is 3.9 for decimal odds of 3.9" do
-      FixedOdds.from_s('3.9').to_f.should == 3.9
+    it "is 2.9 for decimal odds of 3.9" do
+      FixedOdds.from_s('3.9').to_f.should == 2.9
     end
 
-    it "is 1.25 for decimal odds of 1.25" do
-      FixedOdds.from_s('1.25').to_f.should == 1.25
+    it "is 0.25 for decimal odds of 1.25" do
+      FixedOdds.from_s('1.25').to_f.should == 0.25
     end
 
-    it "is 4 for 3-to-1" do
-      FixedOdds.from_s('3-to-1').to_f.should == 4
+    it "is 2 for '2/1'" do
+      FixedOdds.from_s('2/1').to_f.should == 2
+    end
+
+    it "is 3 for 3-to-1" do
+      FixedOdds.from_s('3-to-1').to_f.should == 3
+    end
+
+    it "is 3.33 for 10/3" do
+      FixedOdds.from_s('10/3').to_f.should be_within(0.01).of(3.33)
     end
   end
 end
