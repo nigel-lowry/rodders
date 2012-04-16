@@ -30,12 +30,12 @@ class MutuallyExclusiveCollection
     @mutually_exclusive_outcome_odds.reverse
   end
 
-  def sum_inverse_outcome
-    decimals.reduce(0) {|sum, n| sum + 1 / n } 
-  end
-
   def rational_bookmaker?
     sum_inverse_outcome > 1
+  end
+
+  def sum_inverse_outcome
+    decimals.reduce(0) {|sum, n| sum + 1 / n } 
   end
 
   def bookmakers_return_rate
