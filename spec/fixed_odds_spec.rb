@@ -407,5 +407,9 @@ describe "FixedOdds" do
     it "is 1.25 for decimal odds of 1.25" do
       FixedOdds.from_s('1.25').to_f.should == 1.25
     end
+
+    it "is 4 for 3-to-1" do
+      FixedOdds.from_s('3-to-1').to_f.should == 4
+    end
   end
 end
