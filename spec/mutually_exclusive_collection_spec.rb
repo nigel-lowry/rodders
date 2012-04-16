@@ -134,4 +134,34 @@ describe "MutuallyExclusiveCollection" do
     end
   end
 
+  context "more than two mutually exclusive events" do
+    before(:each) do
+      @odds1 = FixedOdds.from_s('2.3')
+      @odds2 = FixedOdds.from_s('8.0')
+      @odds3 = FixedOdds.from_s('18.0')
+
+      @bookmaker_vulnerable_to_arbitrage = MutuallyExclusiveCollection.new [@odds1, @odds2, @odds3]
+    end
+
+    describe "this bookmaker" do
+      it "has a inverse sum of 0.9709" do
+        @bookmaker_vulnerable_to_arbitrage.sum_inverse_outcome.should be_within(0.0001).of(0.9709)
+      end
+
+      it "is vulnerable to arbitrage" do
+        @bookmaker_vulnerable_to_arbitrage.rational_bookmaker?.should be_false
+      end
+    end
+
+    describe "#percentages" do
+      it "gives the percentages to put on each bet" do
+        percentages = @bookmaker_vulnerable_to_arbitrage.percentages
+        percentages.should have(3).items
+        percentages[@odds1].should be_within(0.0001).of(0.7922)
+        percentages[@odds2].should be_within(0.0001).of(0.1472)
+        percentages[@odds3].should be_within(0.0001).of(0.0606)
+      end
+    end
+  end
+
 end

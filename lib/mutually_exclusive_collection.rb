@@ -35,7 +35,7 @@ class MutuallyExclusiveCollection
   end
 
   def sum_inverse_outcome
-    fractions.reduce(0) {|sum, n| sum + 1 / n } 
+    fractions.reduce(0) {|sum, n| sum + 1 / n }
   end
 
   def bookmakers_return_rate
@@ -66,6 +66,12 @@ class MutuallyExclusiveCollection
     o2 = other_odds(o1)
 
     s1 * o1.fractional_odds / o2.fractional_odds
+  end
+
+  def percentages
+    hash = {}
+    @mutually_exclusive_outcome_odds.each {|odds| hash[odds] = 1 / odds.fractional_odds / sum_inverse_outcome }
+    hash
   end
 
   def profit_percentage
