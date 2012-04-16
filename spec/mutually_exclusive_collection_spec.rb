@@ -69,7 +69,7 @@ describe "MutuallyExclusiveCollection" do
 
     describe "#profit_from_total_stake" do
       it "is £4.64 with a £100.00 stake" do
-        @bookmaker_vulnerable_to_arbitrage.profit_from_total_stake(Money.from_fixnum(100, :GBP)).should == Money.from_fixnum(4.64, :GBP)
+        @bookmaker_vulnerable_to_arbitrage.profit_from_total_stake(Money.from_fixnum(100, :GBP)).should == Money.from_fixnum(4.63, :GBP)
       end
     end
 
@@ -117,7 +117,7 @@ describe "MutuallyExclusiveCollection" do
 
     its(:rational_bookmaker?) { should be_false }
     its(:sum_inverse_outcome) { should be_within(0.0001).of(0.9709) }
-    its(:profit_percentage) { should be_within(0.0001).of(0.0302) }
+    its(:profit_percentage) { should be_within(0.0000001).of(0.02996) }
 
     describe "#percentages" do
       it "gives the percentages to put on each bet" do
@@ -143,7 +143,7 @@ describe "MutuallyExclusiveCollection" do
 
     describe "#profit_from_total_stake" do
       it "gives the right amount" do
-        @bookmaker_vulnerable_to_arbitrage.profit_from_total_stake(Money.from_fixnum(500, :GBP)).should == Money.from_fixnum(15.10, :GBP)
+        @bookmaker_vulnerable_to_arbitrage.profit_from_total_stake(Money.from_fixnum(500, :GBP)).should == Money.from_fixnum(14.98, :GBP)
       end
     end
 
@@ -151,16 +151,16 @@ describe "MutuallyExclusiveCollection" do
       it "gives the right amounts" do
         amounts = @bookmaker_vulnerable_to_arbitrage.bet_amounts_for_profit Money.from_fixnum(750, :GBP)
         amounts.should have(3).items
-        amounts[@odds1].should == Money.from_fixnum(19675.76, :GBP)
-        amounts[@odds2].should == Money.from_fixnum(3654.07, :GBP)
-        amounts[@odds3].should == Money.from_fixnum(1504.62, :GBP)
-        amounts.values.reduce(:+).should == Money.from_fixnum(24834.445, :GBP)
+        amounts[@odds1].should == Money.from_fixnum(19833.33, :GBP)
+        amounts[@odds2].should == Money.from_fixnum(3683.33, :GBP)
+        amounts[@odds3].should == Money.from_fixnum(1516.67, :GBP)
+        amounts.values.reduce(:+).should == Money.from_fixnum(25033.33, :GBP)
       end
     end
 
     describe "#total_stake_for_profit" do
       it "gives the right amounts" do
-        @bookmaker_vulnerable_to_arbitrage.total_stake_for_profit(Money.from_fixnum(750, :GBP)).should == Money.from_fixnum(24834.44, :GBP)
+        @bookmaker_vulnerable_to_arbitrage.total_stake_for_profit(Money.from_fixnum(750, :GBP)).should == Money.from_fixnum(25033.33, :GBP)
       end
     end
 

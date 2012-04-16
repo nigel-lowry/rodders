@@ -68,15 +68,9 @@ class MutuallyExclusiveCollection
     total_stake * profit_percentage
   end
 
-
   def profit_percentage
-    # TODO work this out without putting in example stake
-    total_stake = Money.from_fixnum(100, :GBP)
-    bet_amounts_for_total = bet_amounts_for_total total_stake
-    odds = bet_amounts_for_total.keys.first
-    winnings = odds.profit_on_winning_stake bet_amounts_for_total[odds]
-
-    winnings / total_stake - 1
+    sum = sum_inverse_outcome
+    (1 - sum) / sum
   end
 
   private
