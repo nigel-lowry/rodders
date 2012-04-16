@@ -148,10 +148,8 @@ describe "MutuallyExclusiveCollection" do
     its(:sum_inverse_outcome) { should be_within(0.0001).of(0.9709) }
     its(:profit_percentage) { should be_within(0.0001).of(0.0302) }
 
-    describe "this bookmaker" do
-      it "is vulnerable to arbitrage" do
-        @bookmaker_vulnerable_to_arbitrage.should_not be_rational_bookmaker
-      end
+    it "is vulnerable to arbitrage" do
+      @bookmaker_vulnerable_to_arbitrage.should_not be_rational_bookmaker
     end
 
     describe "#percentages" do
