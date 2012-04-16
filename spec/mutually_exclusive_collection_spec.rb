@@ -162,6 +162,19 @@ describe "MutuallyExclusiveCollection" do
         percentages[@odds3].should be_within(0.0001).of(0.0606)
       end
     end
+
+    describe "#bet_amounts_for_total" do
+      it "gives the right amounts" do
+        amounts = @bookmaker_vulnerable_to_arbitrage.bet_amounts_for_total Money.from_fixnum(500, :GBP)
+        amounts.should have(3).items
+        amounts[@odds1].should == Money.from_fixnum(396.14, :GBP)
+        amounts[@odds2].should == Money.from_fixnum(73.57, :GBP)
+        amounts[@odds3].should == Money.from_fixnum(30.29, :GBP)
+      end
+
+      
+    end
+
   end
 
 end
