@@ -1,4 +1,5 @@
 # A collection of mutually exclusive odds for different outcomes.
+# TODO duplicate odds
 class MutuallyExclusiveCollection
   # create a new collection with the given odds
   # @param [Array<FixedOdds>] mutually_exclusive_outcome_odds the odds for all the mutually exclusive outcomes
@@ -43,31 +44,6 @@ class MutuallyExclusiveCollection
     1 - fs.reduce(:*) / fs.reduce(:+)
   end
 
-  def profit params={}
-    s1 = params[:stake]
-    o1 = params[:odds]
-    r1 = o1.profit_on_winning_stake s1
-
-    s2 = other_amount params
-    o2 = other_odds o1
-    r2 = o2.profit_on_winning_stake s2
-
-    # FIXME want to allow a penny leeway
-    #raise %{getting differing returns of #{r1} and #{r2}} unless r1 == r2
-    # FIXME might want to use lowest return here to give worst case result
-    r1 - total_stake(stake: s1, odds: o1)
-  end
-
-  def other_amount params={}
-    # FIXME what happens with duplicate odds?
-    # TODO this only works with two outcomes
-    s1 = params[:stake]
-    o1 = params[:odds]
-    o2 = other_odds(o1)
-
-    s1 * o1.fractional_odds / o2.fractional_odds
-  end
-
   def percentages
     hash = {}
     @mutually_exclusive_outcome_odds.each {|odds| hash[odds] = 1 / odds.fractional_odds / sum_inverse_outcome }
@@ -104,16 +80,6 @@ class MutuallyExclusiveCollection
   end
 
   private
-
-    def other_odds odds
-      (@mutually_exclusive_outcome_odds - [odds]).first
-    end
-
-    def total_stake params={}
-      s1 = params[:stake]
-      s2 = other_amount stake: s1, odds: params[:odds]
-      s1 + s2
-    end
 
     def fractions
       @mutually_exclusive_outcome_odds.collect {|o| o.fractional_odds }
