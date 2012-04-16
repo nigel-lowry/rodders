@@ -46,11 +46,11 @@ class MutuallyExclusiveCollection
   def profit params={}
     s1 = params[:stake]
     o1 = params[:odds]
-    r1 = s1 * o1.fractional_odds
+    r1 = o1.profit_on_winning_stake s1
 
     s2 = other_amount params
     o2 = other_odds o1
-    r2 = s2 * o2.fractional_odds
+    r2 = o2.profit_on_winning_stake s2
 
     # FIXME want to allow a penny leeway
     #raise %{getting differing returns of #{r1} and #{r2}} unless r1 == r2
