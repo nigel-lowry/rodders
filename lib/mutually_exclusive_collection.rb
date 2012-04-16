@@ -43,16 +43,6 @@ class MutuallyExclusiveCollection
     1 - ds.reduce(:*) / ds.reduce(:+)
   end
 
-  def other_amount params={}
-    # FIXME what happens with duplicate odds?
-    # TODO this only works with two outcomes
-    s1 = params[:stake]
-    o1 = params[:odds]
-    o2 = other_odds(o1)
-
-    s1 * o1.to_f / o2.to_f
-  end
-
   def profit params={}
     s1 = params[:stake]
     o1 = params[:odds]
@@ -66,6 +56,16 @@ class MutuallyExclusiveCollection
     #raise %{getting differing returns of #{r1} and #{r2}} unless r1 == r2
     # FIXME might want to use lowest return here to give worst case result
     r1 - invested(stake: s1, odds: o1)
+  end
+
+  def other_amount params={}
+    # FIXME what happens with duplicate odds?
+    # TODO this only works with two outcomes
+    s1 = params[:stake]
+    o1 = params[:odds]
+    o2 = other_odds(o1)
+
+    s1 * o1.to_f / o2.to_f
   end
 
   def profit_percentage
