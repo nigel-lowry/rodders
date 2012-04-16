@@ -35,12 +35,12 @@ class MutuallyExclusiveCollection
   end
 
   def sum_inverse_outcome
-    decimals.reduce(0) {|sum, n| sum + 1 / n } 
+    fractions.reduce(0) {|sum, n| sum + 1 / n } 
   end
 
   def bookmakers_return_rate
-    ds = decimals
-    1 - ds.reduce(:*) / ds.reduce(:+)
+    fs = fractions
+    1 - fs.reduce(:*) / fs.reduce(:+)
   end
 
   def profit params={}
@@ -89,7 +89,7 @@ class MutuallyExclusiveCollection
       s1 + s2
     end
 
-    def decimals
+    def fractions
       @mutually_exclusive_outcome_odds.collect {|o| o.fractional_odds }
     end
 end
