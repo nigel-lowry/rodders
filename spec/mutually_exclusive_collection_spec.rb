@@ -165,14 +165,37 @@ describe "MutuallyExclusiveCollection" do
 
     describe "#bet_amounts_for_total" do
       it "gives the right amounts" do
-        amounts = @bookmaker_vulnerable_to_arbitrage.bet_amounts_for_total Money.from_fixnum(500, :GBP)
+        total = Money.from_fixnum(500, :GBP)
+        amounts = @bookmaker_vulnerable_to_arbitrage.bet_amounts_for_total total
         amounts.should have(3).items
         amounts[@odds1].should == Money.from_fixnum(396.14, :GBP)
         amounts[@odds2].should == Money.from_fixnum(73.57, :GBP)
         amounts[@odds3].should == Money.from_fixnum(30.29, :GBP)
+        amounts.values.reduce(:+).should == total
       end
+    end
 
-      
+    describe "#profit_percentage" do
+      it "gives the right amount" do
+        @bookmaker_vulnerable_to_arbitrage.profit_percentage.should be_within(0.0001).of(0.0302)
+      end
+    end
+
+    describe "#profit_from_total_stake" do
+      it "gives the right amount" do
+        @bookmaker_vulnerable_to_arbitrage.profit_from_total_stake(Money.from_fixnum(500, :GBP)).should == Money.from_fixnum(15.10, :GBP)
+      end
+    end
+
+    describe "#bet_amounts_for_winnings" do
+      it "gives the right amounts" do
+        amounts = @bookmaker_vulnerable_to_arbitrage.bet_amounts_for_profit Money.from_fixnum(750, :GBP)
+        amounts.should have(3).items
+        amounts[@odds1].should == Money.from_fixnum(19675.76, :GBP)
+        amounts[@odds2].should == Money.from_fixnum(3654.07, :GBP)
+        amounts[@odds3].should == Money.from_fixnum(1504.62, :GBP)
+        amounts.values.reduce(:+).should == Money.from_fixnum(24834.445, :GBP)
+      end
     end
 
   end

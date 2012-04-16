@@ -80,13 +80,28 @@ class MutuallyExclusiveCollection
     hash
   end
 
-  def profit_percentage
-    example_stake = Money.from_fixnum(2, :GBP)
-    example_odds = @mutually_exclusive_outcome_odds.first
+  def bet_amounts_for_profit desired_profit
+    bet_amounts_for_total(total_stake_for_profit(desired_profit))
+  end
 
-    profit = example_odds.profit_on_winning_stake example_stake
-    total_stake = total_stake(stake: example_stake, odds: @mutually_exclusive_outcome_odds.first)
-    profit / total_stake - 1
+  def total_stake_for_profit desired_profit
+    # TODO test this directly
+    desired_profit / profit_percentage
+  end
+
+  def profit_from_total_stake total_stake
+    total_stake * profit_percentage
+  end
+
+
+  def profit_percentage
+    # TODO work this out without putting in example stake
+    total_stake = Money.from_fixnum(100, :GBP)
+    bet_amounts_for_total = bet_amounts_for_total total_stake
+    odds = bet_amounts_for_total.keys.first
+    winnings = odds.profit_on_winning_stake bet_amounts_for_total[odds]
+
+    winnings / total_stake - 1
   end
 
   private
