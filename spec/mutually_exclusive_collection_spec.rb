@@ -12,29 +12,12 @@ describe "MutuallyExclusiveCollection" do
       @events = MutuallyExclusiveCollection.new [@draw, @bad_team, @good_team]
     end
 
-    describe "#least_likely" do
-      it "is the least likely event" do
-        @events.least_likely.should == @bad_team
-      end
-    end
+    subject { @events }
 
-    describe "#most_likely" do
-      it "is the most likely event" do
-        @events.most_likely.should == @good_team
-      end
-    end
-
-    describe "#in_descending_probability" do
-      it "is in descending order of probability" do
-        @events.in_descending_probability.should == [@good_team, @draw, @bad_team]
-      end
-    end
-
-    describe "#in_ascending_probability" do
-      it "is in ascending order of probability" do
-        @events.in_ascending_probability.should == [@bad_team, @draw, @good_team]
-      end
-    end
+    its(:most_likely) { should == @good_team }
+    its(:least_likely) { should == @bad_team }
+    its(:in_descending_probability) { should == [@good_team, @draw, @bad_team] }
+    its(:in_ascending_probability) { should == [@bad_team, @draw, @good_team] }
   end
 
   context "decimal odds arbitrage" do
