@@ -17,10 +17,10 @@ class FixedOdds
   # @return [FixedOdds]
   def FixedOdds.from_s(odds)
     case
-    when self.fractional_odds?(odds) then self.fractional_odds odds
-    when self.moneyline_odds?(odds)  then self.moneyline_odds odds
-    when self.decimal_odds?(odds)    then self.decimal_odds odds
-    else                             raise ArgumentError, %{could not parse "#{odds}"}
+    when fractional_odds?(odds) then fractional_odds odds
+    when moneyline_odds?(odds)  then moneyline_odds odds
+    when decimal_odds?(odds)    then decimal_odds odds
+    else                        raise ArgumentError, %{could not parse "#{odds}"}
     end
   end
 
