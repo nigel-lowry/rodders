@@ -41,30 +41,36 @@ class MutuallyExclusiveCollection
     1 - fs.reduce(:*) / fs.reduce(:+)
   end
 
+  # hash of the odds and what percentage of the total stake should go on each
   def percentages
     hash = {}
     @mutually_exclusive_outcome_odds.each {|odds| hash[odds] = 1 / odds.fractional_odds / sum_inverse_outcome }
     hash
   end
 
+  # hash of the odds and what stakes to put on each given a total stake
   def bet_amounts_for_total total_stake
     hash = {}
     @mutually_exclusive_outcome_odds.each {|odds| hash[odds] = total_stake / odds.fractional_odds / sum_inverse_outcome }
     hash
   end
 
+  # hash of the odds and the stakes needed to make the specified profit
   def bet_amounts_for_profit desired_profit
     bet_amounts_for_total(total_stake_for_profit(desired_profit))
   end
 
+  # the stake needed to win the desired profit
   def total_stake_for_profit desired_profit
     desired_profit / profit_percentage
   end
 
+  # the profit won given the total stake to distribute
   def profit_from_total_stake total_stake
     total_stake * profit_percentage
   end
 
+  # profit percentage available on this arb
   def profit_percentage
     sum = sum_inverse_outcome
     (1 - sum) / sum
