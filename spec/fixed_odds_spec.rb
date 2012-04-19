@@ -390,12 +390,12 @@ describe "FixedOdds" do
   end
 
   describe "object comparison" do
-    it "'+915' is less likely than '-275'" do
-      FixedOdds.from_s('+915').should be < FixedOdds.from_s('-275')
+    it "'+200' is less likely than '-200'" do
+      FixedOdds.from_s('+200').should be < FixedOdds.from_s('-200')
     end
 
-    it "'-275' is more likely than '+915'" do
-      FixedOdds.from_s('-275').should be > FixedOdds.from_s('+915')
+    it "'-200' is more likely than '+200'" do
+      FixedOdds.from_s('-200').should be > FixedOdds.from_s('+200')
     end 
   end
 end
