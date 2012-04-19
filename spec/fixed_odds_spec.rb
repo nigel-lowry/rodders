@@ -170,7 +170,7 @@ describe "FixedOdds" do
 
     it "rejects an empty string" do
       expect {
-        FixedOdds.from_s('')  
+        FixedOdds.from_s ''
       }.to raise_error(
         ArgumentError,
         /could not parse ""/
