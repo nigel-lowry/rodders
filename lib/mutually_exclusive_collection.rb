@@ -35,9 +35,7 @@ class MutuallyExclusiveCollection
     sum_inverse_outcome < 1
   end
 
-  def sum_inverse_outcome
-    fractions.reduce(0) {|sum, n| sum + Rational(1, n) }
-  end
+  
 
   def bookmakers_return_rate
     fs = fractions
@@ -74,6 +72,9 @@ class MutuallyExclusiveCollection
   end
 
   private
+    def sum_inverse_outcome
+      fractions.reduce(0) {|sum, n| sum + Rational(1, n) }
+    end
 
     def fractions
       @mutually_exclusive_outcome_odds.collect {|o| o.fractional_odds }
