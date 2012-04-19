@@ -160,7 +160,7 @@ describe "FixedOdds" do
     describe "bad input" do
       it "rejects garbage" do
         expect {
-          FixedOdds.from_s('garbage')  
+          FixedOdds.from_s 'garbage'
         }.to raise_error(
           ArgumentError,
           /could not parse "garbage"/
