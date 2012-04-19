@@ -149,9 +149,9 @@ describe "MutuallyExclusiveCollection" do
       end
     end
 
-    describe "#total_stake_for_profit" do
+    describe "#stake_to_profit" do
       it "gives the right amounts" do
-        @bookmaker_vulnerable_to_arbitrage.total_stake_for_profit(Money.parse '£750').should == Money.parse('£25033.33')
+        @bookmaker_vulnerable_to_arbitrage.stake_to_profit(Money.parse '£750').should == Money.parse('£25033.33')
       end
     end
   end
