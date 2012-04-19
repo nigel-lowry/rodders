@@ -56,7 +56,7 @@ class MutuallyExclusiveCollection
   end
 
   # hash of the odds and the stakes needed to make the specified profit
-  def bet_amounts_for_profit desired_profit
+  def stakes_for_profit desired_profit
     stakes_for_total_stake(stake_to_profit(desired_profit))
   end
 
