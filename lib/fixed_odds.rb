@@ -134,10 +134,10 @@ class FixedOdds
   def to_s_moneyline
     integral_number_with_sign_regex = '%+d'
 
-    if @fractional_odds > 1.0
+    if @fractional_odds > 1
       integral_number_with_sign_regex % (fractional_odds * 100).to_i
     else
-      integral_number_with_sign_regex % (-100.0 / fractional_odds)
+      integral_number_with_sign_regex % (-100 / fractional_odds)
     end
   end
 
