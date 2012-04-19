@@ -49,7 +49,7 @@ class MutuallyExclusiveCollection
   end
 
   # hash of the odds and what stakes to put on each given a total stake
-  def bet_amounts_for_total total_stake
+  def stakes_for_total_stake total_stake
     hash = {}
     @mutually_exclusive_outcome_odds.each {|odds| hash[odds] = total_stake / odds.fractional_odds / sum_inverse_outcome }
     hash
@@ -57,7 +57,7 @@ class MutuallyExclusiveCollection
 
   # hash of the odds and the stakes needed to make the specified profit
   def bet_amounts_for_profit desired_profit
-    bet_amounts_for_total(stake_to_profit(desired_profit))
+    stakes_for_total_stake(stake_to_profit(desired_profit))
   end
 
   # the stake needed to win the desired profit

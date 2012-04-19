@@ -120,10 +120,10 @@ describe "MutuallyExclusiveCollection" do
       end
     end
 
-    describe "#bet_amounts_for_total" do
+    describe "#stakes_for_total_stake" do
       it "gives the right amounts" do
         total = Money.parse '£500'
-        amounts = @bookmaker_vulnerable_to_arbitrage.bet_amounts_for_total total
+        amounts = @bookmaker_vulnerable_to_arbitrage.stakes_for_total_stake total
         amounts.should have(3).items
         amounts[@odds1].should == Money.parse('£396.14')
         amounts[@odds2].should == Money.parse('£73.57')
