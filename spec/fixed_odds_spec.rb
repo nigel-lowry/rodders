@@ -141,17 +141,17 @@ describe "FixedOdds" do
     end
 
     it "treats '2' as meaning you have to wager £1 to win £1" do
-      d2 = FixedOdds.decimal_odds('2')
+      d2 = FixedOdds.decimal_odds '2'
       d2.profit_on_winning_stake(Money.parse '£1').should == Money.parse('£1')
     end
 
     it "treats '5' as meaning you have to wager £1 to win £4" do
-      d5 = FixedOdds.decimal_odds('5')
+      d5 = FixedOdds.decimal_odds '5'
       d5.profit_on_winning_stake(Money.parse '£1').should == Money.parse('£4')
     end
 
     it "treats '1.25' as meaning you have to wager £4 to win £1" do
-      d1_25 = FixedOdds.decimal_odds('1.25')
+      d1_25 = FixedOdds.decimal_odds '1.25'
       d1_25.profit_on_winning_stake(Money.parse '£4').should == Money.parse('£1')
     end
   end
