@@ -43,17 +43,17 @@ describe "MutuallyExclusiveCollection" do
       end
     end
 
-    describe "#arbitrage?" do
+    describe "#arbitrageable?" do
       it "is false for bookmaker 1" do
-        @bookmaker1.arbitrage?.should be_false
+        @bookmaker1.should_not be_arbitrageable
       end
 
       it "is false for bookmaker 2" do
-        @bookmaker2.arbitrage?.should be_false
+        @bookmaker2.should_not be_arbitrageable
       end
 
       it "is true for imaginary bookmaker offering the best odds of bookmakers 1 and 2" do
-        @bookmaker_vulnerable_to_arbitrage.arbitrage?.should be
+        @bookmaker_vulnerable_to_arbitrage.should be_arbitrageable
       end
     end
 
@@ -91,10 +91,9 @@ describe "MutuallyExclusiveCollection" do
     subject { @bookmaker_vulnerable_to_arbitrage }
 
     it "is vulnerable to arbitrage" do
-      @bookmaker_vulnerable_to_arbitrage.should_not be_rational_bookmaker
+      @bookmaker_vulnerable_to_arbitrage.should be_arbitrageable
     end
 
-    its(:rational_bookmaker?) { should be_false }
     its(:profit_percentage) { should be_within(0.001).of(0.2) }
 
     describe "#profit_from_total_stake" do
@@ -115,7 +114,10 @@ describe "MutuallyExclusiveCollection" do
 
     subject { @bookmaker_vulnerable_to_arbitrage }
 
-    its(:rational_bookmaker?) { should be_false }
+    it "is vulnerable to arbitrage" do
+      @bookmaker_vulnerable_to_arbitrage.should be_arbitrageable
+    end
+    
     its(:sum_inverse_outcome) { should be_within(0.0001).of(0.9709) }
     its(:profit_percentage) { should be_within(0.0000001).of(0.02996) }
 

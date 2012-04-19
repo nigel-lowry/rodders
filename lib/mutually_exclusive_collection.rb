@@ -31,12 +31,8 @@ class MutuallyExclusiveCollection
     @mutually_exclusive_outcome_odds.reverse
   end
 
-  def arbitrage?
-    !rational_bookmaker?
-  end
-
-  def rational_bookmaker?
-    sum_inverse_outcome > 1
+  def arbitrageable?
+    sum_inverse_outcome < 1
   end
 
   def sum_inverse_outcome
