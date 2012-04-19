@@ -140,19 +140,19 @@ describe "FixedOdds" do
       )  
     end
 
-    it "treats '2' as meaning you have to wager £100 to win £100" do
+    it "treats '2' as meaning you have to wager £1 to win £1" do
       d2 = FixedOdds.decimal_odds('2')
-      d2.profit_on_winning_stake(Money.parse '£100').should == Money.parse('£100')
+      d2.profit_on_winning_stake(Money.parse '£1').should == Money.parse('£1')
     end
 
-    it "treats '5' as meaning you have to wager £100 to win £400" do
+    it "treats '5' as meaning you have to wager £1 to win £4" do
       d5 = FixedOdds.decimal_odds('5')
-      d5.profit_on_winning_stake(Money.parse '£100').should == Money.parse('£400')
+      d5.profit_on_winning_stake(Money.parse '£1').should == Money.parse('£4')
     end
 
-    it "treats '1.25' as meaning you have to wager £400 to win £100" do
+    it "treats '1.25' as meaning you have to wager £4 to win £1" do
       d1_25 = FixedOdds.decimal_odds('1.25')
-      d1_25.profit_on_winning_stake(Money.parse '£400').should == Money.parse('£100')
+      d1_25.profit_on_winning_stake(Money.parse '£4').should == Money.parse('£1')
     end
   end
 
@@ -354,21 +354,21 @@ describe "FixedOdds" do
   end
 
   describe "#profit_on_winning_stake" do
-    it "is £400 on a £100 stake on a 4/1 bet" do 
+    it "is £4 on a £1 stake on a 4/1 bet" do 
       fourToOne = FixedOdds.fractional_odds '4/1'
-      fourToOne.profit_on_winning_stake(Money.parse('£100')).should == Money.parse('£400')
+      fourToOne.profit_on_winning_stake(Money.parse('£1')).should == Money.parse('£4')
     end
 
-    it "is £25 on a £100 stake with a 1/4 bet" do
+    it "is £0.25 on a £1 stake with a 1/4 bet" do
       oneToFour = FixedOdds.fractional_odds '1/4'
-      oneToFour.profit_on_winning_stake(Money.parse('£100')).should == Money.parse('£25')
+      oneToFour.profit_on_winning_stake(Money.parse('£1')).should == Money.parse('£0.25')
     end
   end
 
   describe "#total_return_on_winning_stake" do
-    it "is £500 on a winning 4/1 bet with a £100 stake" do
+    it "is £5 on a winning 4/1 bet with a £1 stake" do
       fourToOne = FixedOdds.fractional_odds '4/1'
-      fourToOne.total_return_on_winning_stake(Money.parse('£100')).should == Money.parse('£500')
+      fourToOne.total_return_on_winning_stake(Money.parse('£1')).should == Money.parse('£5')
     end
 
     it "is £125 on a winning 1/4 bet with a £100 stake" do
@@ -383,9 +383,9 @@ describe "FixedOdds" do
       oneToOne.stake_needed_to_win(Money.parse('£1')).should == Money.parse('£1')
     end
 
-    it "is £100 on 4/1 to win £400" do
+    it "is £1 on 4/1 to win £4" do
       fourToOne = FixedOdds.fractional_odds '4/1'
-      fourToOne.stake_needed_to_win(Money.parse('£400')).should == Money.parse('£100')
+      fourToOne.stake_needed_to_win(Money.parse('£4')).should == Money.parse('£1')
     end
   end
 
