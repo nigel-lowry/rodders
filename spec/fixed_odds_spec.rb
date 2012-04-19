@@ -383,9 +383,9 @@ describe "FixedOdds" do
       oneToOne.stake_needed_to_win(Money.parse('£1')).should == Money.parse('£1')
     end
 
-    it "is £1 on 4/1 to win £4" do
-      fourToOne = FixedOdds.fractional_odds '4/1'
-      fourToOne.stake_needed_to_win(Money.parse('£4')).should == Money.parse('£1')
+    it "is £1 on 2/1 to win £2" do
+      fourToOne = FixedOdds.fractional_odds '2/1'
+      fourToOne.stake_needed_to_win(Money.parse('£2')).should == Money.parse('£1')
     end
   end
 
