@@ -58,10 +58,10 @@ class FixedOdds
   # @return (see FixedOdds.from_s)
   def FixedOdds.fractional_odds(fractional)
     raise %{could not parse "#{fractional}" as fractional odds} unless self.fractional_odds?(fractional)
-    return new(Rational(1)) if fractional == 'evens' || fractional == 'even money' 
+    return new(1.to_r) if fractional == 'evens' || fractional == 'even money' 
     if /(?<numerator>\d+)(\/|-to-)(?<denominator>\d+)/ =~ fractional then r = Rational(numerator, denominator) end
     r = r.reciprocal if fractional.end_with? ' on'
-    new(Rational(r))
+    new r
   end
 
   # creates a new FixedOdds from a Rational
@@ -91,7 +91,7 @@ class FixedOdds
   # @return (see FixedOdds.from_s)
   def FixedOdds.decimal_odds(decimal)
     raise %{could not parse "#{decimal}" as decimal odds} unless self.decimal_odds?(decimal)
-    new(Rational(decimal.to_f - 1))
+    new(decimal.to_r - 1)
   end
 
   # calculates the profit won on a winning bet
