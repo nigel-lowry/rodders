@@ -82,8 +82,8 @@ describe "MutuallyExclusiveCollection" do
 
   context "fractional odds arbitrage" do
     before(:each) do
-      @odds1 = FixedOdds.from_s('2/1')
-      @odds2 = FixedOdds.from_s('3/1')
+      @odds1 = FixedOdds.from_s '2/1'
+      @odds2 = FixedOdds.from_s '3/1'
 
       @bookmaker_vulnerable_to_arbitrage = MutuallyExclusiveCollection.new [@odds1, @odds2]
     end
@@ -106,9 +106,9 @@ describe "MutuallyExclusiveCollection" do
 
   context "more than two mutually exclusive events" do
     before(:each) do
-      @odds1 = FixedOdds.from_s('2.3')
-      @odds2 = FixedOdds.from_s('8.0')
-      @odds3 = FixedOdds.from_s('18.0')
+      @odds1 = FixedOdds.from_s '2.3'
+      @odds2 = FixedOdds.from_s '8.0'
+      @odds3 = FixedOdds.from_s '18.0'
 
       @bookmaker_vulnerable_to_arbitrage = MutuallyExclusiveCollection.new [@odds1, @odds2, @odds3]
     end
