@@ -212,7 +212,7 @@ describe "FixedOdds" do
 
       it "raises an error for a zero denominator" do
         expect {
-          FixedOdds.from_s('4/0')  
+          FixedOdds.from_s '4/0'
         }.to raise_error(
           ZeroDivisionError
         )
