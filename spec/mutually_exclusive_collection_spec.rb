@@ -57,9 +57,9 @@ describe "MutuallyExclusiveCollection" do
       end
     end
 
-    describe "#profit_from_total_stake" do
+    describe "#profit_on_stake" do
       it "is £4.63 with a £100.00 stake" do
-        @bookmaker_vulnerable_to_arbitrage.profit_from_total_stake(Money.parse '£100').should == Money.parse('£4.63')
+        @bookmaker_vulnerable_to_arbitrage.profit_on_stake(Money.parse '£100').should == Money.parse('£4.63')
       end
     end
 
@@ -86,9 +86,9 @@ describe "MutuallyExclusiveCollection" do
 
     its(:profit_percentage) { should be_within(0.001).of(0.2) }
 
-    describe "#profit_from_total_stake" do
+    describe "#profit_on_stake" do
       it "is £100.00 with a £500.00 stake" do
-        @bookmaker_vulnerable_to_arbitrage.profit_from_total_stake(Money.parse '£500').should == Money.parse('£100')
+        @bookmaker_vulnerable_to_arbitrage.profit_on_stake(Money.parse '£500').should == Money.parse('£100')
       end
     end
   end
@@ -132,9 +132,9 @@ describe "MutuallyExclusiveCollection" do
       end
     end
 
-    describe "#profit_from_total_stake" do
+    describe "#profit_on_stake" do
       it "gives the right amount" do
-        @bookmaker_vulnerable_to_arbitrage.profit_from_total_stake(Money.parse '£500').should == Money.parse('£14.98')
+        @bookmaker_vulnerable_to_arbitrage.profit_on_stake(Money.parse '£500').should == Money.parse('£14.98')
       end
     end
 

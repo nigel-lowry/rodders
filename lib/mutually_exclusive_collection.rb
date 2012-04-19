@@ -66,7 +66,7 @@ class MutuallyExclusiveCollection
   end
 
   # the profit won given the total stake to distribute
-  def profit_from_total_stake total_stake
+  def profit_on_stake total_stake
     total_stake * profit_percentage
   end
 
