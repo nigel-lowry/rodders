@@ -43,17 +43,17 @@ describe "MutuallyExclusiveCollection" do
       end
     end
 
-    describe "#rational_bookmaker?" do
-      it "is true for bookmaker 1" do
-        @bookmaker1.rational_bookmaker?.should be
+    describe "#arbitrage?" do
+      it "is false for bookmaker 1" do
+        @bookmaker1.arbitrage?.should be_false
       end
 
-      it "is true for bookmaker 2" do
-        @bookmaker2.rational_bookmaker?.should be
+      it "is false for bookmaker 2" do
+        @bookmaker2.arbitrage?.should be_false
       end
 
-      it "is false for vulnerable bookmaker" do
-        @bookmaker_vulnerable_to_arbitrage.rational_bookmaker?.should be_false
+      it "is true for imaginary bookmaker offering the best odds of bookmakers 1 and 2" do
+        @bookmaker_vulnerable_to_arbitrage.arbitrage?.should be
       end
     end
 
