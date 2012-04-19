@@ -36,7 +36,7 @@ class MutuallyExclusiveCollection
   end
 
   def sum_inverse_outcome
-    fractions.reduce(0) {|sum, n| sum + 1 / n }
+    fractions.reduce(0) {|sum, n| sum + Rational(1, n) }
   end
 
   def bookmakers_return_rate
