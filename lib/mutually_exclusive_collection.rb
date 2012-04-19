@@ -31,11 +31,10 @@ class MutuallyExclusiveCollection
     @mutually_exclusive_outcome_odds.reverse
   end
 
+  # tells if arbitrage is possible for a collection of odds
   def arbitrageable?
     sum_inverse_outcome < 1
   end
-
-  
 
   def bookmakers_return_rate
     fs = fractions
