@@ -58,8 +58,8 @@ class FixedOdds
   # @return (see FixedOdds.from_s)
   def FixedOdds.fractional_odds(fractional)
     raise %{could not parse "#{fractional}" as fractional odds} unless self.fractional_odds?(fractional)
-    return new(Rational('1/1')) if fractional == 'evens' || fractional == 'even money' 
-    if /(?<numerator>\d+)(\/|-to-)(?<denominator>\d+)/ =~ fractional then r = Rational("#{numerator}/#{denominator}") end
+    return new(Rational(1)) if fractional == 'evens' || fractional == 'even money' 
+    if /(?<numerator>\d+)(\/|-to-)(?<denominator>\d+)/ =~ fractional then r = Rational(numerator, denominator) end
     r = r.reciprocal if fractional.end_with? ' on'
     new(Rational(r))
   end
@@ -79,8 +79,8 @@ class FixedOdds
   def FixedOdds.moneyline_odds(moneyline)
     raise %{could not parse "#{moneyline}" as moneyline odds} unless self.moneyline_odds?(moneyline)
     sign = moneyline[0]
-    if sign == '+' then new(Rational("#{moneyline}/100"))
-    else                new(Rational("100/#{moneyline.to_i.magnitude}"))
+    if sign == '+' then new(Rational(moneyline, 100))
+    else                new(Rational(100, -moneyline.to_i))
     end
   end
 
