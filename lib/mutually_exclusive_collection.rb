@@ -52,7 +52,7 @@ class MutuallyExclusiveCollection
 
   def bet_amounts_for_total total_stake
     hash = {}
-    @mutually_exclusive_outcome_odds.each {|odds| hash[odds] = total_stake * 1 / odds.fractional_odds / sum_inverse_outcome }
+    @mutually_exclusive_outcome_odds.each {|odds| hash[odds] = total_stake / odds.fractional_odds / sum_inverse_outcome }
     hash
   end
 
