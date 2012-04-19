@@ -97,7 +97,7 @@ class FixedOdds
   # calculates the profit won on a winning bet
   # @param [Money] stake the stake
   # @return [Money] the profit
-  def profit_on_winning_stake(stake)
+  def profit_on_stake(stake)
     stake * @fractional_odds
   end
 
@@ -105,8 +105,8 @@ class FixedOdds
   # (which is the profit plus the initial stake)
   # @param (see #profit_on_winning_stake)
   # @return [Money] the total winnings
-  def total_return_on_winning_stake(stake)
-    profit_on_winning_stake(stake) + stake
+  def total_return_on_stake(stake)
+    profit_on_stake(stake) + stake
   end
 
   # calculates the magnitude of the stake needed to
