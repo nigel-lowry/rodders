@@ -3,10 +3,6 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "MutuallyExclusiveCollection" do
 
-  before :all do
-    Money.assume_from_symbol = true
-  end
-
   context "non-arbitrage methods" do
     before(:each) do    
       @good_team = FixedOdds.from_s '-275'
