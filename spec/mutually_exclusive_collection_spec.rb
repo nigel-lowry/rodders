@@ -3,6 +3,10 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "MutuallyExclusiveCollection" do
 
+  before :all do
+    Money.assume_from_symbol = true
+  end
+
   context "non-arbitrage methods" do
     before(:each) do    
       @good_team = FixedOdds.from_s '-275'
@@ -68,8 +72,8 @@ describe "MutuallyExclusiveCollection" do
     end
 
     describe "#profit_from_total_stake" do
-      it "is £4.64 with a £100.00 stake" do
-        @bookmaker_vulnerable_to_arbitrage.profit_from_total_stake(Money.from_fixnum(100, :GBP)).should == Money.from_fixnum(4.63, :GBP)
+      it "is £4.63 with a £100.00 stake" do
+        @bookmaker_vulnerable_to_arbitrage.profit_from_total_stake(Money.parse '£100').should == Money.parse('£4.63')
       end
     end
 
@@ -99,7 +103,7 @@ describe "MutuallyExclusiveCollection" do
 
     describe "#profit_from_total_stake" do
       it "is £100.00 with a £500.00 stake" do
-        @bookmaker_vulnerable_to_arbitrage.profit_from_total_stake(Money.from_fixnum(500, :GBP)).should == Money.from_fixnum(100.00, :GBP)
+        @bookmaker_vulnerable_to_arbitrage.profit_from_total_stake(Money.parse '£500').should == Money.parse('£100')
       end
     end
   end
@@ -131,39 +135,37 @@ describe "MutuallyExclusiveCollection" do
 
     describe "#bet_amounts_for_total" do
       it "gives the right amounts" do
-        total = Money.from_fixnum(500, :GBP)
+        total = Money.parse '£500'
         amounts = @bookmaker_vulnerable_to_arbitrage.bet_amounts_for_total total
         amounts.should have(3).items
-        amounts[@odds1].should == Money.from_fixnum(396.14, :GBP)
-        amounts[@odds2].should == Money.from_fixnum(73.57, :GBP)
-        amounts[@odds3].should == Money.from_fixnum(30.29, :GBP)
+        amounts[@odds1].should == Money.parse('£396.14')
+        amounts[@odds2].should == Money.parse('£73.57')
+        amounts[@odds3].should == Money.parse('£30.29')
         amounts.values.reduce(:+).should == total
       end
     end
 
     describe "#profit_from_total_stake" do
       it "gives the right amount" do
-        @bookmaker_vulnerable_to_arbitrage.profit_from_total_stake(Money.from_fixnum(500, :GBP)).should == Money.from_fixnum(14.98, :GBP)
+        @bookmaker_vulnerable_to_arbitrage.profit_from_total_stake(Money.parse '£500').should == Money.parse('£14.98')
       end
     end
 
     describe "#bet_amounts_for_winnings" do
       it "gives the right amounts" do
-        amounts = @bookmaker_vulnerable_to_arbitrage.bet_amounts_for_profit Money.from_fixnum(750, :GBP)
+        amounts = @bookmaker_vulnerable_to_arbitrage.bet_amounts_for_profit Money.parse '£750'
         amounts.should have(3).items
-        amounts[@odds1].should == Money.from_fixnum(19833.33, :GBP)
-        amounts[@odds2].should == Money.from_fixnum(3683.33, :GBP)
-        amounts[@odds3].should == Money.from_fixnum(1516.67, :GBP)
-        amounts.values.reduce(:+).should == Money.from_fixnum(25033.33, :GBP)
+        amounts[@odds1].should == Money.parse('£19833.33')
+        amounts[@odds2].should == Money.parse('£3683.33')
+        amounts[@odds3].should == Money.parse('£1516.67')
+        amounts.values.reduce(:+).should == Money.parse('£25033.33')
       end
     end
 
     describe "#total_stake_for_profit" do
       it "gives the right amounts" do
-        @bookmaker_vulnerable_to_arbitrage.total_stake_for_profit(Money.from_fixnum(750, :GBP)).should == Money.from_fixnum(25033.33, :GBP)
+        @bookmaker_vulnerable_to_arbitrage.total_stake_for_profit(Money.parse '£750').should == Money.parse('£25033.33')
       end
     end
-
   end
-
 end
