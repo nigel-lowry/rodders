@@ -33,19 +33,9 @@ describe "MutuallyExclusiveCollection" do
       @bookmaker_vulnerable_to_arbitrage = MutuallyExclusiveCollection.new [@bookmaker2outcome1, @bookmaker1outcome2]
     end
 
-    describe "#arbitrageable?" do
-      it "is false for bookmaker 1" do
-        @bookmaker1.should_not be_arbitrageable
-      end
-
-      it "is false for bookmaker 2" do
-        @bookmaker2.should_not be_arbitrageable
-      end
-
-      it "is true for imaginary bookmaker offering the best odds of bookmakers 1 and 2" do
-        @bookmaker_vulnerable_to_arbitrage.should be_arbitrageable
-      end
-    end
+    specify { @bookmaker1.should_not be_arbitrageable }
+    specify { @bookmaker2.should_not be_arbitrageable } 
+    specify { @bookmaker_vulnerable_to_arbitrage.should be_arbitrageable }
 
     describe "#bookmakers_return_rate" do
       it "is 5.34% for bookmaker 1" do
