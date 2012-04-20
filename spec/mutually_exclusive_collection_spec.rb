@@ -70,10 +70,7 @@ describe "MutuallyExclusiveCollection" do
 
     subject { @bookmaker_vulnerable_to_arbitrage }
 
-    it "is vulnerable to arbitrage" do
-      @bookmaker_vulnerable_to_arbitrage.should be_arbitrageable
-    end
-
+    specify { @bookmaker_vulnerable_to_arbitrage.should be_arbitrageable }
     its(:profit_percentage) { should be_within(0.0000001).of(0.02996) }
 
     describe "#percentages" do
