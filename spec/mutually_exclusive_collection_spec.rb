@@ -37,15 +37,8 @@ describe "MutuallyExclusiveCollection" do
     specify { @bookmaker2.should_not be_arbitrageable } 
     specify { @bookmaker_vulnerable_to_arbitrage.should be_arbitrageable }
 
-    describe "#bookmakers_return_rate" do
-      it "is 5.34% for bookmaker 1" do
-        @bookmaker1.bookmakers_return_rate.should be_within(0.0001).of(0.0534)
-      end
-
-      it "is 4.78% for bookmaker 2" do
-        @bookmaker2.bookmakers_return_rate.should be_within(0.0001).of(0.0478)
-      end
-    end
+    specify { @bookmaker1.bookmakers_return_rate.should be_within(0.0001).of(0.0534) }
+    specify { @bookmaker2.bookmakers_return_rate.should be_within(0.0001).of(0.0478) }
 
     describe "#profit_on_stake" do
       it "is £4.63 with a £100.00 stake" do
