@@ -95,11 +95,7 @@ describe "MutuallyExclusiveCollection" do
       end
     end
 
-    describe "#profit_on_stake" do
-      it "gives the right amount" do
-        @bookmaker_vulnerable_to_arbitrage.profit_on_stake(Money.parse '£500').should == Money.parse('£14.98')
-      end
-    end
+    specify { @bookmaker_vulnerable_to_arbitrage.profit_on_stake(Money.parse '£500').should == Money.parse('£14.98') }
 
     describe "#stakes_for_profit" do
       it "gives the right amounts" do
@@ -112,10 +108,6 @@ describe "MutuallyExclusiveCollection" do
       end
     end
 
-    describe "#stake_to_profit" do
-      it "gives the right amounts" do
-        @bookmaker_vulnerable_to_arbitrage.stake_to_profit(Money.parse '£750').should == Money.parse('£25033.33')
-      end
-    end
+    specify { @bookmaker_vulnerable_to_arbitrage.stake_to_profit(Money.parse '£750').should == Money.parse('£25033.33') }
   end
 end
