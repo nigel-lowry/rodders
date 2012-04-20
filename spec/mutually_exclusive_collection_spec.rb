@@ -54,17 +54,9 @@ describe "MutuallyExclusiveCollection" do
 
     subject { @bookmaker_vulnerable_to_arbitrage }
 
-    it "is vulnerable to arbitrage" do
-      @bookmaker_vulnerable_to_arbitrage.should be_arbitrageable
-    end
-
+    specify { @bookmaker_vulnerable_to_arbitrage.should be_arbitrageable }
     its(:profit_percentage) { should be_within(0.001).of(0.2) }
-
-    describe "#profit_on_stake" do
-      it "is £100.00 with a £500.00 stake" do
-        @bookmaker_vulnerable_to_arbitrage.profit_on_stake(Money.parse '£500').should == Money.parse('£100')
-      end
-    end
+    specify { @bookmaker_vulnerable_to_arbitrage.profit_on_stake(Money.parse '£500').should == Money.parse('£100') }
   end
 
   context "more than two mutually exclusive events" do
