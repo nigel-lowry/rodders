@@ -40,17 +40,8 @@ describe "MutuallyExclusiveCollection" do
     specify { @bookmaker1.bookmakers_return_rate.should be_within(0.0001).of(0.0534) }
     specify { @bookmaker2.bookmakers_return_rate.should be_within(0.0001).of(0.0478) }
 
-    describe "#profit_on_stake" do
-      it "is £4.63 with a £100.00 stake" do
-        @bookmaker_vulnerable_to_arbitrage.profit_on_stake(Money.parse '£100').should == Money.parse('£4.63')
-      end
-    end
-
-    describe "#profit_percentage" do
-      it "is 4.6%" do
-        @bookmaker_vulnerable_to_arbitrage.profit_percentage.should be_within(0.001).of(0.046)
-      end
-    end
+    specify { @bookmaker_vulnerable_to_arbitrage.profit_on_stake(Money.parse '£100').should == Money.parse('£4.63') }
+    specify { @bookmaker_vulnerable_to_arbitrage.profit_percentage.should be_within(0.001).of(0.046) }
   end
 
   context "fractional odds arbitrage" do
