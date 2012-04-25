@@ -1,5 +1,4 @@
 # A collection of mutually exclusive odds for different outcomes.
-# TODO duplicate odds
 class MutuallyExclusiveCollection
   # create a new collection with the given odds
   # @param [Array<FixedOdds>] mutually_exclusive_outcome_odds the odds for all the mutually exclusive outcomes

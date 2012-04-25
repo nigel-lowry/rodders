@@ -110,4 +110,25 @@ describe "MutuallyExclusiveCollection" do
 
     specify { @bookmaker_vulnerable_to_arbitrage.stake_to_profit(Money.parse '£750').should == Money.parse('£25033.33') }
   end
+
+  context "different events with same odds" do
+    before(:each) do
+      @odds1 = FixedOdds.from_s '15/1'
+      @odds2 = FixedOdds.from_s '15/1'
+
+      @bookmaker_vulnerable_to_arbitrage = MutuallyExclusiveCollection.new [@odds1, @odds2]
+    end
+
+    specify { @bookmaker_vulnerable_to_arbitrage.should be_arbitrageable }
+    specify { @bookmaker_vulnerable_to_arbitrage.profit_on_stake(Money.parse '£100').should == Money.parse('£650') }
+
+    describe "#percentages" do
+      it "gives the percentages to put on each bet" do
+        percentages = @bookmaker_vulnerable_to_arbitrage.percentages
+        percentages.should have(2).items
+        percentages[@odds1].should be_within(0.0001).of(0.5)
+        percentages[@odds2].should be_within(0.0001).of(0.5)
+      end
+    end
+  end
 end
