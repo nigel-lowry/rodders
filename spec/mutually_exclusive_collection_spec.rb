@@ -20,6 +20,14 @@ describe "MutuallyExclusiveCollection" do
     its(:in_ascending_probability) { should == [@bad_team, @draw, @good_team] }
   end
 
+  context "empty array" do
+    before(:each) do
+      @bookmaker = MutuallyExclusiveCollection.new []
+    end
+
+    specify { @bookmaker.bookmakers_return_rate.should == 0 }
+  end
+
   context "decimal odds arbitrage" do
     before(:each) do
       @bookmaker1outcome1 = FixedOdds.from_s '2.25'
