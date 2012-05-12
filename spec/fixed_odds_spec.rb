@@ -100,34 +100,12 @@ describe "FixedOdds" do
       )  
     end
 
-    describe "positive figures" do
-      it "treats '+400' as meaning winning £400 on a £100 bet" do
-        plus400 = FixedOdds.moneyline_odds('+400')
-        plus400.profit_on_stake(Money.parse '£100').should == Money.parse('£400')
-      end
+    specify { FixedOdds.moneyline_odds('+400').profit_on_stake(Money.parse '£100').should == Money.parse('£400') }
+    specify { FixedOdds.moneyline_odds('+100').profit_on_stake(Money.parse '£100').should == Money.parse('£100') }
 
-      it "treats +100 as meaning winning £100 on a £100 bet" do
-        plus100 = FixedOdds.moneyline_odds('+100')
-        plus100.profit_on_stake(Money.parse '£100').should == Money.parse('£100')
-      end
-    end
-
-    describe "negative figures" do
-      it "treats '-400' as meaning you need to wager £400 to win £100" do
-        minus400 = FixedOdds.moneyline_odds('-400')
-        minus400.profit_on_stake(Money.parse '£400').should == Money.parse('£100')
-      end
-
-      it "treats '-100' as meaning you need to wager £100 to win £100" do
-        minus100 = FixedOdds.moneyline_odds('-100')
-        minus100.profit_on_stake(Money.parse '£100').should == Money.parse('£100')
-      end
-
-      it "treats '+100' as meaning you need to wager £100 to win £100" do
-        plus100 = FixedOdds.moneyline_odds('+100')
-        plus100.profit_on_stake(Money.parse '£100').should == Money.parse('£100')
-      end
-    end
+    specify { FixedOdds.moneyline_odds('-400').profit_on_stake(Money.parse '£400').should == Money.parse('£100') }
+    specify { FixedOdds.moneyline_odds('-100').profit_on_stake(Money.parse '£100').should == Money.parse('£100') }
+    specify { FixedOdds.moneyline_odds('+100').profit_on_stake(Money.parse '£100').should == Money.parse('£100') }
   end
 
   describe ".decimal_odds" do
@@ -140,20 +118,9 @@ describe "FixedOdds" do
       )  
     end
 
-    it "treats '2' as meaning you have to wager £1 to win £1" do
-      d2 = FixedOdds.decimal_odds '2'
-      d2.profit_on_stake(Money.parse '£1').should == Money.parse('£1')
-    end
-
-    it "treats '5' as meaning you have to wager £1 to win £4" do
-      d5 = FixedOdds.decimal_odds '5'
-      d5.profit_on_stake(Money.parse '£1').should == Money.parse('£4')
-    end
-
-    it "treats '1.25' as meaning you have to wager £4 to win £1" do
-      d1_25 = FixedOdds.decimal_odds '1.25'
-      d1_25.profit_on_stake(Money.parse '£4').should == Money.parse('£1')
-    end
+    specify { FixedOdds.decimal_odds('2').profit_on_stake(Money.parse '£1').should == Money.parse('£1') }
+    specify { FixedOdds.decimal_odds('5').profit_on_stake(Money.parse '£1').should == Money.parse('£4') }
+    specify { FixedOdds.decimal_odds('1.25').profit_on_stake(Money.parse '£4').should == Money.parse('£1') }
   end
 
   describe ".from_s" do
