@@ -280,29 +280,12 @@ describe "FixedOdds" do
   end
 
   describe "#to_s_fractional" do
-    it "displays '4/1' as '4/1'" do
-      FixedOdds.fractional_odds('4/1').to_s_fractional.should == '4/1'
-    end
-
-    it "is in the lowest terms" do
-      FixedOdds.fractional_odds('100/30').to_s_fractional.should == '10/3'
-    end
-
-    it "is '4/1' for '+400'" do
-      FixedOdds.moneyline_odds('+400').to_s_fractional.should == '4/1'
-    end
-
-    it "is '4/1' for '5'" do 
-      FixedOdds.decimal_odds('5').to_s_fractional.should == '4/1'
-    end
-
-    it "is '1/1' for '+100'" do
-      FixedOdds.moneyline_odds('+100').to_s_fractional.should == '1/1'
-    end
-
-    it "is '1/1' for '-100'" do
-      FixedOdds.moneyline_odds('-100').to_s_fractional.should == '1/1'
-    end
+    specify { FixedOdds.fractional_odds('4/1').to_s_fractional.should == '4/1' }
+    specify { FixedOdds.fractional_odds('100/30').to_s_fractional.should == '10/3' }
+    specify { FixedOdds.moneyline_odds('+400').to_s_fractional.should == '4/1' }
+    specify { FixedOdds.decimal_odds('5').to_s_fractional.should == '4/1' }
+    specify { FixedOdds.moneyline_odds('+100').to_s_fractional.should == '1/1' }
+    specify { FixedOdds.moneyline_odds('-100').to_s_fractional.should == '1/1' }
   end
 
   describe "#to_s_moneyline" do
