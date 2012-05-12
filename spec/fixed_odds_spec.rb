@@ -25,33 +25,13 @@ describe "FixedOdds" do
       value.end_with?('on').should == true
     end
 
-    it "treats '4/1 against' the same as '4/1'" do
-      FixedOdds.fractional_odds('4/1 against').should == FixedOdds.fractional_odds('4/1')
-    end
-
-    it "treats '4/1 on' the same as '1/4'" do
-      FixedOdds.fractional_odds('4/1 on').should == FixedOdds.fractional_odds('1/4')
-    end
-    
-    it "treats 'evens' as '1/1'" do 
-      FixedOdds.fractional_odds('evens').should == FixedOdds.fractional_odds('1/1')
-    end 
-
-    it "treats 'even money' as '1/1'" do
-      FixedOdds.fractional_odds('even money').should == FixedOdds.fractional_odds('1/1')
-    end
-
-    it "treats '4-to-1' as '4/1'" do
-      FixedOdds.fractional_odds('4-to-1').should == FixedOdds.fractional_odds('4/1')
-    end
-
-    it "treats '4-to-1 against' as '4/1'" do
-      FixedOdds.fractional_odds('4-to-1 against').should == FixedOdds.fractional_odds('4/1')
-    end
-
-    it "treats '4-to-1 on' as '1/4'" do
-      FixedOdds.fractional_odds('4-to-1 on').should == FixedOdds.fractional_odds('1/4')
-    end
+    specify { FixedOdds.fractional_odds('4/1 against').should == FixedOdds.fractional_odds('4/1') }
+    specify { FixedOdds.fractional_odds('4/1 on').should == FixedOdds.fractional_odds('1/4') }
+    specify { FixedOdds.fractional_odds('evens').should == FixedOdds.fractional_odds('1/1') }
+    specify { FixedOdds.fractional_odds('even money').should == FixedOdds.fractional_odds('1/1') }
+    specify { FixedOdds.fractional_odds('4-to-1').should == FixedOdds.fractional_odds('4/1') }
+    specify { FixedOdds.fractional_odds('4-to-1 against').should == FixedOdds.fractional_odds('4/1') }
+    specify { FixedOdds.fractional_odds('4-to-1 on').should == FixedOdds.fractional_odds('1/4') }
 
     it "raises error if numerator has decimal point" do
       expect {
