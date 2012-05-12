@@ -211,6 +211,7 @@ describe "FixedOdds" do
     specify { FixedOdds.moneyline_odds('+100').to_s_moneyline.should == ('-100') }
     specify { FixedOdds.moneyline_odds('-100').to_s_moneyline.should == ('-100') }
     specify { FixedOdds.fractional_odds('4/1').to_s_moneyline.should == '+400' }
+    specify { FixedOdds.fractional_odds('22/7').to_s_moneyline.should == '+314' }
     specify { FixedOdds.decimal_odds('5').to_s_moneyline.should == '+400' }
     specify { FixedOdds.decimal_odds('1.25').to_s_moneyline.should == '-400' }
   end

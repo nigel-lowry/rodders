@@ -131,11 +131,13 @@ class FixedOdds
     @fractional_odds.to_s
   end
 
-  # string representation in moneyline form
+  # string representation in moneyline form (note 
+  # there can be some loss of precision to make 
+  # the number into an integer)
   # @return [String] moneyline form representation
   def to_s_moneyline
     number = @fractional_odds > 1 ? fractional_odds * 100 : -100 / fractional_odds
-    '%+d' % number
+    '%+d' % number.round
   end
 
   # string representation in decimal form
