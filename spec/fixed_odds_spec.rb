@@ -248,29 +248,15 @@ describe "FixedOdds" do
       FixedOdds.fractional_odds('100/30').should == FixedOdds.fractional_odds('10/3')
     end
 
-    it "recognises '1/1' and '2' are the same" do
-      FixedOdds.fractional_odds('1/1').should == FixedOdds.decimal_odds('2')
-    end
-
-    it "recognises '4/1' and '5' are the same" do
-      FixedOdds.fractional_odds('4/1').should == FixedOdds.decimal_odds('5')
-    end
-
-    it "recognises '1/4' and '1.25' are the same" do
-      FixedOdds.fractional_odds('1/4').should == FixedOdds.decimal_odds('1.25')
-    end
-
-    it "recognises '4/1' and '+400' are the same" do
-      FixedOdds.fractional_odds('4/1').should == FixedOdds.moneyline_odds('+400')
-    end
-
-    it "recognises '1/4' and '-400' are the same" do
-      FixedOdds.fractional_odds('1/4').should == FixedOdds.moneyline_odds('-400')
-    end
-
     it "recognises '+100' and '-100' are the same" do
       FixedOdds.moneyline_odds('+100').should == FixedOdds.moneyline_odds('-100')
     end
+
+    specify { FixedOdds.fractional_odds('1/1').should == FixedOdds.decimal_odds('2') }
+    specify { FixedOdds.fractional_odds('4/1').should == FixedOdds.decimal_odds('5') }
+    specify { FixedOdds.fractional_odds('1/4').should == FixedOdds.decimal_odds('1.25') }
+    specify { FixedOdds.fractional_odds('4/1').should == FixedOdds.moneyline_odds('+400') }
+    specify { FixedOdds.fractional_odds('1/4').should == FixedOdds.moneyline_odds('-400') }
   end
 
   describe "#to_s" do
