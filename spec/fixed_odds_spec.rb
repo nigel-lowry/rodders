@@ -230,8 +230,8 @@ describe "FixedOdds" do
   end
 
   describe "#total_return_on_stake" do
-    specify { FixedOdds.fractional_odds('4/1').total_return_on_stake(Money.parse '£1').should == Money.parse('£5') }
-    specify { FixedOdds.fractional_odds('1/4').total_return_on_stake(Money.parse '£100').should == Money.parse('£125') }
+    specify { FixedOdds.fractional_odds('1/1').total_return_on_stake(Money.parse '£1').should == Money.parse('£2') }
+    specify { FixedOdds.fractional_odds('2/1').total_return_on_stake(Money.parse '£1').should == Money.parse('£3') }
   end
 
   describe "#stake_to_profit" do
