@@ -134,7 +134,7 @@ class FixedOdds
   # string representation in moneyline form
   # @return [String] moneyline form representation
   def to_s_moneyline
-    number = @fractional_odds > 1 ? (fractional_odds * 100).to_i : (-100 / fractional_odds)
+    number = @fractional_odds > 1 ? fractional_odds * 100 : -100 / fractional_odds
     '%+d' % number
   end
 
