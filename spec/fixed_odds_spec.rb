@@ -187,6 +187,14 @@ describe "FixedOdds" do
       specify { FixedOdds.from_s('4-to-1 against').should == FixedOdds.fractional_odds('4/1') }
       specify { FixedOdds.from_s('4-to-1 on').should == FixedOdds.fractional_odds('1/4') }
 
+      it "raises an error for a zero numerator" do
+        expect {
+          FixedOdds.from_s '0/4'
+        }.to raise_error(
+          ArgumentError
+        )
+      end
+
       it "raises an error for a zero denominator" do
         expect {
           FixedOdds.from_s '4/0'

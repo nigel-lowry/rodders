@@ -60,6 +60,7 @@ class FixedOdds
     raise %{could not parse "#{fractional}" as fractional odds} unless self.fractional_odds?(fractional)
     return new(1.to_r) if fractional == 'evens' || fractional == 'even money' 
     if /(?<numerator>\d+)(\/|-to-)(?<denominator>\d+)/ =~ fractional then r = Rational(numerator, denominator) end
+    raise ArgumentError, %{could not parse "#{fractional}" as fractional odds because numerator or denominator is zero} if r.numerator.zero? or r.denominator.zero?
     r = r.reciprocal if fractional.end_with? ' on'
     new r
   end
