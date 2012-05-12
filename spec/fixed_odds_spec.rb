@@ -178,37 +178,14 @@ describe "FixedOdds" do
     end
 
     describe "fractional odds" do
-      it "parses '4/1'" do
-        FixedOdds.from_s('4/1').should == FixedOdds.fractional_odds('4/1')
-      end
-
-      it "parses 'evens'" do
-        FixedOdds.from_s('evens').should == FixedOdds.fractional_odds('1/1')
-      end
-
-      it "parses 'even money'" do
-        FixedOdds.from_s('even money').should == FixedOdds.fractional_odds('1/1')
-      end
-
-      it "parses '4/1 against'" do
-        FixedOdds.from_s('4/1 against').should == FixedOdds.fractional_odds('4/1')
-      end
-
-      it "parses '4/1 on'" do
-        FixedOdds.from_s('4/1 on').should == FixedOdds.fractional_odds('1/4')
-      end
-
-      it "parses '4-to-1'" do
-        FixedOdds.from_s('4-to-1').should == FixedOdds.fractional_odds('4/1')
-      end
-
-      it "parses '4-to-1 against'" do
-        FixedOdds.from_s('4-to-1 against').should == FixedOdds.fractional_odds('4/1')
-      end
-
-      it "parses '4-to-1 on'" do
-        FixedOdds.from_s('4-to-1 on').should == FixedOdds.fractional_odds('1/4')
-      end
+      specify { FixedOdds.from_s('4/1').should == FixedOdds.fractional_odds('4/1') }
+      specify { FixedOdds.from_s('evens').should == FixedOdds.fractional_odds('1/1') }
+      specify { FixedOdds.from_s('even money').should == FixedOdds.fractional_odds('1/1') }
+      specify { FixedOdds.from_s('4/1 against').should == FixedOdds.fractional_odds('4/1') }
+      specify { FixedOdds.from_s('4/1 on').should == FixedOdds.fractional_odds('1/4') }
+      specify { FixedOdds.from_s('4-to-1').should == FixedOdds.fractional_odds('4/1') }
+      specify { FixedOdds.from_s('4-to-1 against').should == FixedOdds.fractional_odds('4/1') }
+      specify { FixedOdds.from_s('4-to-1 on').should == FixedOdds.fractional_odds('1/4') }
 
       it "raises an error for a zero denominator" do
         expect {
