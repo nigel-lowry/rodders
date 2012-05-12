@@ -152,13 +152,13 @@ class FixedOdds
   protected
 
     # equality method
-    def ==(other)
+    def == other
       other.fractional_odds == @fractional_odds
     end
 
     # low odds are those which pay out the most money
     # on a winning bet and vice-versa
-    def <=>(other)
+    def <=> other
       other.fractional_odds <=> @fractional_odds
     end
 end
