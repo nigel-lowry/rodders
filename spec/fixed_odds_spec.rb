@@ -363,6 +363,11 @@ describe "FixedOdds" do
       oneToFour = FixedOdds.fractional_odds '1/4'
       oneToFour.profit_on_stake(Money.parse '£1').should == Money.parse('£0.25')
     end
+
+    it "is £11 on £4 on a 11/4 bet" do
+      elevenToFour = FixedOdds.fractional_odds '11/4'
+      elevenToFour.profit_on_stake(Money.parse '£4').should == Money.parse('£11')
+    end
   end
 
   describe "#total_return_on_stake" do
