@@ -59,7 +59,9 @@ class FixedOdds
   def FixedOdds.fractional_odds(fractional)
     raise %{could not parse "#{fractional}" as fractional odds} unless self.fractional_odds?(fractional)
     return new(1.to_r) if fractional == 'evens' || fractional == 'even money' 
-    if /(?<numerator>\d+)(\/|-to-)(?<denominator>\d+)/ =~ fractional then r = Rational(numerator, denominator) end
+
+    o = /(?<numerator>\d+)(\/|-to-)(?<denominator>\d+)/.match fractional
+    r = Rational o[:numerator], o[:denominator]
     r = r.reciprocal if fractional.end_with? ' on'
     new r
   end
