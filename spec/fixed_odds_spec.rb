@@ -371,15 +371,8 @@ describe "FixedOdds" do
   end
 
   describe "#total_return_on_stake" do
-    it "is £5 on a winning 4/1 bet with a £1 stake" do
-      fourToOne = FixedOdds.fractional_odds '4/1'
-      fourToOne.total_return_on_stake(Money.parse '£1').should == Money.parse('£5')
-    end
-
-    it "is £125 on a winning 1/4 bet with a £100 stake" do
-      oneToFour = FixedOdds.fractional_odds '1/4'
-      oneToFour.total_return_on_stake(Money.parse '£100').should == Money.parse('£125')
-    end
+    specify { FixedOdds.fractional_odds('4/1').total_return_on_stake(Money.parse '£1').should == Money.parse('£5') }
+    specify { FixedOdds.fractional_odds('1/4').total_return_on_stake(Money.parse '£100').should == Money.parse('£125') }
   end
 
   describe "#stake_to_profit" do
