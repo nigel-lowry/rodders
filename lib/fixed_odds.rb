@@ -42,7 +42,7 @@ class FixedOdds
   # @param (see FixedOdds.fractional_odds?)
   # @return (see FixedOdds.fractional_odds?)
   def FixedOdds.decimal_odds?(odds)
-    odds =~ /^(\d+|\d+\.\d+|\.\d+)$/ 
+    odds =~ /^([1-9]\d*(\.\d+)?|\.\d+)$/ 
   end
 
   # creates a new FixedOdds from fractional form. These can be in the form
