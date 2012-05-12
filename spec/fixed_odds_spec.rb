@@ -306,29 +306,12 @@ describe "FixedOdds" do
   end
 
   describe "#to_s_moneyline" do
-    it "is '+400' for '+400'" do
-      FixedOdds.moneyline_odds('+400').to_s_moneyline.should == ('+400')
-    end
-
-    it "is '-100' for '+100' as '-100'" do
-      FixedOdds.moneyline_odds('+100').to_s_moneyline.should == ('-100')
-    end
-
-    it "is '-100' as '-100'" do
-      FixedOdds.moneyline_odds('-100').to_s_moneyline.should == ('-100')
-    end
-
-    it "is '+400' for '4/1'" do
-      FixedOdds.fractional_odds('4/1').to_s_moneyline.should == '+400'
-    end
-
-    it "is '+400' for '5'" do
-      FixedOdds.decimal_odds('5').to_s_moneyline.should == '+400'
-    end
-
-    it "is '-400' for '1.25'" do
-      FixedOdds.decimal_odds('1.25').to_s_moneyline.should == '-400'
-    end
+    specify { FixedOdds.moneyline_odds('+400').to_s_moneyline.should == ('+400') }
+    specify { FixedOdds.moneyline_odds('+100').to_s_moneyline.should == ('-100') }
+    specify { FixedOdds.moneyline_odds('-100').to_s_moneyline.should == ('-100') }
+    specify { FixedOdds.fractional_odds('4/1').to_s_moneyline.should == '+400' }
+    specify { FixedOdds.decimal_odds('5').to_s_moneyline.should == '+400' }
+    specify { FixedOdds.decimal_odds('1.25').to_s_moneyline.should == '-400' }
   end
 
   describe "#to_s_decimal" do
