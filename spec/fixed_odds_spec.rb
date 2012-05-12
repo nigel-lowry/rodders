@@ -383,24 +383,12 @@ describe "FixedOdds" do
   end
 
   describe "#stake_to_profit" do
-    it "is £1 on a 1/1 to win £1" do
-      oneToOne = FixedOdds.fractional_odds '1/1'
-      oneToOne.stake_to_profit(Money.parse '£1').should == Money.parse('£1')
-    end
-
-    it "is £1 on 2/1 to win £2" do
-      fourToOne = FixedOdds.fractional_odds '2/1'
-      fourToOne.stake_to_profit(Money.parse '£2').should == Money.parse('£1')
-    end
+    specify { FixedOdds.fractional_odds('1/1').stake_to_profit(Money.parse '£1').should == Money.parse('£1') }
+    specify { FixedOdds.fractional_odds('2/1').stake_to_profit(Money.parse '£2').should == Money.parse('£1') }
   end
 
   describe "object comparison" do
-    it "'+200' is less likely than '-200'" do
-      FixedOdds.from_s('+200').should be < FixedOdds.from_s('-200')
-    end
-
-    it "'-200' is more likely than '+200'" do
-      FixedOdds.from_s('-200').should be > FixedOdds.from_s('+200')
-    end 
+    specify { FixedOdds.from_s('+200').should be < FixedOdds.from_s('-200') }
+    specify { FixedOdds.from_s('-200').should be > FixedOdds.from_s('+200') }
   end
 end
