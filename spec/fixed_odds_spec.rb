@@ -332,25 +332,11 @@ describe "FixedOdds" do
   end
 
   describe "#to_s_decimal" do
-    it "is '1.25' for '1.25'" do
-      FixedOdds.decimal_odds('1.25').to_s_decimal.should == '1.25'
-    end
-
-    it "is '1.25' for '1/4'" do
-      FixedOdds.fractional_odds('1/4').to_s_decimal.should == '1.25'
-    end
-
-    it "is '1.25' for '-400'" do
-      FixedOdds.moneyline_odds('-400').to_s_decimal.should == '1.25'
-    end
-
-    it "is '2' for '+100'" do
-      FixedOdds.moneyline_odds('+100').to_s_decimal.should == '2'
-    end
-
-    it "is '2' for '-100'" do
-      FixedOdds.moneyline_odds('-100').to_s_decimal.should == '2'
-    end
+    specify { FixedOdds.decimal_odds('1.25').to_s_decimal.should == '1.25' }
+    specify { FixedOdds.fractional_odds('1/4').to_s_decimal.should == '1.25' }
+    specify { FixedOdds.moneyline_odds('-400').to_s_decimal.should == '1.25' }
+    specify { FixedOdds.moneyline_odds('+100').to_s_decimal.should == '2' }
+    specify { FixedOdds.moneyline_odds('-100').to_s_decimal.should == '2' }
   end
 
   describe "#profit_on_stake" do
