@@ -237,6 +237,7 @@ describe "FixedOdds" do
   describe "#stake_to_profit" do
     specify { FixedOdds.fractional_odds('1/1').stake_to_profit(Money.parse '£1').should == Money.parse('£1') }
     specify { FixedOdds.fractional_odds('2/1').stake_to_profit(Money.parse '£2').should == Money.parse('£1') }
+    specify { FixedOdds.fractional_odds('3/2').stake_to_profit(Money.parse '£3').should == Money.parse('£2') }
   end
 
   describe "object comparison" do
