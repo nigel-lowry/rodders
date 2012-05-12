@@ -35,7 +35,7 @@ class FixedOdds
   # @param (see FixedOdds.fractional_odds?)
   # @return (see FixedOdds.fractional_odds?)
   def FixedOdds.moneyline_odds?(odds)
-    odds =~ /^[+-]\d+$/ 
+    odds =~ /^[+-][1-9]\d*$/ 
   end
 
   # tells if the odds are in decimal form
