@@ -146,7 +146,7 @@ describe "FixedOdds" do
         expect {
           FixedOdds.from_s '4/0'
         }.to raise_error(
-          ZeroDivisionError
+          ArgumentError
         )
       end
     end
