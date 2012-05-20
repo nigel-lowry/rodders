@@ -14,3 +14,7 @@ group :development do
   gem "jeweler", "~> 1.6.4"
   gem "simplecov"
 end
+
+group :development, :test do
+  gem 'debugger'
+end
