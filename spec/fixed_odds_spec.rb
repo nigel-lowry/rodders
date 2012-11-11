@@ -16,13 +16,13 @@ describe "FixedOdds" do
     it "does not change the input string with 'against'" do
       value = '4/1 against'
       FixedOdds.fractional_odds(value)
-      value.end_with?('against').should == true
+      value.end_with?('against').should be
     end
 
     it "does not modify the input string with 'on'" do
       value = '4/1 on'
       FixedOdds.fractional_odds(value)
-      value.end_with?('on').should == true
+      value.end_with?('on').should be
     end
 
     specify { FixedOdds.fractional_odds('4/1 against').should == FixedOdds.fractional_odds('4/1') }
