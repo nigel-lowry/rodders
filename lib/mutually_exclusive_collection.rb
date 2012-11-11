@@ -63,7 +63,7 @@ class MutuallyExclusiveCollection
   # @param (see #stakes_for_total_stake)
   # @return (see #stakes_for_total_stake)
   def stakes_for_profit desired_profit
-    stakes_for_total_stake(stake_to_profit(desired_profit))
+    stakes_for_total_stake stake_to_profit desired_profit
   end
 
   # the stake needed to win the desired profit
