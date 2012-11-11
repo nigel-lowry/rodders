@@ -93,6 +93,6 @@ class MutuallyExclusiveCollection
     end
 
     def fractions
-      @mutually_exclusive_outcome_odds.collect {|o| o.fractional_odds }
+      @mutually_exclusive_outcome_odds.map &:fractional_odds
     end
 end
