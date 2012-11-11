@@ -81,9 +81,8 @@ class FixedOdds
   # @return (see FixedOdds.from_s)
   def FixedOdds.moneyline_odds moneyline
     raise %{could not parse "#{moneyline}" as moneyline odds} unless self.moneyline_odds?(moneyline)
-    sign = moneyline[0]
 
-    case sign
+    case moneyline[0]
     when '+'
       new(Rational(moneyline, 100))
     else
