@@ -63,7 +63,7 @@ class FixedOdds
 
     o = /(?<numerator>\d+)(\/|-to-)(?<denominator>\d+)/.match fractional
     r = Rational o[:numerator], o[:denominator]
-    r = r.reciprocal if fractional.end_with? ' on'
+    r = 1 / r if fractional.ends_with? ' on'
     new r
   end
 
@@ -162,14 +162,4 @@ class FixedOdds
     def <=> other
       other.fractional_odds <=> @fractional_odds
     end
-end
-
-class Rational
-  # calculates the reciprocal
-  # @example
-  #   Rational(2/3).reciprocal #=> Rational(3/2)
-  # @return [Rational] the reciprocal
-  def reciprocal
-    1 / self
-  end
 end
