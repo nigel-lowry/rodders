@@ -80,12 +80,12 @@ describe "FixedOdds" do
       )  
     end
 
-    specify { FixedOdds.moneyline_odds('+400').profit_on_stake(Money.parse '£100').should == Money.parse('£400') }
-    specify { FixedOdds.moneyline_odds('+100').profit_on_stake(Money.parse '£100').should == Money.parse('£100') }
+    specify { FixedOdds.moneyline_odds('+400').profit_on_stake('£100'.to_money).should == '£400'.to_money }
+    specify { FixedOdds.moneyline_odds('+100').profit_on_stake('£100'.to_money).should == '£100'.to_money }
 
-    specify { FixedOdds.moneyline_odds('-400').profit_on_stake(Money.parse '£400').should == Money.parse('£100') }
-    specify { FixedOdds.moneyline_odds('-100').profit_on_stake(Money.parse '£100').should == Money.parse('£100') }
-    specify { FixedOdds.moneyline_odds('+100').profit_on_stake(Money.parse '£100').should == Money.parse('£100') }
+    specify { FixedOdds.moneyline_odds('-400').profit_on_stake('£400'.to_money).should == '£100'.to_money }
+    specify { FixedOdds.moneyline_odds('-100').profit_on_stake('£100'.to_money).should == '£100'.to_money }
+    specify { FixedOdds.moneyline_odds('+100').profit_on_stake('£100'.to_money).should == '£100'.to_money }
   end
 
   describe ".decimal_odds" do
@@ -98,9 +98,9 @@ describe "FixedOdds" do
       )  
     end
 
-    specify { FixedOdds.decimal_odds('2').profit_on_stake(Money.parse '£1').should == Money.parse('£1') }
-    specify { FixedOdds.decimal_odds('5').profit_on_stake(Money.parse '£1').should == Money.parse('£4') }
-    specify { FixedOdds.decimal_odds('1.25').profit_on_stake(Money.parse '£4').should == Money.parse('£1') }
+    specify { FixedOdds.decimal_odds('2').profit_on_stake('£1'.to_money).should == '£1'.to_money }
+    specify { FixedOdds.decimal_odds('5').profit_on_stake('£1'.to_money).should == '£4'.to_money }
+    specify { FixedOdds.decimal_odds('1.25').profit_on_stake('£4'.to_money).should == '£1'.to_money }
   end
 
   describe ".from_s" do
