@@ -25,7 +25,7 @@ describe "MutuallyExclusiveCollection" do
       @bookmaker = MutuallyExclusiveCollection.new []
     end
 
-    specify { @bookmaker.bookmakers_return_rate.should == 0 }
+    specify { @bookmaker.bookmakers_return_rate.should be_nil }
   end
 
   context "decimal odds arbitrage" do

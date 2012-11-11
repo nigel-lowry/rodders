@@ -43,7 +43,7 @@ class MutuallyExclusiveCollection
   # @return [Number] the bookmaker's return rate as a percentage
   def bookmakers_return_rate
     fs = fractions
-    fs.any? ? 1 - fs.reduce(:*) / fs.reduce(:+) : 0
+    1 - fs.reduce(:*) / fs.reduce(:+) if fs.any?
   end
 
   # hash of the odds and what percentage of the total stake should go on each
