@@ -49,18 +49,14 @@ class MutuallyExclusiveCollection
   # hash of the odds and what percentage of the total stake should go on each
   # @return [Hash<FixedOdds, Number>] hash of odds to percentages
   def percentages
-    hash = {}
-    @mutually_exclusive_outcome_odds.each {|odds| hash[odds] = 1 / odds.fractional_odds / sum_inverse_outcome }
-    hash
+    @mutually_exclusive_outcome_odds.each_with_object({}) {|odds, hash| hash[odds] = 1 / odds.fractional_odds / sum_inverse_outcome }
   end
 
   # hash of the odds and what stakes to put on each given a total stake
   # @param [Money] total_stake the money to distribute on the outcomes
   # @return [Hash<FixedOdds, Money>] hash of odds to stakes
   def stakes_for_total_stake total_stake
-    hash = {}
-    @mutually_exclusive_outcome_odds.each {|odds| hash[odds] = total_stake / odds.fractional_odds / sum_inverse_outcome }
-    hash
+    @mutually_exclusive_outcome_odds.each_with_object({}) {|odds, hash| hash[odds] = total_stake / odds.fractional_odds / sum_inverse_outcome }
   end
 
   # hash of the odds and the stakes needed to make the specified profit
