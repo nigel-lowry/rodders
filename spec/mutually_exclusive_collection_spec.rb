@@ -48,7 +48,7 @@ describe "MutuallyExclusiveCollection" do
     specify { @bookmaker1.bookmakers_return_rate.should be_within(0.0001).of(0.0534) }
     specify { @bookmaker2.bookmakers_return_rate.should be_within(0.0001).of(0.0478) }
 
-    specify { @bookmaker_vulnerable_to_arbitrage.profit_on_stake(Money.parse '£100').should == Money.parse('£4.63') }
+    specify { @bookmaker_vulnerable_to_arbitrage.profit_on_stake('£100'.to_money).should == '£4.63'.to_money }
     specify { @bookmaker_vulnerable_to_arbitrage.profit_percentage.should be_within(0.001).of(0.046) }
   end
 
@@ -64,7 +64,7 @@ describe "MutuallyExclusiveCollection" do
 
     specify { @bookmaker_vulnerable_to_arbitrage.should be_arbitrageable }
     its(:profit_percentage) { should be_within(0.001).of(0.2) }
-    specify { @bookmaker_vulnerable_to_arbitrage.profit_on_stake(Money.parse '£500').should == Money.parse('£100') }
+    specify { @bookmaker_vulnerable_to_arbitrage.profit_on_stake('£500'.to_money).should == '£100'.to_money }
   end
 
   context "more than two mutually exclusive events" do
@@ -96,27 +96,27 @@ describe "MutuallyExclusiveCollection" do
         total = Money.parse '£500'
         amounts = @bookmaker_vulnerable_to_arbitrage.stakes_for_total_stake total
         amounts.should have(3).items
-        amounts[@odds1].should == Money.parse('£396.14')
-        amounts[@odds2].should == Money.parse('£73.57')
-        amounts[@odds3].should == Money.parse('£30.29')
+        amounts[@odds1].should == '£396.14'.to_money
+        amounts[@odds2].should == '£73.57'.to_money
+        amounts[@odds3].should == '£30.29'.to_money
         amounts.values.reduce(:+).should == total
       end
     end
 
-    specify { @bookmaker_vulnerable_to_arbitrage.profit_on_stake(Money.parse '£500').should == Money.parse('£14.98') }
+    specify { @bookmaker_vulnerable_to_arbitrage.profit_on_stake('£500'.to_money).should == '£14.98'.to_money }
 
     describe "#stakes_for_profit" do
       it "gives the right amounts" do
-        amounts = @bookmaker_vulnerable_to_arbitrage.stakes_for_profit Money.parse '£750'
+        amounts = @bookmaker_vulnerable_to_arbitrage.stakes_for_profit '£750'.to_money
         amounts.should have(3).items
-        amounts[@odds1].should == Money.parse('£19833.33')
-        amounts[@odds2].should == Money.parse('£3683.33')
-        amounts[@odds3].should == Money.parse('£1516.67')
-        amounts.values.reduce(:+).should == Money.parse('£25033.33')
+        amounts[@odds1].should == '£19833.33'.to_money
+        amounts[@odds2].should == '£3683.33'.to_money
+        amounts[@odds3].should == '£1516.67'.to_money
+        amounts.values.reduce(:+).should == '£25033.33'.to_money
       end
     end
 
-    specify { @bookmaker_vulnerable_to_arbitrage.stake_to_profit(Money.parse '£750').should == Money.parse('£25033.33') }
+    specify { @bookmaker_vulnerable_to_arbitrage.stake_to_profit('£750'.to_money).should == '£25033.33'.to_money }
   end
 
   context "different events with same odds" do
@@ -128,7 +128,7 @@ describe "MutuallyExclusiveCollection" do
     end
 
     specify { @bookmaker_vulnerable_to_arbitrage.should be_arbitrageable }
-    specify { @bookmaker_vulnerable_to_arbitrage.profit_on_stake(Money.parse '£100').should == Money.parse('£650') }
+    specify { @bookmaker_vulnerable_to_arbitrage.profit_on_stake('£100'.to_money).should == '£650'.to_money }
 
     describe "#percentages" do
       it "gives the percentages to put on each bet" do
