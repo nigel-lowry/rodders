@@ -4,7 +4,7 @@
 class MutuallyExclusiveCollection
   # create a new collection with the given odds
   # @param [Array<FixedOdds>] mutually_exclusive_outcome_odds the odds for all the mutually exclusive outcomes
-  def initialize(mutually_exclusive_outcome_odds)
+  def initialize mutually_exclusive_outcome_odds
     @mutually_exclusive_outcome_odds = mutually_exclusive_outcome_odds.sort
   end
 
