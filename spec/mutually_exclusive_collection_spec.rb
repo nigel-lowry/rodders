@@ -4,20 +4,17 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe "MutuallyExclusiveCollection" do
 
   context "non-arbitrage methods" do
-    before(:each) do    
-      @good_team = FixedOdds.from_s '-275'
-      @draw = FixedOdds.from_s '+429'
-      @bad_team = FixedOdds.from_s '+915'
+    let(:good_team) { FixedOdds.from_s '-275' }
+    let(:draw) { FixedOdds.from_s '+429' }
+    let(:bad_team) { FixedOdds.from_s '+915' }
+    let(:events) { MutuallyExclusiveCollection.new [draw, bad_team, good_team] }
 
-      @events = MutuallyExclusiveCollection.new [@draw, @bad_team, @good_team]
-    end
+    subject { events }
 
-    subject { @events }
-
-    its(:most_likely) { should == @good_team }
-    its(:least_likely) { should == @bad_team }
-    its(:in_descending_probability) { should == [@good_team, @draw, @bad_team] }
-    its(:in_ascending_probability) { should == [@bad_team, @draw, @good_team] }
+    its(:most_likely) { should == good_team }
+    its(:least_likely) { should == bad_team }
+    its(:in_descending_probability) { should == [good_team, draw, bad_team] }
+    its(:in_ascending_probability) { should == [bad_team, draw, good_team] }
   end
 
   context "empty array" do
