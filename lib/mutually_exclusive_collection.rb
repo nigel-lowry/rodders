@@ -2,34 +2,40 @@
 # Includes methods for sports betting arbitrage. Due to the discrete nature
 # of real-world monetary amounts, there may be small rounding errors.
 class MutuallyExclusiveCollection
+  include Enumerable
+
   # create a new collection with the given odds
   # @param [Array<FixedOdds>] mutually_exclusive_outcome_odds the odds for all the mutually exclusive outcomes
   def initialize mutually_exclusive_outcome_odds
-    @mutually_exclusive_outcome_odds = mutually_exclusive_outcome_odds.sort
+    @mutually_exclusive_outcome_odds = mutually_exclusive_outcome_odds
+  end
+
+  def each
+    @mutually_exclusive_outcome_odds.each {|outcome| yield outcome }
   end
 
   # the least likely of the odds to occur
   # @return [FixedOdds] the least likely odd
   def least_likely
-    @mutually_exclusive_outcome_odds.first
+    min
   end
 
   # the most likely of the odds to occur
   # @return [FixedOdds] the most likely odd
   def most_likely
-    @mutually_exclusive_outcome_odds.last
+    max
   end  
 
   # the odds in ascending order of probability
   # @return [Array<FixedOdds>] odds in ascending probability
   def in_ascending_probability
-    @mutually_exclusive_outcome_odds
+    sort
   end
 
   # the odds in descending order of probability
   # @return [Array<FixedOdds>] odds in descending probability
   def in_descending_probability
-    @mutually_exclusive_outcome_odds.reverse
+    sort.reverse
   end
 
   # tells if arbitrage is possible for a collection of odds
