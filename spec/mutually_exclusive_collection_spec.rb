@@ -48,18 +48,16 @@ describe "MutuallyExclusiveCollection" do
   end
 
   context "fractional odds arbitrage" do
-    before(:each) do
-      @odds1 = FixedOdds.from_s '2/1'
-      @odds2 = FixedOdds.from_s '3/1'
+    let(:odds1) { FixedOdds.from_s '2/1' }
+    let(:odds2) { FixedOdds.from_s '3/1' }
 
-      @bookmaker_vulnerable_to_arbitrage = MutuallyExclusiveCollection.new [@odds1, @odds2]
-    end
+    let(:bookmaker_vulnerable_to_arbitrage) { MutuallyExclusiveCollection.new [odds1, odds2] }
 
-    subject { @bookmaker_vulnerable_to_arbitrage }
+    subject { bookmaker_vulnerable_to_arbitrage }
 
-    specify { @bookmaker_vulnerable_to_arbitrage.should be_arbitrageable }
+    specify { bookmaker_vulnerable_to_arbitrage.should be_arbitrageable }
     its(:profit_percentage) { should be_within(0.001).of(0.2) }
-    specify { @bookmaker_vulnerable_to_arbitrage.profit_on_stake('£500'.to_money).should == '£100'.to_money }
+    specify { bookmaker_vulnerable_to_arbitrage.profit_on_stake('£500'.to_money).should == '£100'.to_money }
   end
 
   context "more than two mutually exclusive events" do
