@@ -115,22 +115,21 @@ describe "MutuallyExclusiveCollection" do
   end
 
   context "different events with same odds" do
-    before(:each) do
-      @odds1 = FixedOdds.from_s '15/1'
-      @odds2 = FixedOdds.from_s '15/1'
+    let(:odds1) { FixedOdds.from_s '15/1' }
+    let(:odds2) { FixedOdds.from_s '15/1' }
 
-      @bookmaker_vulnerable_to_arbitrage = MutuallyExclusiveCollection.new [@odds1, @odds2]
-    end
+    let(:bookmaker_vulnerable_to_arbitrage) { MutuallyExclusiveCollection.new [odds1, odds2] }
 
-    specify { @bookmaker_vulnerable_to_arbitrage.should be_arbitrageable }
-    specify { @bookmaker_vulnerable_to_arbitrage.profit_on_stake('£100'.to_money).should == '£650'.to_money }
+
+    specify { bookmaker_vulnerable_to_arbitrage.should be_arbitrageable }
+    specify { bookmaker_vulnerable_to_arbitrage.profit_on_stake('£100'.to_money).should == '£650'.to_money }
 
     describe "#percentages" do
       it "gives the percentages to put on each bet" do
-        percentages = @bookmaker_vulnerable_to_arbitrage.percentages
+        percentages = bookmaker_vulnerable_to_arbitrage.percentages
         percentages.should have(2).items
-        percentages[@odds1].should be_within(0.0001).of(0.5)
-        percentages[@odds2].should be_within(0.0001).of(0.5)
+        percentages[odds1].should be_within(0.0001).of(0.5)
+        percentages[odds2].should be_within(0.0001).of(0.5)
       end
     end
   end
