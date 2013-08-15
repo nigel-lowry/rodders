@@ -61,55 +61,53 @@ describe "MutuallyExclusiveCollection" do
   end
 
   context "more than two mutually exclusive events" do
-    before(:each) do
-      @odds1 = FixedOdds.from_s '2.3'
-      @odds2 = FixedOdds.from_s '8.0'
-      @odds3 = FixedOdds.from_s '18.0'
+    let(:odds1) { FixedOdds.from_s '2.3' }
+    let(:odds2) { FixedOdds.from_s '8.0' }
+    let(:odds3) { FixedOdds.from_s '18.0' }
 
-      @bookmaker_vulnerable_to_arbitrage = MutuallyExclusiveCollection.new [@odds1, @odds2, @odds3]
-    end
+    let(:bookmaker_vulnerable_to_arbitrage) { MutuallyExclusiveCollection.new [odds1, odds2, odds3] }
 
-    subject { @bookmaker_vulnerable_to_arbitrage }
+    subject { bookmaker_vulnerable_to_arbitrage }
 
-    specify { @bookmaker_vulnerable_to_arbitrage.should be_arbitrageable }
+    it { should be_arbitrageable }
     its(:profit_percentage) { should be_within(0.0000001).of(0.02996) }
 
     describe "#percentages" do
       it "gives the percentages to put on each bet" do
-        percentages = @bookmaker_vulnerable_to_arbitrage.percentages
+        percentages = bookmaker_vulnerable_to_arbitrage.percentages
         percentages.should have(3).items
-        percentages[@odds1].should be_within(0.0001).of(0.7922)
-        percentages[@odds2].should be_within(0.0001).of(0.1472)
-        percentages[@odds3].should be_within(0.0001).of(0.0606)
+        percentages[odds1].should be_within(0.0001).of(0.7922)
+        percentages[odds2].should be_within(0.0001).of(0.1472)
+        percentages[odds3].should be_within(0.0001).of(0.0606)
       end
     end
 
     describe "#stakes_for_total_stake" do
       it "gives the right amounts" do
         total = Money.parse '£500'
-        amounts = @bookmaker_vulnerable_to_arbitrage.stakes_for_total_stake total
+        amounts = bookmaker_vulnerable_to_arbitrage.stakes_for_total_stake total
         amounts.should have(3).items
-        amounts[@odds1].should == '£396.14'.to_money
-        amounts[@odds2].should == '£73.57'.to_money
-        amounts[@odds3].should == '£30.29'.to_money
+        amounts[odds1].should == '£396.14'.to_money
+        amounts[odds2].should == '£73.57'.to_money
+        amounts[odds3].should == '£30.29'.to_money
         amounts.values.reduce(:+).should == total
       end
     end
 
-    specify { @bookmaker_vulnerable_to_arbitrage.profit_on_stake('£500'.to_money).should == '£14.98'.to_money }
+    specify { bookmaker_vulnerable_to_arbitrage.profit_on_stake('£500'.to_money).should == '£14.98'.to_money }
 
     describe "#stakes_for_profit" do
       it "gives the right amounts" do
-        amounts = @bookmaker_vulnerable_to_arbitrage.stakes_for_profit '£750'.to_money
+        amounts = bookmaker_vulnerable_to_arbitrage.stakes_for_profit '£750'.to_money
         amounts.should have(3).items
-        amounts[@odds1].should == '£19833.33'.to_money
-        amounts[@odds2].should == '£3683.33'.to_money
-        amounts[@odds3].should == '£1516.67'.to_money
+        amounts[odds1].should == '£19833.33'.to_money
+        amounts[odds2].should == '£3683.33'.to_money
+        amounts[odds3].should == '£1516.67'.to_money
         amounts.values.reduce(:+).should == '£25033.33'.to_money
       end
     end
 
-    specify { @bookmaker_vulnerable_to_arbitrage.stake_to_profit('£750'.to_money).should == '£25033.33'.to_money }
+    specify { bookmaker_vulnerable_to_arbitrage.stake_to_profit('£750'.to_money).should == '£25033.33'.to_money }
   end
 
   context "different events with same odds" do
