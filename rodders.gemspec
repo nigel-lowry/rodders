@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "rodders"
-  s.version = "3.1.0"
+  s.version = "3.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nigel Lowry"]
-  s.date = "2012-11-11"
+  s.date = "2013-08-15"
   s.description = "Converts between fractional, decimal and moneyline odds for betting and gambling. Calculates how much can be won on a given stake."
   s.email = "nigel-lowry@ultra.eclipse.co.uk"
   s.extra_rdoc_files = [
