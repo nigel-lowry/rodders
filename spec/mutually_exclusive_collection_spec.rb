@@ -18,11 +18,9 @@ describe "MutuallyExclusiveCollection" do
   end
 
   context "empty array" do
-    before(:each) do
-      @bookmaker = MutuallyExclusiveCollection.new []
-    end
+    subject { MutuallyExclusiveCollection.new [] }
 
-    specify { @bookmaker.bookmakers_return_rate.should be_nil }
+    its(:bookmakers_return_rate) { should be_nil }
   end
 
   context "decimal odds arbitrage" do
