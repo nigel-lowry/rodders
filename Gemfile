@@ -15,7 +15,11 @@ group :development do
   gem "simplecov"
 end
 
-group :development, :test do
+group :test do
+  gem 'rake'
+end
+
+group :debug do
   gem 'debugger'
 end
 

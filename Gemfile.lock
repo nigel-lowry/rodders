@@ -49,6 +49,7 @@ DEPENDENCIES
   i18n
   jeweler (~> 1.6.4)
   money
+  rake
   rspec (~> 2.9.0)
   simplecov
   yard (~> 0.6.0)
