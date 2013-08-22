@@ -7,6 +7,10 @@ require 'active_support/all'
 class FixedOdds
   include Comparable
 
+  @@FRACTIONAL_ODDS_REGEXP = /^([1-9]\d*(\/|-to-)[1-9]\d*( (against|on))?|evens|even money)$/
+  @@MONEYLINE_ODDS_REGEXP = /^[+-][1-9]\d*$/
+  @@DECIMAL_ODDS_REGEXP = /^([1-9]\d*(\.\d+)?|\.\d+)$/
+
   # the fractional odds as a Rational
   attr_reader :fractional_odds
 
@@ -17,11 +21,11 @@ class FixedOdds
   # @param [String] odds the odds in fractional, moneyline or decimal form
   # @return [FixedOdds]
   def FixedOdds.from_s odds
-    case
-    when fractional_odds?(odds) then fractional_odds odds
-    when moneyline_odds?(odds)  then moneyline_odds odds
-    when decimal_odds?(odds)    then decimal_odds odds
-    else                        raise ArgumentError, %{could not parse "#{odds}"}
+    case odds
+    when @@FRACTIONAL_ODDS_REGEXP then fractional_odds odds
+    when @@MONEYLINE_ODDS_REGEXP  then moneyline_odds odds
+    when @@DECIMAL_ODDS_REGEXP    then decimal_odds odds
+    else                          raise ArgumentError, %{could not parse "#{odds}"}
     end
   end
 
@@ -29,21 +33,21 @@ class FixedOdds
   # @param [String] odds the odds representation
   # @return [Boolean] to indicate if it matches
   def FixedOdds.fractional_odds? odds
-    odds =~ /^([1-9]\d*(\/|-to-)[1-9]\d*( (against|on))?|evens|even money)$/
+    odds =~ @@FRACTIONAL_ODDS_REGEXP
   end
 
   # tells if the odds are in moneyline form
   # @param (see FixedOdds.fractional_odds?)
   # @return (see FixedOdds.fractional_odds?)
   def FixedOdds.moneyline_odds? odds
-    odds =~ /^[+-][1-9]\d*$/ 
+    odds =~ @@MONEYLINE_ODDS_REGEXP
   end
 
   # tells if the odds are in decimal form
   # @param (see FixedOdds.fractional_odds?)
   # @return (see FixedOdds.fractional_odds?)
   def FixedOdds.decimal_odds? odds
-    odds =~ /^([1-9]\d*(\.\d+)?|\.\d+)$/ 
+    odds =~ @@DECIMAL_ODDS_REGEXP
   end
 
   # creates a new FixedOdds from fractional form. These can be in the form
