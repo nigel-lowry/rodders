@@ -86,8 +86,7 @@ class FixedOdds
   def FixedOdds.moneyline_odds moneyline
     raise %{could not parse "#{moneyline}" as moneyline odds} unless self.moneyline_odds?(moneyline)
 
-    case moneyline[0]
-    when '+'
+    if moneyline.starts_with? '+'
       new(Rational(moneyline, 100))
     else
       new(Rational(100, -moneyline.to_i))
